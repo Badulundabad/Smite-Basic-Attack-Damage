@@ -58,3 +58,34 @@ C:\Users\Бадулундабад\Desktop\Smite Auto Attack Damage — копи�
 C:\Users\Бадулундабад\Desktop\Smite Auto Attack Damage — копия\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.csproj.CoreCompileInputs.cache
 C:\Users\Бадулундабад\Desktop\Smite Auto Attack Damage — копия\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.exe
 C:\Users\Бадулундабад\Desktop\Smite Auto Attack Damage — копия\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.pdb
+C:\Users\Бадулундабад\Desktop\мусор\Smite Auto Attack Damage — копия\Smite Auto Attack Damage\bin\Debug\Smite Auto Attack Damage.exe.config
+C:\Users\Бадулундабад\Desktop\мусор\Smite Auto Attack Damage — копия\Smite Auto Attack Damage\bin\Debug\Smite Auto Attack Damage.exe
+C:\Users\Бадулундабад\Desktop\мусор\Smite Auto Attack Damage — копия\Smite Auto Attack Damage\bin\Debug\Smite Auto Attack Damage.pdb
+C:\Users\Бадулундабад\Desktop\мусор\Smite Auto Attack Damage — копия\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.csprojAssemblyReference.cache
+C:\Users\Бадулундабад\Desktop\мусор\Smite Auto Attack Damage — копия\Smite Auto Attack Damage\obj\Debug\View\MainWindow.g.cs
+C:\Users\Бадулундабад\Desktop\мусор\Smite Auto Attack Damage — копия\Smite Auto Attack Damage\obj\Debug\App.g.cs
+C:\Users\Бадулундабад\Desktop\мусор\Smite Auto Attack Damage — копия\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage_MarkupCompile.cache
+C:\Users\Бадулундабад\Desktop\мусор\Smite Auto Attack Damage — копия\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage_MarkupCompile.lref
+C:\Users\Бадулундабад\Desktop\мусор\Smite Auto Attack Damage — копия\Smite Auto Attack Damage\obj\Debug\View\MainWindow.baml
+C:\Users\Бадулундабад\Desktop\мусор\Smite Auto Attack Damage — копия\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.g.resources
+C:\Users\Бадулундабад\Desktop\мусор\Smite Auto Attack Damage — копия\Smite Auto Attack Damage\obj\Debug\Smite_Auto_Attack_Damage.Properties.Resources.resources
+C:\Users\Бадулундабад\Desktop\мусор\Smite Auto Attack Damage — копия\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.csproj.GenerateResource.cache
+C:\Users\Бадулундабад\Desktop\мусор\Smite Auto Attack Damage — копия\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.csproj.CoreCompileInputs.cache
+C:\Users\Бадулундабад\Desktop\мусор\Smite Auto Attack Damage — копия\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.exe
+C:\Users\Бадулундабад\Desktop\мусор\Smite Auto Attack Damage — копия\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.pdb
+C:\Users\Бадулундабад\Desktop\мусор\Smite Auto Attack Damage — копия\Smite Auto Attack Damage\obj\Debug\GeneratedInternalTypeHelper.g.cs
+F:\Visual\Last\Smite Auto Attack Damage\Smite Auto Attack Damage\bin\Debug\Smite Auto Attack Damage.exe.config
+F:\Visual\Last\Smite Auto Attack Damage\Smite Auto Attack Damage\bin\Debug\Smite Auto Attack Damage.exe
+F:\Visual\Last\Smite Auto Attack Damage\Smite Auto Attack Damage\bin\Debug\Smite Auto Attack Damage.pdb
+F:\Visual\Last\Smite Auto Attack Damage\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.csprojAssemblyReference.cache
+F:\Visual\Last\Smite Auto Attack Damage\Smite Auto Attack Damage\obj\Debug\View\MainWindow.g.cs
+F:\Visual\Last\Smite Auto Attack Damage\Smite Auto Attack Damage\obj\Debug\App.g.cs
+F:\Visual\Last\Smite Auto Attack Damage\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage_MarkupCompile.cache
+F:\Visual\Last\Smite Auto Attack Damage\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage_MarkupCompile.lref
+F:\Visual\Last\Smite Auto Attack Damage\Smite Auto Attack Damage\obj\Debug\View\MainWindow.baml
+F:\Visual\Last\Smite Auto Attack Damage\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.g.resources
+F:\Visual\Last\Smite Auto Attack Damage\Smite Auto Attack Damage\obj\Debug\Smite_Auto_Attack_Damage.Properties.Resources.resources
+F:\Visual\Last\Smite Auto Attack Damage\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.csproj.GenerateResource.cache
+F:\Visual\Last\Smite Auto Attack Damage\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.csproj.CoreCompileInputs.cache
+F:\Visual\Last\Smite Auto Attack Damage\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.exe
+F:\Visual\Last\Smite Auto Attack Damage\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.pdb

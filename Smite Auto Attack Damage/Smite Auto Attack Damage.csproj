@@ -117,12 +117,6 @@
     <Resource Include="Images\Gods\sylvanus.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\GodIcons\zeus.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Items\bloodforge.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\test.png" />
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +130,22 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\ScrollBar\Thumb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\logo.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\Items\heartseeker.png" />
+    <Resource Include="Images\Items\soulreaver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Gods\hachiman.jpg" />
+    <Resource Include="Images\Gods\zeus.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GodIcons\hachiman-mini.jpg" />
+    <Resource Include="Images\GodIcons\zeus - mini.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
