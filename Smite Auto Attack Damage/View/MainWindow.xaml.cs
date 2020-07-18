@@ -14,17 +14,19 @@ namespace Smite_Auto_Attack_Damage
     /// </summary>
     public partial class MainWindow : Window
     {
-        static bool[] godSelectedItemsStateArray = new bool[7];
-        static bool[] targetSelectedItemsStateArray = new bool[7];
-        static bool[] godDeletingItemsArray = new bool[7];
-        static bool[] targetDeletingItemsArray = new bool[7];
+        //
+        static bool[,] selectedItemsState = new bool[2, 6];
+        //Массив для пометки Item'ов на очистку от выбранных предметов
+        static bool[,] containersToBeEmptied = new bool[2, 6]; 
+        Stack<Build> buildsStack = new Stack<Build>();
+        Build emptyBuild;
 
         public MainWindow()
         {
             InitializeComponent();
 
             var testGod = new GarbageTestClass[1];
-            testGod[0] = new GarbageTestClass("n a m e", "/Images/logo.png", "/Images/logo.png");
+            testGod[0] = new GarbageTestClass(-1, "n a m e", "/Images/logo.png", "/Images/logo.png");
             var sixItems = new GarbageTestClass[6];
             for (int i = 0; i < sixItems.Length; i++)
             {
@@ -45,11 +47,13 @@ namespace Smite_Auto_Attack_Damage
                 if ((i + 2) % 2 == 0)
                 {
                     manyZeuses[i] = new GarbageTestClass(
+                        i,
                         "z e u s",
                         "/Images/GodIcons/zeus - mini.jpg",
                         "/Images/Gods/zeus.jpg");
                 }
                 else manyZeuses[i] = new GarbageTestClass(
+                    i,
                     "h a c h i m a n",
                     "/Images/GodIcons/hachiman-mini.jpg",
                     "/Images/Gods/hachiman.jpg");
@@ -58,14 +62,13 @@ namespace Smite_Auto_Attack_Damage
 
             god.ItemsSource = testGod;
             godsItems.ItemsSource = sixItems;
-            builds.ItemsSource = sixItems;
             godsItemsList.ItemsSource = manyItems;
             godsList.ItemsSource = manyZeuses;
             godsStatistics.ItemsSource = stats;
 
 
             var testTarget = new GarbageTestClass[1];
-            testTarget[0] = new GarbageTestClass("n a m e", "/Images/logo.png", "/Images/logo.png");
+            testTarget[0] = new GarbageTestClass(-1, "n a m e", "/Images/logo.png", "/Images/logo.png");
             var targetsSixItems = new GarbageTestClass[6];
             for (int i = 0; i < targetsSixItems.Length; i++)
             {
@@ -86,11 +89,13 @@ namespace Smite_Auto_Attack_Damage
                 if ((i + 2) % 2 == 0)
                 {
                     targetsManyZeuses[i] = new GarbageTestClass(
+                        i,
                         "z e u s",
                         "/Images/GodIcons/zeus - mini.jpg",
                         "/Images/Gods/zeus.jpg");
                 }
                 else targetsManyZeuses[i] = new GarbageTestClass(
+                    i,
                     "h a c h i m a n",
                     "/Images/GodIcons/hachiman-mini.jpg",
                     "/Images/Gods/hachiman.jpg");
@@ -101,179 +106,193 @@ namespace Smite_Auto_Attack_Damage
             targetsItemsList.ItemsSource = targetsManyItems;
             targetsList.ItemsSource = targetsManyZeuses;
             targetsStatistics.ItemsSource = stats;
+
+            Build testBuild = new Build();
+            buildsStack.Push(testBuild);
+            builds.ItemsSource = buildsStack;
+
         }
 
-
+        //Обработчик, снимающий статус IsSelected с ListBoxItem'ов при нажатии на другие области окна.
         private void Window_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
+            //Если источник события не ListBox
             if (e.Source.GetType().Name != "ListBox")
             {
-                if (godsItems.SelectedIndex != -1)
+                ListBox[] listBoxes = 
+                    { god, godsItems, godsItemsList, target, targetsItems, targetsItemsList };
+                //Проверка всех ListBox'ов на наличие выбранных ListBoxItem'ов.
+                //При SelectedIndex равном -1 значит, что у ListBox'а нет выбранных Item'ов.
+                foreach (ListBox listBox in listBoxes)
                 {
-                    godSelectedItemsStateArray[godsItems.SelectedIndex] = false;
-                    ListBoxItem container =
-                        godsItems.ItemContainerGenerator.ContainerFromItem(godsItems.SelectedItem)
-                        as ListBoxItem;
-                    container.IsSelected = false;
+                    //Если есть выбранные Item'ы - снять выбор.
+                    if (listBox.SelectedIndex != -1)
+                    {
+                        if (listBox.Name == "godsItems")
+                            selectedItemsState[0, godsItems.SelectedIndex] = false;
+                        else if (listBox.Name == "targetsItems")
+                            selectedItemsState[1, targetsItems.SelectedIndex] = false;
+                        ListBoxItem container = listBox.ItemContainerGenerator.
+                            ContainerFromIndex(listBox.SelectedIndex) as ListBoxItem;
+                        container.IsSelected = false;
+                    }
                 }
-                if (godsItemsList.SelectedIndex != -1)
-                {
-                    ListBoxItem container =
-                        godsItemsList.ItemContainerGenerator.ContainerFromItem(godsItemsList.SelectedItem)
-                        as ListBoxItem;
-                    container.IsSelected = false;
-                }
-                if (god.SelectedIndex != -1)
-                {
-                    ListBoxItem container =
-                        god.ItemContainerGenerator.ContainerFromIndex(god.SelectedIndex)
-                        as ListBoxItem;
-                    container.IsSelected = false;
-                }
-                if (targetsItems.SelectedIndex != -1)
-                {
-                    targetSelectedItemsStateArray[targetsItems.SelectedIndex] = false;
-                    ListBoxItem container =
-                        targetsItems.ItemContainerGenerator.ContainerFromItem(targetsItems.SelectedItem)
-                        as ListBoxItem;
-                    container.IsSelected = false;
-                }
-                if (targetsItemsList.SelectedIndex != -1)
-                {
-                    ListBoxItem container =
-                        targetsItemsList.ItemContainerGenerator.ContainerFromItem(targetsItemsList.SelectedItem)
-                        as ListBoxItem;
-                    container.IsSelected = false;
-                }
-                if (target.SelectedIndex != -1)
-                {
-                    ListBoxItem container =
-                        target.ItemContainerGenerator.ContainerFromIndex(target.SelectedIndex)
-                        as ListBoxItem;
-                    container.IsSelected = false;
-                }
+                //Скрыть списки предметов.
                 godsItemsList.Visibility = Visibility.Hidden;
                 targetsItemsList.Visibility = Visibility.Hidden;
             }
         }
-
+        
+        //Обработчик, работающий с 6 предметами Бога или Цели. 
+        //Определяет состояние Item'а в момент нажатия кнопки мыши.
         private void selectedItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (godsItems.SelectedIndex != -1)
+            //Номер двумерного массива с состояниями 6 предметов.
+            //Дефолтно установлен номер (0) массива для Бога, а не Цели.
+            int stateArrayNum = 0; 
+            //В зависимости от sender'а получаем ссылку на один из ListBox'ов с 6 предметами.
+            ListBox currentListBox = ListBox.ItemsControlFromItemContainer(sender as ListBoxItem) 
+                as ListBox;
+            //Делаем ссылку на список доступных предметов. Дефолтно для бога.
+            ListBox itemsList = godsItemsList;
+            //Если sender от Цели, то номер массива состояний и 
+            //список доступных предметов устанавливаем для цели.
+            if (currentListBox.Name == "targetsItems")
             {
-                if (!godSelectedItemsStateArray[godsItems.SelectedIndex])
-                {
-                    for (int number = 0; number < godSelectedItemsStateArray.Count(); number++)
-                        godSelectedItemsStateArray[number] = false;
-                    godSelectedItemsStateArray[godsItems.SelectedIndex] = true;
-                    godsItemsList.Visibility = Visibility.Visible;
-                }
-                else if (godSelectedItemsStateArray[godsItems.SelectedIndex])
-                {
-                    for (int number = 0; number < godSelectedItemsStateArray.Count(); number++)
-                        godSelectedItemsStateArray[number] = false;
-                    godDeletingItemsArray[godsItems.SelectedIndex] = true;
-                }
-                if (godDeletingItemsArray[godsItems.SelectedIndex])
-                {
-                    godDeletingItemsArray[godsItems.SelectedIndex] = false;
-                    GarbageTestClass selectedItem = godsItems.SelectedItem as GarbageTestClass;
-                    selectedItem.ImagePath = "/Images/logo.png";
-                    selectedItem = new GarbageTestClass("n a m e", "/Images/logo.png");
-                    ListBoxItem container = new ListBoxItem();
-                    container = godsItems.ItemContainerGenerator.ContainerFromItem(godsItems.SelectedItem) as ListBoxItem;
-                    container.IsSelected = false;
-                    godsItemsList.Visibility = Visibility.Hidden;
-                }
+                stateArrayNum = 1;
+                itemsList = targetsItemsList;
             }
-            if (targetsItems.SelectedIndex != -1)
+            //Если есть выбранные Item'ы.
+            if (currentListBox.SelectedIndex != -1)
             {
-                if (!targetSelectedItemsStateArray[targetsItems.SelectedIndex])
+                //Если по номеру выбранного Item'а в массиве состояний было false,
+                //то все состояния установить на false, а это сделать true и
+                //сделать список доступных предметов видимым.
+                if (!selectedItemsState[stateArrayNum, currentListBox.SelectedIndex])
                 {
-                    for (int number = 0; number < targetSelectedItemsStateArray.Count(); number++)
-                        targetSelectedItemsStateArray[number] = false;
-                    targetSelectedItemsStateArray[targetsItems.SelectedIndex] = true;
-                    targetsItemsList.Visibility = Visibility.Visible;
+                    for (int number = 0; number < 6; number++)
+                        selectedItemsState[stateArrayNum, number] = false;
+                    selectedItemsState[stateArrayNum, currentListBox.SelectedIndex] = true;
+                    itemsList.Visibility = Visibility.Visible;
                 }
-                else if (targetSelectedItemsStateArray[targetsItems.SelectedIndex])
+                //Если предмет перед этим нажатием уже был в выбранном состоянии,
+                //то записать его в массив на опустошение.
+                else if (selectedItemsState[stateArrayNum, currentListBox.SelectedIndex])
                 {
-                    for (int number = 0; number < targetSelectedItemsStateArray.Count(); number++)
-                        targetSelectedItemsStateArray[number] = false;
-                    targetDeletingItemsArray[targetsItems.SelectedIndex] = true;
+                    for (int number = 0; number < 6; number++)
+                        selectedItemsState[stateArrayNum, number] = false;
+                    containersToBeEmptied[stateArrayNum, currentListBox.SelectedIndex] = true;
                 }
-                if (targetDeletingItemsArray[targetsItems.SelectedIndex])
+                //Если в массиве на опустошение по индексу Item,а значение true,
+                //то отчитсить выбранный предмет, снять выбор с этого Item'а и скрыть список
+                //доступных предметов.
+                if (containersToBeEmptied[stateArrayNum, currentListBox.SelectedIndex])
                 {
-                    targetDeletingItemsArray[targetsItems.SelectedIndex] = false;
-                    GarbageTestClass selectedItem = targetsItems.SelectedItem as GarbageTestClass;
+                    containersToBeEmptied[stateArrayNum, currentListBox.SelectedIndex] = false;
+                    GarbageTestClass selectedItem = currentListBox.SelectedItem as GarbageTestClass;
                     selectedItem.ImagePath = "/Images/logo.png";
                     selectedItem = new GarbageTestClass("n a m e", "/Images/logo.png");
                     ListBoxItem container = new ListBoxItem();
-                    container = targetsItems.ItemContainerGenerator.ContainerFromItem(targetsItems.SelectedItem) as ListBoxItem;
+                    container = currentListBox.ItemContainerGenerator.ContainerFromItem(currentListBox.SelectedItem)
+                        as ListBoxItem;
                     container.IsSelected = false;
-                    targetsItemsList.Visibility = Visibility.Hidden;
+                    itemsList.Visibility = Visibility.Hidden;
                 }
-
             }
         }
-
+        
+        //Обработчик, работающий с предметами списков доступных предметов.
         private void listsItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            if(godsItems.SelectedIndex != -1)
+            //Дефолтно устанавливаем всё для Бога.
+            int stateArrayNum = 0;
+            ListBoxItem itemContainer = sender as ListBoxItem;
+            ListBox currentListBox = ListBox.ItemsControlFromItemContainer(itemContainer) as ListBox;
+            ListBox selectedItemsList = godsItems;
+            //Если sender от списка предметов Цели, то
+            //устанавливаем всё для Цели.
+            if (currentListBox.Name == "targetsItemsList")
             {
-                godSelectedItemsStateArray[godsItems.SelectedIndex] = false;
-                GarbageTestClass selectedItem = godsItems.SelectedItem as GarbageTestClass;
-                GarbageTestClass listsItem = godsItemsList.SelectedItem as GarbageTestClass;
-                selectedItem.ImagePath = listsItem.ImagePath;
-                selectedItem = listsItem;
-                ListBoxItem container = new ListBoxItem();
-                container = godsItems.ItemContainerGenerator.ContainerFromItem(godsItems.SelectedItem) as ListBoxItem;
-                container.IsSelected = false;
-                container = godsItemsList.ItemContainerGenerator.ContainerFromItem(listsItem) as ListBoxItem;
-                container.IsSelected = false;
-                godsItemsList.Visibility = Visibility.Hidden;
+                stateArrayNum = 1;
+                selectedItemsList = targetsItems;
             }
-            if(targetsItems.SelectedIndex != -1)
+            //Переносим выбранный предмет в слот 6 предметов, снимаем выделение со всех Item'ов и
+            //скрываем список выбранных предметов.
+            selectedItemsState[stateArrayNum, selectedItemsList.SelectedIndex] = false;
+            GarbageTestClass selectedItem = selectedItemsList.SelectedItem as GarbageTestClass;
+            GarbageTestClass listsItem = currentListBox.SelectedItem as GarbageTestClass;
+            selectedItem.ImagePath = listsItem.ImagePath;
+            selectedItem = listsItem;
+            itemContainer.IsSelected = false;
+            itemContainer = selectedItemsList.ItemContainerGenerator.ContainerFromItem(selectedItemsList.SelectedItem) as ListBoxItem;
+            itemContainer.IsSelected = false;
+            currentListBox.Visibility = Visibility.Hidden;
+        }
+
+        //Обработчик для Item'ов списков богов.
+        private void listsGod_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            ListBoxItem container = sender as ListBoxItem;
+            ListBox currentListBox = ListBox.ItemsControlFromItemContainer(container) as ListBox;
+            //Делаем ссылку на 6 предметов. Дефолтно для Бога.
+            ListBox godBox = god;
+            //Если sender от Цели, то берём ссылку для 6 предметов Цели.
+            if (currentListBox.Name == "targetsList")
             {
-                targetSelectedItemsStateArray[targetsItems.SelectedIndex] = false;
-                GarbageTestClass selectedItem = targetsItems.SelectedItem as GarbageTestClass;
-                GarbageTestClass listsItem = targetsItemsList.SelectedItem as GarbageTestClass;
-                selectedItem.ImagePath = listsItem.ImagePath;
-                selectedItem = listsItem;
-                ListBoxItem container = new ListBoxItem();
-                container = targetsItems.ItemContainerGenerator.ContainerFromItem(targetsItems.SelectedItem) as ListBoxItem;
-                container.IsSelected = false;
-                container = targetsItemsList.ItemContainerGenerator.ContainerFromItem(listsItem) as ListBoxItem;
-                container.IsSelected = false;
-                targetsItemsList.Visibility = Visibility.Hidden;
+                godBox = target;
+            }
+            //Переносим экземпляр бога в окно выбранного бога.
+            GarbageTestClass selectedGod = godBox.SelectedItem as GarbageTestClass;
+            GarbageTestClass listsGod = currentListBox.SelectedItem as GarbageTestClass;
+            selectedGod.FullImagePath = listsGod.FullImagePath;
+            selectedGod.ImagePath = listsGod.ImagePath;
+            selectedGod.Name = listsGod.Name;
+            selectedGod = listsGod;
+            container.IsSelected = false;
+            container = godBox.ItemContainerGenerator.ContainerFromIndex(0) as ListBoxItem;
+            container.IsSelected = false;
+        }
+
+        //Обработчик для сохранения билда.
+        private void saveButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            GarbageTestClass sel = god.Items.CurrentItem as GarbageTestClass;
+            Build build = (e.Source as Image).DataContext as Build;
+            build.GodId = sel.Id;
+            build.BuildName = sel.Name;
+            build.GodImagePath = sel.ImagePath;
+            if (buildsStack.Count() != 100 && build.BuildId == -1)
+            {
+                emptyBuild = new Build();
+                buildsStack.Push(emptyBuild);
+                builds.Items.Refresh();
+                for (int i = 0; i < 100; i++)
+                {
+                    bool isNotContains = buildsStack.All(x => x.BuildId != i);
+                    if (isNotContains)
+                    {
+                        build.BuildId = i;
+                        break;
+                    }
+                }
             }
         }
 
-        private void listsGod_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        //Обработчик для кнопки удаления билда.
+        private void deleteButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (god.SelectedIndex == 0)
-            {
-                GarbageTestClass selectedGod = god.SelectedItem as GarbageTestClass;
-                GarbageTestClass listsGod = godsList.SelectedItem as GarbageTestClass;
-                selectedGod.FullImagePath = listsGod.FullImagePath;
-                selectedGod = listsGod;
-                godsName.Text = selectedGod.Name;
-                ListBoxItem container = godsList.ItemContainerGenerator.ContainerFromItem(listsGod) as ListBoxItem;
-                container.IsSelected = false;
-                container = god.ItemContainerGenerator.ContainerFromIndex(0) as ListBoxItem;
-                container.IsSelected = false;
-            }
-            if(target.SelectedIndex == 0)
-            {
-                GarbageTestClass selectedGod = target.SelectedItem as GarbageTestClass;
-                GarbageTestClass listsGod = targetsList.SelectedItem as GarbageTestClass;
-                selectedGod.FullImagePath = listsGod.FullImagePath;
-                selectedGod = listsGod;
-                targetsName.Text = selectedGod.Name;
-                ListBoxItem container = targetsList.ItemContainerGenerator.ContainerFromItem(listsGod) as ListBoxItem;
-                container.IsSelected = false;
-                container = target.ItemContainerGenerator.ContainerFromIndex(0) as ListBoxItem;
-                container.IsSelected = false;
-            }
+            Build build = (e.Source as Image).DataContext as Build;
+            List<Build> buildList = buildsStack.ToList<Build>();
+            buildList.Remove(buildList.Find(x => x.BuildId == build.BuildId));
+            buildList.Reverse();
+            buildsStack.Clear();
+            buildList.ForEach(x => buildsStack.Push(x));
+            builds.Items.Refresh();
+        }
+
+        private void restoreButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }

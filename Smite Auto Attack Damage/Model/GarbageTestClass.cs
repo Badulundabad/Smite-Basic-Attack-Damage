@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace Smite_Auto_Attack_Damage.Model
 {
@@ -14,6 +8,7 @@ namespace Smite_Auto_Attack_Damage.Model
         private string name;
         private string imagePath;
         private string fullImagePath;
+        private int id;
         public string Name
         {
             get => name;
@@ -41,14 +36,30 @@ namespace Smite_Auto_Attack_Damage.Model
                 OnPropertyChanged("FullImagePath");
             }
         }
-
+        public int Id
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                id = value;
+                OnPropertyChanged("Id");
+            }
+        }
+        public GarbageTestClass()
+        {
+            this.Name = name;
+        }
         public GarbageTestClass(string name, string imagePath)
         {
             this.Name = name;
             this.ImagePath = imagePath;
         }
-        public GarbageTestClass(string name, string imagePath, string fullImagePath)
+        public GarbageTestClass(int id,  string name, string imagePath, string fullImagePath)
         {
+            this.Id = id;
             this.Name = name;
             this.ImagePath = imagePath;
             this.FullImagePath = fullImagePath;

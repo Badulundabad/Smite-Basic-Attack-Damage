@@ -193,18 +193,27 @@
         </Style>
         <Style x:Key="selectedGod" TargetType="ListBoxItem">
             <Setter Property="OverridesDefaultStyle" Value="true"/>
-            <Setter Property="Height" Value="325"/>
+            <Setter Property="Height" Value="355"/>
             <Setter Property="Width" Value="246"/>
             <Setter Property="BorderBrush" Value="#837A5B"/>
             <Setter Property="Foreground" Value="Transparent"/>
             <Setter Property="Image.Source" Value="{Binding FullImagePath}"/>
-            <Setter Property="Focusable" Value="True"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
                         <Border BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}">
                             <Grid>
-                                <Image Source="{TemplateBinding Property=Image.Source}"/>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="325"/>
+                                    <RowDefinition Height="30"/>
+                                </Grid.RowDefinitions>
+                                <Image Grid.Row="0" Grid.RowSpan="1" 
+                                       Source="{TemplateBinding Property=Image.Source}"/>
+                                <Border Grid.Row="1" BorderBrush="{TemplateBinding BorderBrush}" 
+                                        BorderThickness="0,1,0,0">
+                                    <TextBlock Text="{Binding Name}" 
+                                               Style="{StaticResource font_Style}"/>
+                                </Border>
                                 <ContentPresenter/>
                             </Grid>
                         </Border>
@@ -268,7 +277,7 @@
         </Style>
 
         <Style x:Key="god_Style" TargetType="ListBox">
-            <Setter Property="Height" Value="325"/>
+            <Setter Property="Height" Value="355"/>
             <Setter Property="Width" Value="246"/>
             <Setter Property="DataContext" Value="GarbageTestClass"/>
             <Setter Property="BorderBrush" Value="Blue"/>
@@ -304,9 +313,10 @@
         <Style x:Key="godsSelectedItems_Style" TargetType="ListBox">
             <Setter Property="Height" Value="40"/>
             <Setter Property="Width" Value="238"/>
-            <Setter Property="Visibility" Value="Visible"/>
+            <Setter Property="Margin" Value="0,0,0,30"/>
             <Setter Property="VerticalAlignment" Value="Bottom"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Visibility" Value="Visible"/>
             <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
             <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
             <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
@@ -319,7 +329,7 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            
+
         </Style>
         <Style x:Key="godsItemsList_Style" TargetType="ListBox">
             <Setter Property="Visibility" Value="Collapsed"/>
@@ -364,59 +374,85 @@
         </Style>
 
         <Style x:Key="buildItems_Style" TargetType="ListBoxItem">
+            <Setter Property="Width" Value="428"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="Margin" Value="2,2,0,0"/>
             <Setter Property="BorderBrush" Value="#837A5B"/>
-            <Setter Property="Margin" Value="0,2,0,0"/>
+            <Setter Property="Image.Source" Value="/Images/Build/save.png"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Border Width="408" HorizontalAlignment="Left" Margin="5,1.5,0,0" 
-                                BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}">
-                            <Grid Height="60" Width="405" HorizontalAlignment="Left" 
-                                  VerticalAlignment="Center">
+                        <Border Width="428" BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}"
+                                Background="#071425">
+                            <Grid Height="60" Width="428">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="60"/>
-                                    <ColumnDefinition Width="285"/>
-                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="34"/>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="34"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="20"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="20"/>
-                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="20"/>
+                                    <RowDefinition Height="20"/>
                                 </Grid.RowDefinitions>
-                                <Border Width="60" Height="60" Grid.RowSpan="2" HorizontalAlignment="Left">
-                                    <Image x:Name="buildsGodsAvatar" Source="/Images/GodIcons/zeus - mini.jpg"/>
+                                <Border Grid.RowSpan="3" BorderBrush="#837A5B" BorderThickness="0,0,1,0">
+                                    <Image Source="{Binding GodImagePath}"/>
                                 </Border>
-                                <StackPanel Orientation="Horizontal" Width="270" Height="40" Grid.Row="1" 
-                                            Grid.Column="1">
-                                    <Image x:Name="buildsItemsImage2" Width="36" Height="36" 
-                                           Margin="18,0,5,0" Source="/Images/Items/soulreaver.png"/>
-                                    <Image x:Name="buildsItemsImage3" Width="36" Height="36" 
-                                           Margin="0,0,5,0" Source="/Images/Items/soulreaver.png"/>
-                                    <Image x:Name="buildsItemsImage4" Width="36" Height="36" 
-                                           Margin="0,0,5,0" Source="/Images/Items/soulreaver.png"/>
-                                    <Image x:Name="buildsItemsImage5" Width="36" Height="36" 
-                                           Margin="0,0,5,0" Source="/Images/Items/soulreaver.png"/>
-                                    <Image x:Name="buildsItemsImage6" Width="36" Height="36" 
-                                           Margin="0,0,5,0" Source="/Images/Items/soulreaver.png"/>
-                                    <Image x:Name="buildsItemsImage1" Width="36" Height="36" 
-                                           Source="/Images/Items/soulreaver.png"/>
-                                </StackPanel>
-                                <Image x:Name="buildsDamageImage" Width="24" Height="24" Grid.Row="1" 
-                                       Grid.Column="2" HorizontalAlignment="Left" 
-                                       Source="/Images/Stats/HandDamage.png"/>
-                                <Image Width="13" Height="13" Grid.Column="2" HorizontalAlignment="Right" 
-                                       Margin="0,5,3,0" Source="/Images/Build/delete.png"/>
-                                <Image Width="13" Height="13" Grid.Column="2" HorizontalAlignment="Right" 
-                                       Margin="0,5,23,0" Source="/Images/Build/restore.png"/>
-                                <Image Width="13" Height="13" Grid.Column="2" HorizontalAlignment="Right" 
-                                       Margin="0,5,45,0" Source="/Images/Build/save.png"/>
-                                <TextBlock x:Name="buildsDamageValue" VerticalAlignment="Center" 
-                                           HorizontalAlignment="Right" Style="{StaticResource font_Style}" 
-                                           Text="300" Grid.Row="1" Grid.Column="2"/>
-                                <TextBlock x:Name="buildsName" Grid.Column="1" 
-                                           HorizontalAlignment="Center" Style="{StaticResource font_Style}" 
-                                           Text="TestBuild"/>
+                                <TextBlock Grid.Column="2" Grid.ColumnSpan="6" 
+                                           Text="{Binding BuildName}" 
+                                           Style="{StaticResource font_Style}"/>
+                                <Border Height="40" Width="40" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" 
+                                        BorderBrush="#837A5B" BorderThickness="1" HorizontalAlignment="Center">
+                                    <Image Source="{Binding Item0ImagePath}"/>
+                                </Border>
+                                <Border Height="40" Width="40" Grid.Row="1" Grid.RowSpan="2" Grid.Column="3" 
+                                        BorderBrush="#837A5B" BorderThickness="1" HorizontalAlignment="Center">
+                                    <Image Source="{Binding Item1ImagePath}"/>
+                                </Border>
+                                <Border Height="40" Width="40" Grid.Row="1" Grid.RowSpan="2" Grid.Column="4" 
+                                        BorderBrush="#837A5B" BorderThickness="1" HorizontalAlignment="Center">
+                                    <Image Source="{Binding Item2ImagePath}"/>
+                                </Border>
+                                <Border Height="40" Width="40" Grid.Row="1" Grid.RowSpan="2" Grid.Column="5" 
+                                        BorderBrush="#837A5B" BorderThickness="1" HorizontalAlignment="Center">
+                                    <Image Source="{Binding Item3ImagePath}"/>
+                                </Border>
+                                <Border Height="40" Width="40" Grid.Row="1" Grid.RowSpan="2" Grid.Column="6" 
+                                        BorderBrush="#837A5B" BorderThickness="1" HorizontalAlignment="Center">
+                                    <Image Source="{Binding Item4ImagePath}"/>
+                                </Border>
+                                <Border Height="40" Width="40" Grid.Row="1" Grid.RowSpan="2" Grid.Column="7" 
+                                        BorderBrush="#837A5B" BorderThickness="1" HorizontalAlignment="Center">
+                                    <Image Source="{Binding Item5ImagePath}"/>
+                                </Border>
+                                <Image x:Name="saveButton" Height="15" Width="15" Grid.Column="9" 
+                                       Source="/Images/Build/save.png" PreviewMouseUp="saveButton_PreviewMouseUp"/>
+                                <Image x:Name="restoreButton" Height="15" Width="15" Grid.Column="10" 
+                                       Source="/Images/Build/restore.png" PreviewMouseUp="restoreButton_PreviewMouseUp"/>
+                                <Image x:Name="deleteButton" Height="15" Width="15" Grid.Column="11" 
+                                       Source="/Images/Build/delete.png" PreviewMouseUp="deleteButton_PreviewMouseUp"/>
                             </Grid>
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger SourceName="saveButton" Property="IsMouseOver" Value="True">
+                                <Setter TargetName="saveButton" Property="Source" Value="/Images/Build/save_bright.png"/>
+                            </Trigger>
+                            <Trigger SourceName="restoreButton" Property="IsMouseOver" Value="True">
+                                <Setter TargetName="restoreButton" Property="Source" Value="/Images/Build/restore_bright.png"/>
+                            </Trigger>
+                            <Trigger SourceName="deleteButton" Property="IsMouseOver" Value="True">
+                                <Setter TargetName="deleteButton" Property="Source" Value="/Images/Build/delete_bright.png"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -441,9 +477,9 @@
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
-            </Setter>            
+            </Setter>
         </Style>
-    
+
         <Style x:Key="statisticsArea_Style" TargetType="ItemsControl">
             <Setter Property="ItemTemplate">
                 <Setter.Value>
@@ -503,10 +539,15 @@
                 <ListBox x:Name="god" Style="{StaticResource god_Style}">
                     <ListBox.Resources>
                         <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource selectedGod}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=godsItemsList, Path=Visibility}" Value="Visible">
+                                    <Setter Property="Focusable" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
                         </Style>
                     </ListBox.Resources>
                 </ListBox>
-                <ListBox x:Name="godsItems" Grid.Row="1">
+                <ListBox x:Name="godsItems">
                     <ListBox.Resources>
                         <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource godsSelectedItems_Style}">
                             <Style.Triggers>
@@ -548,9 +589,6 @@
                     </ListBox.Resources>
                 </ListBox>
             </Grid>
-            <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,1">
-                <TextBlock x:Name="godsName" Text="n a m e" Style="{StaticResource font_Style}"/>
-            </Border>
             <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,0">
                 <TextBlock Margin="0,5,0,0" Text="Level" Style="{StaticResource font_Style}"/>
             </Border>
@@ -572,10 +610,16 @@
                 <ListBox x:Name="target" Style="{StaticResource god_Style}">
                     <ListBox.Resources>
                         <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource selectedGod}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=targetsItemsList, 
+                                    Path=Visibility}" Value="Visible">
+                                    <Setter Property="Focusable" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
                         </Style>
                     </ListBox.Resources>
                 </ListBox>
-                <ListBox x:Name="targetsItems" Grid.Row="1">
+                <ListBox x:Name="targetsItems">
                     <ListBox.Resources>
                         <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource godsSelectedItems_Style}">
                             <Style.Triggers>
@@ -619,9 +663,6 @@
                     </ListBox.Resources>
                 </ListBox>
             </Grid>
-            <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,1">
-                <TextBlock x:Name="targetsName" Text="n a m e" Style="{StaticResource font_Style}"/>
-            </Border>
             <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,0">
                 <TextBlock Margin="0,5,0,0" Text="Level" Style="{StaticResource font_Style}"/>
             </Border>
@@ -642,13 +683,13 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <StackPanel>
-                <TextBlock x:Name="test1" Background="White"/>
-                <TextBlock x:Name="test2" Background="White"/>
-                <TextBlock x:Name="test3" Background="White"/>
-                <TextBlock x:Name="test4" Background="White"/>
-                <TextBlock x:Name="test5" Background="White"/>
-                <TextBlock x:Name="test6" Background="White"/>
-                <TextBlock x:Name="test7" Background="White"/>
+                <TextBlock x:Name="test1" Background="White" Visibility="Visible"/>
+                <TextBlock x:Name="test2" Background="White" Visibility="Hidden"/>
+                <TextBlock x:Name="test3" Background="White" Visibility="Hidden"/>
+                <TextBlock x:Name="test4" Background="White" Visibility="Hidden"/>
+                <TextBlock x:Name="test5" Background="White" Visibility="Hidden"/>
+                <TextBlock x:Name="test6" Background="White" Visibility="Hidden"/>
+                <TextBlock x:Name="test7" Background="White" Visibility="Hidden"/>
             </StackPanel>
             <Border Grid.Row="1" Padding="2" BorderBrush="#837A5B" BorderThickness="1">
                 <Grid>
@@ -677,7 +718,8 @@
             </Border>
             <ListBox x:Name="builds" Grid.Row="2" Style="{StaticResource builds_Style}">
                 <ListBox.Resources>
-                    <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource buildItems_Style}"/>
+                    <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource buildItems_Style}">
+                    </Style>
                 </ListBox.Resources>
             </ListBox>
         </Grid>
