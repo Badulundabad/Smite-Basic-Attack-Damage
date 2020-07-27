@@ -104,3 +104,18 @@ C:\Users\Бадулундабад\Desktop\Smite-Auto-Attack-Damage\Smite Auto At
 C:\Users\Бадулундабад\Desktop\Smite-Auto-Attack-Damage\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.csproj.CoreCompileInputs.cache
 C:\Users\Бадулундабад\Desktop\Smite-Auto-Attack-Damage\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.exe
 C:\Users\Бадулундабад\Desktop\Smite-Auto-Attack-Damage\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.pdb
+C:\Users\NotABugAbuser\Source\Repos\Smite-Auto-Attack-Damage\Smite Auto Attack Damage\bin\Debug\Smite Auto Attack Damage.exe.config
+C:\Users\NotABugAbuser\Source\Repos\Smite-Auto-Attack-Damage\Smite Auto Attack Damage\bin\Debug\Smite Auto Attack Damage.exe
+C:\Users\NotABugAbuser\Source\Repos\Smite-Auto-Attack-Damage\Smite Auto Attack Damage\bin\Debug\Smite Auto Attack Damage.pdb
+C:\Users\NotABugAbuser\Source\Repos\Smite-Auto-Attack-Damage\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.csprojAssemblyReference.cache
+C:\Users\NotABugAbuser\Source\Repos\Smite-Auto-Attack-Damage\Smite Auto Attack Damage\obj\Debug\View\MainWindow.g.cs
+C:\Users\NotABugAbuser\Source\Repos\Smite-Auto-Attack-Damage\Smite Auto Attack Damage\obj\Debug\App.g.cs
+C:\Users\NotABugAbuser\Source\Repos\Smite-Auto-Attack-Damage\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage_MarkupCompile.cache
+C:\Users\NotABugAbuser\Source\Repos\Smite-Auto-Attack-Damage\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage_MarkupCompile.lref
+C:\Users\NotABugAbuser\Source\Repos\Smite-Auto-Attack-Damage\Smite Auto Attack Damage\obj\Debug\View\MainWindow.baml
+C:\Users\NotABugAbuser\Source\Repos\Smite-Auto-Attack-Damage\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.g.resources
+C:\Users\NotABugAbuser\Source\Repos\Smite-Auto-Attack-Damage\Smite Auto Attack Damage\obj\Debug\Smite_Auto_Attack_Damage.Properties.Resources.resources
+C:\Users\NotABugAbuser\Source\Repos\Smite-Auto-Attack-Damage\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.csproj.GenerateResource.cache
+C:\Users\NotABugAbuser\Source\Repos\Smite-Auto-Attack-Damage\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.csproj.CoreCompileInputs.cache
+C:\Users\NotABugAbuser\Source\Repos\Smite-Auto-Attack-Damage\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.exe
+C:\Users\NotABugAbuser\Source\Repos\Smite-Auto-Attack-Damage\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.pdb

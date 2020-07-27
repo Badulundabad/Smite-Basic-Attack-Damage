@@ -63,6 +63,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="God.cs" />
+    <Compile Include="Item.cs" />
     <Compile Include="Model\Build.cs" />
     <Compile Include="Model\Characteristics.cs" />
     <Compile Include="Model\GarbageTestClass.cs" />
@@ -105,14 +107,14 @@
     <Resource Include="Images\Gods\chaac.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Stats\AttackPower.png" />
-    <Resource Include="Images\Stats\AttackSpeed.png" />
-    <Resource Include="Images\Stats\HandDamage.png" />
-    <Resource Include="Images\Stats\Health.png" />
-    <Resource Include="Images\Stats\MagicalProtection.png" />
-    <Resource Include="Images\Stats\Mana.png" />
-    <Resource Include="Images\Stats\PhysicalPenetration.png" />
-    <Resource Include="Images\Stats\PhysicalProtection.png" />
+    <Resource Include="Images\Stats\power.png" />
+    <Resource Include="Images\Stats\attackSpeed.png" />
+    <Resource Include="Images\Stats\baseDamage.png" />
+    <Resource Include="Images\Stats\health.png" />
+    <Resource Include="Images\Stats\magicalProtection.png" />
+    <Resource Include="Images\Stats\mana.png" />
+    <Resource Include="Images\Stats\physicalPenetration.png" />
+    <Resource Include="Images\Stats\physicalProtection.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Gods\sylvanus.png" />
@@ -151,6 +153,15 @@
   <ItemGroup>
     <Resource Include="Images\GodIcons\hachiman-mini.jpg" />
     <Resource Include="Images\GodIcons\zeus - mini.jpg" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\God\Preview\JingWei.png" />
+    <Resource Include="Images\God\Preview\Rama.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\God\Icon\JingWei.png" />
+    <Resource Include="Images\God\Icon\Rama.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
