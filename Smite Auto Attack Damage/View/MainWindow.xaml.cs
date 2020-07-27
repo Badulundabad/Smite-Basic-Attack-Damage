@@ -26,8 +26,8 @@ namespace Smite_Auto_Attack_Damage
             InitializeComponent();
             var arrayOfGods = new God[] 
             {
-                new God(1, "R a m a", "/Images/God/Preview/Rama.png", "Images/God/Icon/Rama.png", "PhysicalProtections", 460, 76, 205, 34, 40, 2.5, 30, 0.9, 12, 2.8, 0.95, 0.017),
-                new God(2, " J i n g  W e i", "/Images/God/Preview/JingWei.png", "Images/God/Icon/JingWei.png", "PhysicalProtections", 445, 78, 205, 36, 38, 2.7, 30, 0.9, 11, 2.9, 1, 0.0014),
+                new God(1, "R a m a", "/Images/God/Preview/Rama.png", "/Images/God/Icon/Rama.png", "PhysicalProtections", 460, 76, 205, 34, 40, 2.5, 30, 0.9, 12, 2.8, 0.95, 0.017),
+                new God(2, " J i n g  W e i", "/Images/God/Preview/JingWei.png", "/Images/God/Icon/JingWei.png", "PhysicalProtections", 445, 78, 205, 36, 38, 2.7, 30, 0.9, 11, 2.9, 1, 0.0014),
             };
 
 
@@ -51,7 +51,7 @@ namespace Smite_Auto_Attack_Damage
                 }
                 else manyItems[i] = new GarbageTestClass("soulreaver", "/Images/Items/soulreaver.png");
             }
-            var manyZeuses = new GarbageTestClass[100];
+            /*var manyZeuses = new GarbageTestClass[100];
             for (int i = 0; i < manyZeuses.Length; i++)
             {
                 if ((i + 2) % 2 == 0)
@@ -67,7 +67,7 @@ namespace Smite_Auto_Attack_Damage
                     "h a c h i m a n",
                     "/Images/GodIcons/hachiman-mini.jpg",
                     "/Images/Gods/hachiman.jpg");
-            }
+            }*/
             Characteristics[] stats = new Characteristics[] { new Characteristics("/Images/Stats/HandDamage.png", 200) };
 
             god.ItemsSource = testGod;

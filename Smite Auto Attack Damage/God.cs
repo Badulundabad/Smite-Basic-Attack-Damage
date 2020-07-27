@@ -1,15 +1,18 @@
 ﻿using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Runtime.CompilerServices;
 using System.Windows.Media.Animation;
 
 namespace Smite_Auto_Attack_Damage
 {
-    class God
+    class God : INotifyPropertyChanged
     {
         string name = null;
         string imagePath = null;
@@ -87,6 +90,7 @@ namespace Smite_Auto_Attack_Damage
             set
             {
                 imagePath = value;
+                OnPropertyChanged("ImagePath");
             }
         }
 
@@ -373,6 +377,12 @@ namespace Smite_Auto_Attack_Damage
                     throw new ArgumentException("Value cannot be negative", "PhysicalProtectionsPerLevel");
                 }
             }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Smite_Auto_Attack_Damage.Model
         public Build()
         {
             buildId = -1;
-            buildName = "B i l d' s  n a m e";
+            buildName = "N a m e o  of  b u i l d";
             godId = -1;
             godImagePath = "/Images/logo.png";
             item0Id = -1;

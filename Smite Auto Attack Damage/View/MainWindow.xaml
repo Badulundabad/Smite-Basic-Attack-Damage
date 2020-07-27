@@ -197,7 +197,7 @@
             <Setter Property="Width" Value="246"/>
             <Setter Property="BorderBrush" Value="#837A5B"/>
             <Setter Property="Foreground" Value="Transparent"/>
-            <Setter Property="Image.Source" Value="{Binding FullImagePath}"/>
+            <Setter Property="Image.Source" Value="{Binding ImagePath}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
@@ -256,7 +256,7 @@
             <Setter Property="Height" Value="64"/>
             <Setter Property="Width" Value="64"/>
             <Setter Property="Margin" Value="4"/>
-            <Setter Property="Image.Source" Value="{Binding ImagePath}"/>
+            <Setter Property="Image.Source" Value="{Binding IconPath}"/>
             <Setter Property="BorderBrush" Value="#837A5B"/>
             <Setter Property="Template">
                 <Setter.Value>
