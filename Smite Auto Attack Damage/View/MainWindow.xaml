@@ -497,14 +497,14 @@
                                 <RowDefinition Height="28"/>
                                 <RowDefinition Height="28"/>
                             </Grid.RowDefinitions>
-                            <Image Source="/Images/Stats/HandDamage.png" Width="24" Height="24"/>
-                            <Image Source="/Images/Stats/PhysicalProtection.png" Width="24" Height="24" Grid.Row="1"/>
-                            <Image Source="/Images/Stats/PhysicalPenetration.png" Width="24" Height="24" Grid.Row="2"/>
-                            <Image Source="/Images/Stats/Health.png" Width="24" Height="24" Grid.Row="3"/>
-                            <Image Source="/Images/Stats/AttackPower.png" Width="24" Height="24" Grid.Column="2"/>
-                            <Image Source="/Images/Stats/MagicalProtection.png" Width="24" Height="24" Grid.Column="2" Grid.Row="1"/>
-                            <Image Source="/Images/Stats/AttackSpeed.png" Width="24" Height="24" Grid.Column="2" Grid.Row="2"/>
-                            <Image Source="/Images/Stats/Mana.png" Width="24" Height="24" Grid.Column="2" Grid.Row="3"/>
+                            <Image Source="/Images/Stats/baseDamage.png" Width="24" Height="24"/>
+                            <Image Source="/Images/Stats/physicalProtection.png" Width="24" Height="24" Grid.Row="1"/>
+                            <Image Source="/Images/Stats/physicalPenetration.png" Width="24" Height="24" Grid.Row="2"/>
+                            <Image Source="/Images/Stats/health.png" Width="24" Height="24" Grid.Row="3"/>
+                            <Image Source="/Images/Stats/power.png" Width="24" Height="24" Grid.Column="2"/>
+                            <Image Source="/Images/Stats/magicalProtection.png" Width="24" Height="24" Grid.Column="2" Grid.Row="1"/>
+                            <Image Source="/Images/Stats/attackSpeed.png" Width="24" Height="24" Grid.Column="2" Grid.Row="2"/>
+                            <Image Source="/Images/Stats/mana.png" Width="24" Height="24" Grid.Column="2" Grid.Row="3"/>
                             <TextBlock Text="Bla" Grid.Column="1" VerticalAlignment="Center"/>
                             <TextBlock Text="Bla" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"/>
                             <TextBlock Text="Bla" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"/>
