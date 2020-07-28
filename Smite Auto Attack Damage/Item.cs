@@ -15,6 +15,7 @@ namespace Smite_Auto_Attack_Damage
         string imagePath = null;
         string method = null;
 
+        int id = 0;
         int mana = 0;
         int health = 0;
 
@@ -36,6 +37,37 @@ namespace Smite_Auto_Attack_Damage
         double percentageReduction = 0;
 
         static string[] arrayOfMethods = { };
+
+        public Item
+        (
+            int id, byte power, double attackSpeed, string description, string imagePath, string method,
+            int mana, int health, byte magicalProtections, byte physicalProtections, byte flatPenetration,
+            byte flatReduction, byte critChance, byte lifeSteal, byte cooldownReduction, byte movementSpeed,
+            byte crowdControlReduction, byte mp5, byte hp5, double percentagePenetration, double percentageReduction
+        )
+        {
+            Id = id;
+            Power = power;
+            AttackSpeed = attackSpeed;
+            Description = description;
+            ImagePath = imagePath;
+            Method = method;
+            Mana = mana;
+            Health = health;
+            MagicalProtections = magicalProtections;
+            PhysicalProtections = physicalProtections;
+            FlatPenetration = flatPenetration;
+            FlatReduction = flatReduction;
+            CritChance = critChance;
+            LifeSteal = lifeSteal;
+            CooldownReduction = cooldownReduction;
+            MovementSpeed = movementSpeed;
+            CrowdControlReduction = crowdControlReduction;
+            Mp5 = mp5;
+            Hp5 = hp5;
+            PercentagePenetration = percentagePenetration;
+            PercentagePenetration = percentageReduction;
+        }
         string Description
         {
             get
@@ -83,6 +115,24 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
+        int Id
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                if( value >= 0)
+                {
+                    id = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Value cannot be negative", "Id");
+                }
+            }
+        }
         int Mana
         {
             get
@@ -91,7 +141,7 @@ namespace Smite_Auto_Attack_Damage
             }
             set
             {
-                if(value >= 0)
+                if (value >= 0)
                 {
                     mana = value;
                 }
@@ -373,7 +423,7 @@ namespace Smite_Auto_Attack_Damage
         }
         double PercentageReduction
         {
-        get
+            get
             {
                 return percentageReduction;
             }

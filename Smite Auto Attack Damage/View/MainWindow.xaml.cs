@@ -24,10 +24,16 @@ namespace Smite_Auto_Attack_Damage
         public MainWindow()
         {
             InitializeComponent();
+            var testGod = new God(1, "R a m a", "/Images/God/Preview/Rama.png", "/Images/God/Icon/Rama.png", "PhysicalProtections", 460, 76, 205, 34, 40, 2.5, 30, 0.9, 12, 2.8, 0.95, 0.017);
             var arrayOfGods = new God[] 
             {
                 new God(1, "R a m a", "/Images/God/Preview/Rama.png", "/Images/God/Icon/Rama.png", "PhysicalProtections", 460, 76, 205, 34, 40, 2.5, 30, 0.9, 12, 2.8, 0.95, 0.017),
-                new God(2, " J i n g  W e i", "/Images/God/Preview/JingWei.png", "/Images/God/Icon/JingWei.png", "PhysicalProtections", 445, 78, 205, 36, 38, 2.7, 30, 0.9, 11, 2.9, 1, 0.0014),
+                new God(2, "J i n g  W e i", "/Images/God/Preview/JingWei.png", "/Images/God/Icon/JingWei.png", "PhysicalProtections", 445, 78, 205, 36, 38, 2.7, 30, 0.9, 11, 2.9, 1, 0.0014),
+                new God(3, "M e r l i n", "/Images/God/Preview/Merlin.png", "/Images/God/Icon/Merlin.png", "MagicalProtections", 370, 75, 250, 55, 34, 1.5 ,30, 0.9, 10, 3, 1, 0.008),
+                new God(4, "S o l", "/Images/God/Preview/Sol.png", "/Images/God/Icon/Sol.png", "MagicalProtections", 400, 75, 300, 57, 34, 1.45, 30, 0.9, 9, 2.6, 1, 0.018 ), 
+                testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,
+                testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,
+                testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,
             };
 
 
@@ -35,8 +41,6 @@ namespace Smite_Auto_Attack_Damage
 
 
 
-            var testGod = new GarbageTestClass[1];
-            testGod[0] = new GarbageTestClass(-1, "n a m e", "/Images/logo.png", "/Images/logo.png");
             var sixItems = new GarbageTestClass[6];
             for (int i = 0; i < sixItems.Length; i++)
             {
@@ -51,29 +55,13 @@ namespace Smite_Auto_Attack_Damage
                 }
                 else manyItems[i] = new GarbageTestClass("soulreaver", "/Images/Items/soulreaver.png");
             }
-            /*var manyZeuses = new GarbageTestClass[100];
-            for (int i = 0; i < manyZeuses.Length; i++)
-            {
-                if ((i + 2) % 2 == 0)
-                {
-                    manyZeuses[i] = new GarbageTestClass(
-                        i,
-                        "z e u s",
-                        "/Images/GodIcons/zeus - mini.jpg",
-                        "/Images/Gods/zeus.jpg");
-                }
-                else manyZeuses[i] = new GarbageTestClass(
-                    i,
-                    "h a c h i m a n",
-                    "/Images/GodIcons/hachiman-mini.jpg",
-                    "/Images/Gods/hachiman.jpg");
-            }*/
+            
             Characteristics[] stats = new Characteristics[] { new Characteristics("/Images/Stats/HandDamage.png", 200) };
 
-            god.ItemsSource = testGod;
+            god.ItemsSource = new God[1] {Calculation.ZeroGod};
             godsItems.ItemsSource = sixItems;
             godsItemsList.ItemsSource = manyItems;
-            godsList.ItemsSource = arrayOfGods;
+            listOfGods.ItemsSource = arrayOfGods;
             godsStatistics.ItemsSource = stats;
 
 
@@ -239,28 +227,22 @@ namespace Smite_Auto_Attack_Damage
             currentListBox.Visibility = Visibility.Hidden;
         }
 
-        //Обработчик для Item'ов списков богов.
-        private void listsGod_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        //Обработчик для потомков списка богов
+        private void ListOfGods_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            ListBoxItem container = sender as ListBoxItem;
-            ListBox currentListBox = ListBox.ItemsControlFromItemContainer(container) as ListBox;
-            //Делаем ссылку на 6 предметов. Дефолтно для Бога.
+            var container = sender as ListBoxItem;
+            var currentListBox = (ListBox)ListBox.ItemsControlFromItemContainer(container);
             ListBox godBox = god;
-            //Если sender от Цели, то берём ссылку для 6 предметов Цели.
             if (currentListBox.Name == "targetsList")
             {
                 godBox = target;
             }
-            //Переносим экземпляр бога в окно выбранного бога.
-            GarbageTestClass selectedGod = godBox.SelectedItem as GarbageTestClass;
-            GarbageTestClass listsGod = currentListBox.SelectedItem as GarbageTestClass;
-            selectedGod.FullImagePath = listsGod.FullImagePath;
-            selectedGod.ImagePath = listsGod.ImagePath;
-            selectedGod.Name = listsGod.Name;
-            selectedGod = listsGod;
-            container.IsSelected = false;
-            container = godBox.ItemContainerGenerator.ContainerFromIndex(0) as ListBoxItem;
-            container.IsSelected = false;
+            var listsGod = (God)container.DataContext;
+            Calculation.CurrentGod[0] = listsGod;
+            god.ItemsSource = new God[] {listsGod};
+            //container.IsSelected = false;
+            //container = godBox.ItemContainerGenerator.ContainerFromIndex(0) as ListBoxItem;
+            //container.IsSelected = false;
         }
 
         //Обработчик для сохранения билда.
@@ -303,6 +285,11 @@ namespace Smite_Auto_Attack_Damage
         private void restoreButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
 
+        }
+
+        private void TestButton_Click(object sender, RoutedEventArgs e)
+        {
+            test1.Text = Calculation.CurrentGod[0].PhysicalProtectionsPerLevel.ToString() + "  " + Calculation.CurrentGod[0].Id;
         }
     }
 }

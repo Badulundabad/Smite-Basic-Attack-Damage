@@ -15,7 +15,7 @@ namespace Smite_Auto_Attack_Damage
     class God : INotifyPropertyChanged
     {
         string name = null;
-        string imagePath = null;
+        string previewPath = null;
         string iconPath = null;
         string typeOfDamage = null;
 
@@ -38,7 +38,7 @@ namespace Smite_Auto_Attack_Damage
 
         public God
         (
-            byte id, string name, string imagePath, string iconPath, string typeOfDamage, int health,
+            byte id, string name, string previewPath, string iconPath, string typeOfDamage, int health,
             double healthPerLevel, int mana, double manaPerLevel, int baseDamage, double baseDamagePerLevel, 
             int magicalProtections, double magicalProtectionsPerLevel, int physicalProtections, 
             double physicalProtectionsPerLevel, double attackSpeed, double attackSpeedPerLevel            
@@ -46,7 +46,7 @@ namespace Smite_Auto_Attack_Damage
         {
             Id = id;
             Name = name;
-            ImagePath = imagePath;
+            PreviewPath = previewPath;
             IconPath = iconPath;
             TypeOfDamage = typeOfDamage;
             Health = health;
@@ -58,7 +58,7 @@ namespace Smite_Auto_Attack_Damage
             MagicalProtections = magicalProtections;
             MagicalProtectionsPerLevel = magicalProtectionsPerLevel;
             PhysicalProtections = physicalProtections;
-            PhysicalProtecionsPerLevel = physicalProtectionsPerLevel;
+            PhysicalProtectionsPerLevel = physicalProtectionsPerLevel;
             AttackSpeed = attackSpeed;
             AttackSpeedPerLevel = attackSpeedPerLevel;
         }
@@ -73,6 +73,7 @@ namespace Smite_Auto_Attack_Damage
                 if (value != null)
                 {
                     name = value;
+                    OnPropertyChanged("Name");
                 }
                 else
                 {
@@ -81,16 +82,16 @@ namespace Smite_Auto_Attack_Damage
             }
         }
 
-        public string ImagePath
+        public string PreviewPath
         {
             get
             {
-                return imagePath;
+                return previewPath;
             }
             set
             {
-                imagePath = value;
-                OnPropertyChanged("ImagePath");
+                previewPath = value;
+                OnPropertyChanged("PreviewPath");
             }
         }
 
@@ -151,7 +152,7 @@ namespace Smite_Auto_Attack_Damage
             }
             set
             {
-                if (value > 0)
+                if (value >= 0)
                 {
                     baseDamage = value;
                 }
@@ -169,7 +170,7 @@ namespace Smite_Auto_Attack_Damage
             }
             set
             {
-                if (value > 0)
+                if (value >= 0)
                 {
                     mana = value;
                 }
@@ -187,7 +188,7 @@ namespace Smite_Auto_Attack_Damage
             }
             set
             {
-                if (value > 0)
+                if (value >= 0)
                 {
                     magicalProtections = value;
                 }
@@ -205,7 +206,7 @@ namespace Smite_Auto_Attack_Damage
             }
             set
             {
-                if (value > 0)
+                if (value >= 0)
                 {
                     physicalProtections = value;
                 }
@@ -241,7 +242,7 @@ namespace Smite_Auto_Attack_Damage
             }
             set
             {
-                if (value > 0)
+                if (value >= 0)
                 {
                     id = value;
                 }
@@ -260,7 +261,7 @@ namespace Smite_Auto_Attack_Damage
             }
             set
             {
-                if (value > 0)
+                if (value >= 0)
                 {
                     baseDamagePerLevel = value;
                 }
@@ -278,7 +279,7 @@ namespace Smite_Auto_Attack_Damage
             }
             set
             {
-                if (value > 0)
+                if (value >= 0)
                 {
                     healthPerLevel = value;
                 }
@@ -296,7 +297,7 @@ namespace Smite_Auto_Attack_Damage
             }
             set
             {
-                if (value > 0)
+                if (value >= 0)
                 {
                     manaPerLevel = value;
                 }
@@ -314,7 +315,7 @@ namespace Smite_Auto_Attack_Damage
             }
             set
             {
-                if(value > 0)
+                if(value >= 0)
                 {
                     attackSpeed = value;
                 }
@@ -332,7 +333,7 @@ namespace Smite_Auto_Attack_Damage
             }
             set
             {
-                if (value > 0)
+                if (value >= 0)
                 {
                     attackSpeedPerLevel = value;
                 }
@@ -350,7 +351,7 @@ namespace Smite_Auto_Attack_Damage
             }
             set
             {
-                if (value > 0)
+                if (value >= 0)
                 {
                     magicalProtectionsPerLevel = value;
                 }
@@ -360,7 +361,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        public double PhysicalProtecionsPerLevel
+        public double PhysicalProtectionsPerLevel
         {
             get
             {
@@ -368,7 +369,7 @@ namespace Smite_Auto_Attack_Damage
             }
             set
             {
-                if (value > 0)
+                if (value >= 0)
                 {
                     physicalProtectionsPerLevel = value;
                 }

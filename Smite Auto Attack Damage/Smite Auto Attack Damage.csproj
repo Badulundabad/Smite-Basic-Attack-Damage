@@ -63,6 +63,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Calculation.cs" />
     <Compile Include="God.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Model\Build.cs" />
@@ -154,7 +155,9 @@
     <Resource Include="Images\GodIcons\hachiman-mini.jpg" />
     <Resource Include="Images\GodIcons\zeus - mini.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\God\Preview\fullLogo.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\God\Preview\JingWei.png" />
     <Resource Include="Images\God\Preview\Rama.png" />
@@ -162,6 +165,19 @@
   <ItemGroup>
     <Resource Include="Images\God\Icon\JingWei.png" />
     <Resource Include="Images\God\Icon\Rama.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\Item\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\God\Preview\Merlin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\God\Preview\Sol.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\God\Icon\Merlin.png" />
+    <Resource Include="Images\God\Icon\Sol.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

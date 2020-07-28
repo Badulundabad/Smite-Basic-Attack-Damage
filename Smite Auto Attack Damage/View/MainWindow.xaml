@@ -197,7 +197,7 @@
             <Setter Property="Width" Value="246"/>
             <Setter Property="BorderBrush" Value="#837A5B"/>
             <Setter Property="Foreground" Value="Transparent"/>
-            <Setter Property="Image.Source" Value="{Binding ImagePath}"/>
+            <Setter Property="Image.Source" Value="{Binding PreviewPath}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
@@ -251,13 +251,14 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="listsGod" TargetType="ListBoxItem">
+        <Style x:Key="ListOfGodsItem_style" TargetType="ListBoxItem">
             <Setter Property="OverridesDefaultStyle" Value="true"/>
             <Setter Property="Height" Value="64"/>
             <Setter Property="Width" Value="64"/>
             <Setter Property="Margin" Value="4"/>
             <Setter Property="Image.Source" Value="{Binding IconPath}"/>
             <Setter Property="BorderBrush" Value="#837A5B"/>
+            <EventSetter Event="PreviewMouseUp" Handler="ListOfGods_PreviewMouseUp"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
@@ -289,7 +290,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="godsList_Style" TargetType="ListBox">
+        <Style x:Key="listOfGods_Style" TargetType="ListBox">
             <Setter Property="Visibility" Value="Collapsed"/>
             <Setter Property="Height" Value="317"/>
             <Setter Property="Width" Value="231"/>
@@ -298,6 +299,7 @@
             <Setter Property="Margin" Value="0,4,0,0"/>
             <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
             <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+            <Setter Property="ItemContainerStyle" Value="{StaticResource ListOfGodsItem_style}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBox">
@@ -309,6 +311,14 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=god, Path=SelectedIndex}" Value="0">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=god, Path=SelectedIndex}" Value="-1">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
         <Style x:Key="godsSelectedItems_Style" TargetType="ListBox">
             <Setter Property="Height" Value="40"/>
@@ -564,23 +574,7 @@
                         </Style>
                     </ListBox.Resources>
                 </ListBox>
-                <ListBox x:Name="godsList">
-                    <ListBox.Resources>
-                        <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource godsList_Style}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=god, Path=SelectedIndex}" Value="0">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding ElementName=god, Path=SelectedIndex}" Value="-1">
-                                    <Setter Property="Visibility" Value="Hidden"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                        <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource listsGod}">
-                            <EventSetter Event="PreviewMouseUp" Handler="listsGod_PreviewMouseUp"/>
-                        </Style>
-                    </ListBox.Resources>
-                </ListBox>
+                <ListBox x:Name="listOfGods" Style="{StaticResource listOfGods_Style}"/>
                 <ListBox x:Name="godsItemsList" Style="{StaticResource godsItemsList_Style}">
                     <ListBox.Resources>
                         <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource listsItem}">
@@ -638,7 +632,7 @@
                 </ListBox>
                 <ListBox x:Name="targetsList">
                     <ListBox.Resources>
-                        <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource godsList_Style}">
+                        <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource listOfGods_Style}">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding ElementName=target, Path=SelectedIndex}" 
                                              Value="0">
@@ -650,8 +644,8 @@
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
-                        <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource listsGod}">
-                            <EventSetter Event="PreviewMouseUp" Handler="listsGod_PreviewMouseUp"/>
+                        <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource ListOfGodsItem_style}">
+                            <EventSetter Event="PreviewMouseUp" Handler="ListOfGods_PreviewMouseUp"/>
                         </Style>
                     </ListBox.Resources>
                 </ListBox>
@@ -683,7 +677,8 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <StackPanel>
-                <TextBlock x:Name="test1" Background="White" Visibility="Visible"/>
+                <TextBlock x:Name="test1" Background="White" Visibility="Visible" Height="50"/>
+                <Button x:Name="TestButton" Click="TestButton_Click" Height="50"/>
                 <TextBlock x:Name="test2" Background="White" Visibility="Hidden"/>
                 <TextBlock x:Name="test3" Background="White" Visibility="Hidden"/>
                 <TextBlock x:Name="test4" Background="White" Visibility="Hidden"/>
