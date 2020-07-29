@@ -6,6 +6,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Data;
+using System;
 
 namespace Smite_Auto_Attack_Damage
 {
@@ -36,9 +38,8 @@ namespace Smite_Auto_Attack_Damage
                 testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,
             };
 
-
-
-
+            //Проделать то же самое для target
+            SetCharacteristics(Characteristic.Attacker, new TextBlock[] { powerTextBlock_attacker, attackSpeedTextBlock_attacker, baseDamageTextBlock_attacker, penetrationTextBlock_attacker, magicalProtectionsTextBlock_attacker, physicalProtectionsTextBlock_attacker, healthTextBlock_attacker, manaTextBlock_attacker });
 
 
             var sixItems = new GarbageTestClass[6];
@@ -62,7 +63,7 @@ namespace Smite_Auto_Attack_Damage
             godsItems.ItemsSource = sixItems;
             godsItemsList.ItemsSource = manyItems;
             listOfGods.ItemsSource = arrayOfGods;
-            godsStatistics.ItemsSource = stats;
+            //godsStatistics.ItemsSource = stats;
 
 
             var testTarget = new GarbageTestClass[1];
@@ -110,7 +111,17 @@ namespace Smite_Auto_Attack_Damage
             builds.ItemsSource = buildsStack;
 
         }
+        public void SetCharacteristics(Characteristic character, TextBlock[] textBlocks)
+        {
+            string[] properties = new string[8] { "Power", "AttackSpeed", "BaseDamage", "Penetration", "MagicalProtections", "PhysicalProtections", "Health", "Mana" }; ;
 
+            for (int i = 0; i < 8; i++)
+            {
+                Binding binding = new Binding(properties[i]);
+                binding.Source = character;
+                textBlocks[i].SetBinding(TextBlock.TextProperty, binding);
+            }
+        }
         //Обработчик, снимающий статус IsSelected с ListBoxItem'ов при нажатии на другие области окна.
         private void Window_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
@@ -240,9 +251,6 @@ namespace Smite_Auto_Attack_Damage
             var listsGod = (God)container.DataContext;
             Calculation.CurrentGod[0] = listsGod;
             god.ItemsSource = new God[] {listsGod};
-            //container.IsSelected = false;
-            //container = godBox.ItemContainerGenerator.ContainerFromIndex(0) as ListBoxItem;
-            //container.IsSelected = false;
         }
 
         //Обработчик для сохранения билда.
@@ -289,7 +297,21 @@ namespace Smite_Auto_Attack_Damage
 
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            test1.Text = Calculation.CurrentGod[0].PhysicalProtectionsPerLevel.ToString() + "  " + Calculation.CurrentGod[0].Id;
+            var rnd = new Random();
+            Characteristic.Attacker.BaseDamage = rnd.Next(0, 200); 
+            Characteristic.Attacker.AttackSpeed = rnd.Next(0, 200);
+            Characteristic.Attacker.Power = rnd.Next(0, 200);
+            Characteristic.Attacker.MagicalProtections = rnd.Next(0, 200);
+            Characteristic.Attacker.PhysicalProtections = rnd.Next(0, 200); ;
+            Characteristic.Attacker.Mana = rnd.Next(0, 200);
+            Characteristic.Attacker.Health = rnd.Next(0, 200);
+            //Calculation.CurrentGod = new God[] { new God(9, "ololo", "/Images/God/Preview/fullLogo.png", null, "PhysicalProtections", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0) };
+            //test1.Text = Calculation.CurrentGod[0].PhysicalProtectionsPerLevel.ToString() + "  " + Calculation.CurrentGod[0].Id;
+        }
+
+        private void TestButton2_Click(object sender, RoutedEventArgs e)
+        {
+            //Calculation.Attacker = new Characteristic(80);
         }
     }
 }

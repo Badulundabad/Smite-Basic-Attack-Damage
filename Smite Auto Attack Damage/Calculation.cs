@@ -18,7 +18,7 @@ namespace Smite_Auto_Attack_Damage
         static Item[] itemsOfCurrentGod = new Item[6] { zeroItem, zeroItem, zeroItem, zeroItem, zeroItem, zeroItem};
         static Item[] itemsOfTarget = new Item[6] { zeroItem, zeroItem, zeroItem, zeroItem, zeroItem, zeroItem };
 
-
+        
 
         static public God ZeroGod
         {
@@ -35,7 +35,6 @@ namespace Smite_Auto_Attack_Damage
                 currentGod = value;
             }
         }
-        //static public Item
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {

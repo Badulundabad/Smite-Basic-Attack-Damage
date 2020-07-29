@@ -64,6 +64,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Calculation.cs" />
+    <Compile Include="Characteristic.cs" />
     <Compile Include="God.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Model\Build.cs" />

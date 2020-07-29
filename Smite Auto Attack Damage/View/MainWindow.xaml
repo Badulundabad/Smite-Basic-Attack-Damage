@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Smite_Auto_Attack_Damage.Model"
         mc:Ignorable="d"
+        xmlns:test="Smite_Auto_Attack_Damage.Calculation"
         PreviewMouseUp="Window_PreviewMouseUp"
         Title="MainWindow" Height="670" Width="1000" Background="#071425" MinWidth="1000" MaxWidth="1000" MinHeight="670" MaxHeight="670">
 
@@ -522,7 +523,7 @@
                             <TextBlock Text="Bla" Grid.Column="3" VerticalAlignment="Center"/>
                             <TextBlock Text="Bla" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center"/>
                             <TextBlock Text="Bla" Grid.Column="3" Grid.Row="2" VerticalAlignment="Center"/>
-                            <TextBlock Text="Bla" Grid.Column="3" Grid.Row="3" VerticalAlignment="Center"/>
+                            <TextBlock Text="Bla" Grid.Column="3" Grid.Row="3" VerticalAlignment="Center" />
                         </Grid>
                     </DataTemplate>
                 </Setter.Value>
@@ -592,8 +593,60 @@
             <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,1">
                 <TextBlock Style="{StaticResource font_Style}" Text="{Binding ElementName=attackerLevelSlider, Path=Value, UpdateSourceTrigger=PropertyChanged, StringFormat=0}"/>
             </Border>
-            <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,1">
-                <ItemsControl x:Name="godsStatistics" Style="{StaticResource statisticsArea_Style}" Margin="10,10,0,0"/>
+            <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,1" Padding="10, 10, 10, 9">
+                <!--<ItemsControl x:Name="godsStatistics" Style="{StaticResource statisticsArea_Style}" Margin="10,10,0,0"/> -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="0.05*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="113"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image Source="/Images/Stats/baseDamage.png" Width="24" Height="24"/>
+                        <Image Source="/Images/Stats/physicalProtection.png" Width="24" Height="24" Grid.Row="1"/>
+                        <Image Source="/Images/Stats/physicalPenetration.png" Width="24" Height="24" Grid.Row="2"/>
+                        <Image Source="/Images/Stats/health.png" Width="24" Height="24" Grid.Row="3"/>
+                        <TextBlock Name="baseDamageTextBlock_attacker" Text="Bla" Grid.Column="1" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                        <TextBlock Name="physicalProtectionsTextBlock_attacker" Text="Bla" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                        <TextBlock Name="penetrationTextBlock_attacker" Text="Bla" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                        <TextBlock Name="healthTextBlock_attacker" Text="Bla" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image Source="/Images/Stats/power.png" Width="24" Height="24"/>
+                        <Image Source="/Images/Stats/magicalProtection.png" Width="24" Height="24" Grid.Row="1"/>
+                        <Image Source="/Images/Stats/attackSpeed.png" Width="24" Height="24" Grid.Row="2"/>
+                        <Image Source="/Images/Stats/mana.png" Width="24" Height="24" Grid.Row="3"/>
+                        <TextBlock Name="powerTextBlock_attacker" Text="Bla" Grid.Column="1" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                        <TextBlock Name="magicalProtectionsTextBlock_attacker" Text="Bla" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                        <TextBlock Name="attackSpeedTextBlock_attacker" Text="Bla" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                        <TextBlock Name="manaTextBlock_attacker" Text="Bla" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                    </Grid>
+                </Grid>
             </Border>
         </StackPanel>
         <StackPanel Grid.Column="2">
@@ -679,6 +732,7 @@
             <StackPanel>
                 <TextBlock x:Name="test1" Background="White" Visibility="Visible" Height="50"/>
                 <Button x:Name="TestButton" Click="TestButton_Click" Height="50"/>
+                <Button Name="TestButton2" Click="TestButton2_Click" Height="50"/>
                 <TextBlock x:Name="test2" Background="White" Visibility="Hidden"/>
                 <TextBlock x:Name="test3" Background="White" Visibility="Hidden"/>
                 <TextBlock x:Name="test4" Background="White" Visibility="Hidden"/>
