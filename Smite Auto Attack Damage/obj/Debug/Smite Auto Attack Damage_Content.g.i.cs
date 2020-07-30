@@ -8,6 +8,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("view/stat.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/item/demonicgrip.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/item/divineruin.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/item/gauntletofthebes.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/item/goldenblade.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/item/ninjatabi.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/item/poisonedstar.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/item/ringofhecate.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/item/sovereignty.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/item/thecrusher.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/item/typhonsfang.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/item/voidstone.png")]
 
 

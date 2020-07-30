@@ -12,7 +12,7 @@ using System.Windows.Media.Animation;
 
 namespace Smite_Auto_Attack_Damage
 {
-    class God : INotifyPropertyChanged
+    public class God : INotifyPropertyChanged
     {
         string name = null;
         string previewPath = null;
@@ -36,6 +36,8 @@ namespace Smite_Auto_Attack_Damage
         double magicalProtectionsPerLevel = 0;
         double physicalProtectionsPerLevel = 0;
 
+
+        static private God[] listOfGods = new God[111];
         public God
         (
             byte id, string name, string previewPath, string iconPath, string typeOfDamage, int health,
@@ -114,7 +116,7 @@ namespace Smite_Auto_Attack_Damage
             }
             set
             {
-                if ((value == "MagicalProtections") || (value == "PhysicalProtections"))
+                if ((value == "Magical") || (value == "Physical"))
                 {
                     typeOfDamage = value;
                 }
@@ -379,6 +381,9 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
+
+        internal static God[] ListOfGods { get => listOfGods; set => listOfGods = value; }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {

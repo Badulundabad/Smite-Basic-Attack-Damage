@@ -46,6 +46,12 @@
             <Setter Property="Foreground" Value="#837A5B" />
             <Setter Property="IsSnapToTickEnabled" Value="True"/>
             <Setter Property="TickFrequency" Value="1"/>
+            <Setter Property="Margin" Value="0,5,0,5"/>
+            <Setter Property="Width" Value="230"/>
+            <Setter Property="Minimum" Value="0"/>
+            <Setter Property="Maximum" Value="20"/>
+            <Setter Property="Value" Value="10"/>
+            <Setter Property="Orientation" Value="Horizontal"/>
         </Style>
         <Style TargetType="ScrollViewer">
             <Style.Resources>
@@ -159,39 +165,7 @@
             </Setter>
         </Style>
 
-        <Style x:Key="selectedItem" TargetType="ListBoxItem">
-            <Setter Property="OverridesDefaultStyle" Value="true"/>
-            <Setter Property="Height" Value="36"/>
-            <Setter Property="Width" Value="36"/>
-            <Setter Property="Margin" Value="3,0,0,0"/>
-            <Setter Property="BorderBrush" Value="#837A5B"/>
-            <Setter Property="Foreground" Value="Transparent"/>
-            <Setter Property="Image.Source" Value="{Binding ImagePath, Mode=OneWay}"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Border x:Name="border" BorderThickness="1" 
-                                        BorderBrush="{TemplateBinding BorderBrush}">
-                            <Grid>
-                                <Image Source="{TemplateBinding Property=Image.Source}"/>
-                                <ContentPresenter/>
-                            </Grid>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="BorderBrush" Value="#C7C2AF"/>
-                </Trigger>
-                <Trigger Property="IsSelected" Value="False">
-                    <Setter Property="BorderBrush" Value="#837A5B"/>
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="BorderBrush" Value="#C7C2AF"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        
         <Style x:Key="selectedGod" TargetType="ListBoxItem">
             <Setter Property="OverridesDefaultStyle" Value="true"/>
             <Setter Property="Height" Value="355"/>
@@ -222,6 +196,9 @@
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=godsItemsList, Path=Visibility}" Value="Visible">
+                    <Setter Property="Focusable" Value="False"/>
+                </DataTrigger>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="BorderBrush" Value="#C7C2AF"/>
                 </Trigger>
@@ -235,6 +212,7 @@
             <Setter Property="Image.Source" Value="{Binding ImagePath}"/>
             <Setter Property="BorderBrush" Value="#837A5B"/>
             <Setter Property="Focusable" Value="True"/>
+            <EventSetter Event="PreviewMouseUp" Handler="listsItem_PreviewMouseUp"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
@@ -254,9 +232,9 @@
         </Style>
         <Style x:Key="ListOfGodsItem_style" TargetType="ListBoxItem">
             <Setter Property="OverridesDefaultStyle" Value="true"/>
-            <Setter Property="Height" Value="64"/>
-            <Setter Property="Width" Value="64"/>
-            <Setter Property="Margin" Value="4"/>
+            <Setter Property="Height" Value="48"/>
+            <Setter Property="Width" Value="48"/>
+            <Setter Property="Margin" Value="3"/>
             <Setter Property="Image.Source" Value="{Binding IconPath}"/>
             <Setter Property="BorderBrush" Value="#837A5B"/>
             <EventSetter Event="PreviewMouseUp" Handler="ListOfGods_PreviewMouseUp"/>
@@ -281,13 +259,51 @@
         <Style x:Key="god_Style" TargetType="ListBox">
             <Setter Property="Height" Value="355"/>
             <Setter Property="Width" Value="246"/>
-            <Setter Property="DataContext" Value="GarbageTestClass"/>
             <Setter Property="BorderBrush" Value="Blue"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBox">
                         <WrapPanel IsItemsHost="True"/>
                     </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="OverridesDefaultStyle" Value="true"/>
+                        <Setter Property="Height" Value="355"/>
+                        <Setter Property="Width" Value="246"/>
+                        <Setter Property="BorderBrush" Value="#837A5B"/>
+                        <Setter Property="Foreground" Value="Transparent"/>
+                        <Setter Property="Image.Source" Value="{Binding PreviewPath}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="325"/>
+                                                <RowDefinition Height="30"/>
+                                            </Grid.RowDefinitions>
+                                            <Image Grid.Row="0" Grid.RowSpan="1" Source="{TemplateBinding Property=Image.Source}"/>
+                                            <Border Grid.Row="1" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,1,0,0">
+                                                <TextBlock Text="{Binding Name}" Style="{StaticResource font_Style}"/>
+                                            </Border>
+                                            <ContentPresenter/>
+                                        </Grid>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=godsItemsList, Path=Visibility}" Value="Visible">
+                                <Setter Property="Focusable" Value="False"/>
+                            </DataTrigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="#C7C2AF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
                 </Setter.Value>
             </Setter>
         </Style>
@@ -322,6 +338,14 @@
             </Style.Triggers>
         </Style>
         <Style x:Key="godsSelectedItems_Style" TargetType="ListBox">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=listOfGods, Path=IsVisible}" Value="True">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=listOfGods, Path=IsVisible}" Value="False">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
             <Setter Property="Height" Value="40"/>
             <Setter Property="Width" Value="238"/>
             <Setter Property="Margin" Value="0,0,0,30"/>
@@ -340,7 +364,43 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="OverridesDefaultStyle" Value="true"/>
+                        <Setter Property="Height" Value="36"/>
+                        <Setter Property="Width" Value="36"/>
+                        <Setter Property="Margin" Value="3,0,0,0"/>
+                        <Setter Property="BorderBrush" Value="#837A5B"/>
+                        <Setter Property="Foreground" Value="Transparent"/>
+                        <Setter Property="Image.Source" Value="{Binding ImagePath}"/>
+                        <EventSetter Event="PreviewMouseUp" Handler="selectedItem_PreviewMouseUp"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border x:Name="border" BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}">
+                                        <Grid>
+                                            <Image Source="{TemplateBinding Property=Image.Source}"/>
+                                            <ContentPresenter/>
+                                        </Grid>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="BorderBrush" Value="#C7C2AF"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter Property="BorderBrush" Value="#837A5B"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="#C7C2AF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Setter.Value>
+            </Setter>
         </Style>
         <Style x:Key="godsItemsList_Style" TargetType="ListBox">
             <Setter Property="Visibility" Value="Collapsed"/>
@@ -351,6 +411,36 @@
             <Setter Property="Margin" Value="0,4,0,0"/>
             <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
             <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="OverridesDefaultStyle" Value="true"/>
+                        <Setter Property="Height" Value="32"/>
+                        <Setter Property="Width" Value="32"/>
+                        <Setter Property="Margin" Value="2"/>
+                        <Setter Property="Image.Source" Value="{Binding ImagePath, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Setter Property="BorderBrush" Value="#837A5B"/>
+                        <Setter Property="Focusable" Value="True"/>
+                        <EventSetter Event="PreviewMouseUp" Handler="listsItem_PreviewMouseUp"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}">
+                                        <Grid>
+                                            <Image Source="{TemplateBinding Property=Image.Source}"/>
+                                        </Grid>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="#C7C2AF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Setter.Value>
+            </Setter>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBox">
@@ -491,48 +581,6 @@
             </Setter>
         </Style>
 
-        <Style x:Key="statisticsArea_Style" TargetType="ItemsControl">
-            <Setter Property="ItemTemplate">
-                <Setter.Value>
-                    <DataTemplate>
-                        <Grid Margin="0,0,0,4">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="62"/>
-                                <ColumnDefinition Width="40"/>
-                                <ColumnDefinition Width="62"/>
-                                <ColumnDefinition Width="83"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="28"/>
-                                <RowDefinition Height="28"/>
-                                <RowDefinition Height="28"/>
-                                <RowDefinition Height="28"/>
-                            </Grid.RowDefinitions>
-                            <Image Source="/Images/Stats/baseDamage.png" Width="24" Height="24"/>
-                            <Image Source="/Images/Stats/physicalProtection.png" Width="24" Height="24" Grid.Row="1"/>
-                            <Image Source="/Images/Stats/physicalPenetration.png" Width="24" Height="24" Grid.Row="2"/>
-                            <Image Source="/Images/Stats/health.png" Width="24" Height="24" Grid.Row="3"/>
-                            <Image Source="/Images/Stats/power.png" Width="24" Height="24" Grid.Column="2"/>
-                            <Image Source="/Images/Stats/magicalProtection.png" Width="24" Height="24" Grid.Column="2" Grid.Row="1"/>
-                            <Image Source="/Images/Stats/attackSpeed.png" Width="24" Height="24" Grid.Column="2" Grid.Row="2"/>
-                            <Image Source="/Images/Stats/mana.png" Width="24" Height="24" Grid.Column="2" Grid.Row="3"/>
-                            <TextBlock Text="Bla" Grid.Column="1" VerticalAlignment="Center"/>
-                            <TextBlock Text="Bla" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"/>
-                            <TextBlock Text="Bla" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"/>
-                            <TextBlock Text="Bla" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center"/>
-                            <TextBlock Text="Bla" Grid.Column="3" VerticalAlignment="Center"/>
-                            <TextBlock Text="Bla" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center"/>
-                            <TextBlock Text="Bla" Grid.Column="3" Grid.Row="2" VerticalAlignment="Center"/>
-                            <TextBlock Text="Bla" Grid.Column="3" Grid.Row="3" VerticalAlignment="Center" />
-                        </Grid>
-                    </DataTemplate>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="FontFamily" Value="/Fonts/Penumbra.ttf #Penumbra HalfSerif Std"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Padding" Value="5"/>
-        </Style>
     </Window.Resources>
 
 
@@ -547,54 +595,21 @@
                 <TextBlock Text="A t t a c k e r" Style="{StaticResource font_Style}"/>
             </Border>
             <Grid>
-                <ListBox x:Name="god" Style="{StaticResource god_Style}">
-                    <ListBox.Resources>
-                        <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource selectedGod}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=godsItemsList, Path=Visibility}" Value="Visible">
-                                    <Setter Property="Focusable" Value="False"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ListBox.Resources>
-                </ListBox>
-                <ListBox x:Name="godsItems">
-                    <ListBox.Resources>
-                        <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource godsSelectedItems_Style}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=godsList, Path=IsVisible}" Value="True">
-                                    <Setter Property="Visibility" Value="Hidden"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding ElementName=godsList, Path=IsVisible}" Value="False">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                        <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource selectedItem}">
-                            <EventSetter Event="PreviewMouseUp" Handler="selectedItem_PreviewMouseUp"/>
-                        </Style>
-                    </ListBox.Resources>
-                </ListBox>
+                <ListBox x:Name="god" Style="{StaticResource god_Style}"/>
+                <ListBox x:Name="sixItemsOfAttacker" Style="{StaticResource godsSelectedItems_Style}"/>
                 <ListBox x:Name="listOfGods" Style="{StaticResource listOfGods_Style}"/>
-                <ListBox x:Name="godsItemsList" Style="{StaticResource godsItemsList_Style}">
-                    <ListBox.Resources>
-                        <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource listsItem}">
-                            <EventSetter Event="PreviewMouseUp" Handler="listsItem_PreviewMouseUp"/>
-                        </Style>
-                    </ListBox.Resources>
-                </ListBox>
+                <ListBox x:Name="godsItemsList" Style="{StaticResource godsItemsList_Style}"/>
             </Grid>
             <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,0">
                 <TextBlock Margin="0,5,0,0" Text="Level" Style="{StaticResource font_Style}"/>
             </Border>
             <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,0">
-                <Slider Margin="0,5,0,5" x:Name="attackerLevelSlider" Width="230" Style="{StaticResource slider_Style}" Minimum="0" Maximum="20" Value="10" Orientation="Horizontal"/>
+                <Slider x:Name="attackerLevelSlider" Style="{StaticResource slider_Style}" />
             </Border>
             <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,1">
                 <TextBlock Style="{StaticResource font_Style}" Text="{Binding ElementName=attackerLevelSlider, Path=Value, UpdateSourceTrigger=PropertyChanged, StringFormat=0}"/>
             </Border>
             <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,1" Padding="10, 10, 10, 9">
-                <!--<ItemsControl x:Name="godsStatistics" Style="{StaticResource statisticsArea_Style}" Margin="10,10,0,0"/> -->
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0*"/>
@@ -617,13 +632,13 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
+                        <Image Source="/Images/Stats/power.png" Width="24" Height="24" Grid.Row="1"/>
                         <Image Source="/Images/Stats/baseDamage.png" Width="24" Height="24"/>
-                        <Image Source="/Images/Stats/physicalProtection.png" Width="24" Height="24" Grid.Row="1"/>
-                        <Image Source="/Images/Stats/physicalPenetration.png" Width="24" Height="24" Grid.Row="2"/>
+                        <Image Source="/Images/Stats/physicalProtection.png" Width="24" Height="24" Grid.Row="2"/>
                         <Image Source="/Images/Stats/health.png" Width="24" Height="24" Grid.Row="3"/>
+                        <TextBlock Name="powerTextBlock_attacker" Text="Bla" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
                         <TextBlock Name="baseDamageTextBlock_attacker" Text="Bla" Grid.Column="1" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
-                        <TextBlock Name="physicalProtectionsTextBlock_attacker" Text="Bla" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
-                        <TextBlock Name="penetrationTextBlock_attacker" Text="Bla" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                        <TextBlock Name="physicalProtectionsTextBlock_attacker" Text="Bla" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
                         <TextBlock Name="healthTextBlock_attacker" Text="Bla" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
                     </Grid>
                     <Grid Grid.Column="3">
@@ -637,13 +652,13 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Image Source="/Images/Stats/power.png" Width="24" Height="24"/>
-                        <Image Source="/Images/Stats/magicalProtection.png" Width="24" Height="24" Grid.Row="1"/>
-                        <Image Source="/Images/Stats/attackSpeed.png" Width="24" Height="24" Grid.Row="2"/>
+                        <Image Source="/Images/Stats/magicalProtection.png" Width="24" Height="24" Grid.Row="2"/>
+                        <Image Source="/Images/Stats/attackSpeed.png" Width="24" Height="24" Grid.Row="0"/>
                         <Image Source="/Images/Stats/mana.png" Width="24" Height="24" Grid.Row="3"/>
-                        <TextBlock Name="powerTextBlock_attacker" Text="Bla" Grid.Column="1" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
-                        <TextBlock Name="magicalProtectionsTextBlock_attacker" Text="Bla" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
-                        <TextBlock Name="attackSpeedTextBlock_attacker" Text="Bla" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                        <Image Source="/Images/Stats/physicalPenetration.png" Width="24" Height="24" Grid.Row="1"/>
+                        <TextBlock Name="penetrationTextBlock_attacker" Text="Bla" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                        <TextBlock Name="magicalProtectionsTextBlock_attacker" Text="Bla" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                        <TextBlock Name="attackSpeedTextBlock_attacker" Text="Bla" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
                         <TextBlock Name="manaTextBlock_attacker" Text="Bla" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
                     </Grid>
                 </Grid>
@@ -678,9 +693,9 @@
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
-                        <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource selectedItem}">
+                        <!--<Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource selectedItem}">
                             <EventSetter Event="PreviewMouseUp" Handler="selectedItem_PreviewMouseUp"/>
-                        </Style>
+                        </Style>-->
                     </ListBox.Resources>
                 </ListBox>
                 <ListBox x:Name="targetsList">
@@ -719,8 +734,59 @@
             <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,1">
                 <TextBlock Style="{StaticResource font_Style}" Text="{Binding ElementName=targetLevelSlider, Path=Value, UpdateSourceTrigger=PropertyChanged, StringFormat=0}"/>
             </Border>
-            <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,1">
-                <ItemsControl x:Name="targetsStatistics" Style="{StaticResource statisticsArea_Style}" Margin="10,10,0,0"/>
+            <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,1" Padding="10, 10, 10, 9">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="0.05*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="113"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image Source="/Images/Stats/baseDamage.png" Width="24" Height="24"/>
+                        <Image Source="/Images/Stats/physicalProtection.png" Width="24" Height="24" Grid.Row="1"/>
+                        <Image Source="/Images/Stats/physicalPenetration.png" Width="24" Height="24" Grid.Row="2"/>
+                        <Image Source="/Images/Stats/health.png" Width="24" Height="24" Grid.Row="3"/>
+                        <TextBlock Name="baseDamageTextBlock_target" Text="Bla" Grid.Column="1" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                        <TextBlock Name="physicalProtectionsTextBlock_target" Text="Bla" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                        <TextBlock Name="penetrationTextBlock_target" Text="Bla" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                        <TextBlock Name="healthTextBlock_target" Text="Bla" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image Source="/Images/Stats/power.png" Width="24" Height="24"/>
+                        <Image Source="/Images/Stats/magicalProtection.png" Width="24" Height="24" Grid.Row="1"/>
+                        <Image Source="/Images/Stats/attackSpeed.png" Width="24" Height="24" Grid.Row="2"/>
+                        <Image Source="/Images/Stats/mana.png" Width="24" Height="24" Grid.Row="3"/>
+                        <TextBlock Name="powerTextBlock_target" Text="Bla" Grid.Column="1" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                        <TextBlock Name="magicalProtectionsTextBlock_target" Text="Bla" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                        <TextBlock Name="attackSpeedTextBlock_target" Text="Bla" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                        <TextBlock Name="manaTextBlock_target" Text="Bla" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                    </Grid>
+                </Grid>
             </Border>
         </StackPanel>
         <Grid Grid.Column="1" Margin="12,0,12,0">

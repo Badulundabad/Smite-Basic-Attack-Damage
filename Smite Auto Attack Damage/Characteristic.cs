@@ -18,8 +18,7 @@ namespace Smite_Auto_Attack_Damage
         int physicalProtection = 0;
         int baseDamage = 0;
         string penetration = "0 / 0";
-        static Characteristic attacker = new Characteristic();
-
+        
         
         public int BaseDamage
         {
@@ -127,17 +126,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        static public Characteristic Attacker
-        {
-            get
-            {
-                return attacker;
-            }
-            set
-            {
-                attacker = value;
-            }
-        }
+        
 
         public int Power
         {

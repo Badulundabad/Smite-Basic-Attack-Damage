@@ -24,7 +24,7 @@ namespace Smite_Auto_Attack_Damage
         byte physicalProtections = 0;
         byte flatPenetration = 0;
         byte flatReduction = 0;
-        byte critChance = 0;
+        double critChance = 0;
         byte lifeSteal = 0;
         byte cooldownReduction = 0;
         byte movementSpeed = 0;
@@ -38,11 +38,13 @@ namespace Smite_Auto_Attack_Damage
 
         static string[] arrayOfMethods = { };
 
+
+
         public Item
         (
             int id, byte power, double attackSpeed, string description, string imagePath, string method,
             int mana, int health, byte magicalProtections, byte physicalProtections, byte flatPenetration,
-            byte flatReduction, byte critChance, byte lifeSteal, byte cooldownReduction, byte movementSpeed,
+            byte flatReduction, double critChance, byte lifeSteal, byte cooldownReduction, byte movementSpeed,
             byte crowdControlReduction, byte mp5, byte hp5, double percentagePenetration, double percentageReduction
         )
         {
@@ -66,9 +68,9 @@ namespace Smite_Auto_Attack_Damage
             Mp5 = mp5;
             Hp5 = hp5;
             PercentagePenetration = percentagePenetration;
-            PercentagePenetration = percentageReduction;
+            PercentageReduction = percentageReduction;
         }
-        string Description
+        public string Description
         {
             get
             {
@@ -79,7 +81,7 @@ namespace Smite_Auto_Attack_Damage
                 description = value;
             }
         }
-        string ImagePath
+        public string ImagePath
         {
             get
             {
@@ -97,7 +99,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        string Method
+        public string Method
         {
             get
             {
@@ -115,7 +117,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        int Id
+        public int Id
         {
             get
             {
@@ -123,7 +125,7 @@ namespace Smite_Auto_Attack_Damage
             }
             set
             {
-                if( value >= 0)
+                if (value >= 0)
                 {
                     id = value;
                 }
@@ -133,7 +135,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        int Mana
+        public int Mana
         {
             get
             {
@@ -151,7 +153,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        int Health
+        public int Health
         {
             get
             {
@@ -169,7 +171,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        byte Power
+        public byte Power
         {
             get
             {
@@ -187,7 +189,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        byte MagicalProtections
+        public byte MagicalProtections
         {
             get
             {
@@ -205,7 +207,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        byte PhysicalProtections
+        public byte PhysicalProtections
         {
             get
             {
@@ -223,7 +225,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        byte FlatPenetration
+        public byte FlatPenetration
         {
             get
             {
@@ -241,7 +243,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        byte FlatReduction
+        public byte FlatReduction
         {
             get
             {
@@ -259,7 +261,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        byte CritChance
+        public double CritChance
         {
             get
             {
@@ -277,7 +279,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        byte LifeSteal
+        public byte LifeSteal
         {
             get
             {
@@ -295,7 +297,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        byte CooldownReduction
+        public byte CooldownReduction
         {
             get
             {
@@ -313,7 +315,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        byte MovementSpeed
+        public byte MovementSpeed
         {
             get
             {
@@ -331,7 +333,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        byte CrowdControlReduction
+        public byte CrowdControlReduction
         {
             get
             {
@@ -349,7 +351,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        byte Mp5
+        public byte Mp5
         {
             get
             {
@@ -367,7 +369,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        byte Hp5
+        public byte Hp5
         {
             get
             {
@@ -385,7 +387,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        double AttackSpeed
+        public double AttackSpeed
         {
             get
             {
@@ -403,7 +405,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        double PercentagePenetration
+        public double PercentagePenetration
         {
             get
             {
@@ -421,7 +423,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        double PercentageReduction
+        public double PercentageReduction
         {
             get
             {
@@ -429,13 +431,13 @@ namespace Smite_Auto_Attack_Damage
             }
             set
             {
-                if (value >= 0 && value <= 0.25)
+                if (value >= 0 && value <= 0.5)
                 {
 
                 }
                 else
                 {
-                    throw new ArgumentException("Value must be in the range from 0 to 0.25", "PercentageReduction");
+                    throw new ArgumentException("Value must be in the range from 0 to 0.5", "PercentageReduction");
                 }
             }
         }

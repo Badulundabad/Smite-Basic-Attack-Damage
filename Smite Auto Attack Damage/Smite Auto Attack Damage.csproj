@@ -68,7 +68,6 @@
     <Compile Include="God.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Model\Build.cs" />
-    <Compile Include="Model\Characteristics.cs" />
     <Compile Include="Model\GarbageTestClass.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -164,21 +163,35 @@
     <Resource Include="Images\God\Preview\Rama.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\God\Icon\JingWei.png" />
-    <Resource Include="Images\God\Icon\Rama.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Images\Item\" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\God\Preview\Merlin.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\God\Preview\Sol.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\God\Icon\JingWei.png" />
     <Resource Include="Images\God\Icon\Merlin.png" />
+    <Resource Include="Images\God\Icon\Rama.png" />
     <Resource Include="Images\God\Icon\Sol.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Item\DemonicGrip.png" />
+    <Resource Include="Images\Item\DivineRuin.png" />
+    <Resource Include="Images\Item\GauntletOfThebes.png" />
+    <Resource Include="Images\Item\GoldenBlade.png" />
+    <Resource Include="Images\Item\NinjaTabi.png" />
+    <Resource Include="Images\Item\PoisonedStar.png" />
+    <Resource Include="Images\Item\RingOfHecate.png" />
+    <Resource Include="Images\Item\Sovereignty.png" />
+    <Resource Include="Images\Item\TheCrusher.png" />
+    <Resource Include="Images\Item\TyphonsFang.png" />
+    <Resource Include="Images\Item\VoidStone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Item\CharonsCoin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Item\VoidShield.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

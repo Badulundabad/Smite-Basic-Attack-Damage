@@ -17,36 +17,67 @@ namespace Smite_Auto_Attack_Damage
     public partial class MainWindow : Window
     {
         //
-        static bool[,] selectedItemsState = new bool[2, 6];
-        //Массив для пометки Item'ов на очистку от выбранных предметов
-        static bool[,] containersToBeEmptied = new bool[2, 6]; 
+        
         Stack<Build> buildsStack = new Stack<Build>();
         Build emptyBuild;
 
         public MainWindow()
         {
             InitializeComponent();
-            var testGod = new God(1, "R a m a", "/Images/God/Preview/Rama.png", "/Images/God/Icon/Rama.png", "PhysicalProtections", 460, 76, 205, 34, 40, 2.5, 30, 0.9, 12, 2.8, 0.95, 0.017);
-            var arrayOfGods = new God[] 
+            var rama = new God(1, "R a m a", "/Images/God/Preview/Rama.png", "/Images/God/Icon/Rama.png", "Physical", 460, 76, 205, 34, 40, 2.5, 30, 0.9, 12, 2.8, 0.95, 0.017);
+            var jingWei = new God(2, "J i n g  W e i", "/Images/God/Preview/JingWei.png", "/Images/God/Icon/JingWei.png", "Physical", 445, 78, 205, 36, 38, 2.7, 30, 0.9, 11, 2.9, 1, 0.0014);
+            var merlin = new God(3, "M e r l i n", "/Images/God/Preview/Merlin.png", "/Images/God/Icon/Merlin.png", "Magical", 370, 75, 250, 55, 34, 1.5, 30, 0.9, 10, 3, 1, 0.008);
+            var sol = new God(4, "S o l", "/Images/God/Preview/Sol.png", "/Images/God/Icon/Sol.png", "Magical", 400, 75, 300, 57, 34, 1.45, 30, 0.9, 9, 2.6, 1, 0.018);
+
+            for (int i = 0; i < 111; i++)
             {
-                new God(1, "R a m a", "/Images/God/Preview/Rama.png", "/Images/God/Icon/Rama.png", "PhysicalProtections", 460, 76, 205, 34, 40, 2.5, 30, 0.9, 12, 2.8, 0.95, 0.017),
-                new God(2, "J i n g  W e i", "/Images/God/Preview/JingWei.png", "/Images/God/Icon/JingWei.png", "PhysicalProtections", 445, 78, 205, 36, 38, 2.7, 30, 0.9, 11, 2.9, 1, 0.0014),
-                new God(3, "M e r l i n", "/Images/God/Preview/Merlin.png", "/Images/God/Icon/Merlin.png", "MagicalProtections", 370, 75, 250, 55, 34, 1.5 ,30, 0.9, 10, 3, 1, 0.008),
-                new God(4, "S o l", "/Images/God/Preview/Sol.png", "/Images/God/Icon/Sol.png", "MagicalProtections", 400, 75, 300, 57, 34, 1.45, 30, 0.9, 9, 2.6, 1, 0.018 ), 
-                testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,
-                testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,
-                testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,testGod,
-            };
+                if (i % 4 == 0) God.ListOfGods[i] = rama;
+                if (i % 4 == 1) God.ListOfGods[i] = jingWei;
+                if (i % 4 == 2) God.ListOfGods[i] = merlin;
+                if (i % 4 == 3) God.ListOfGods[i] = sol;
+            }
+
+            var demonicGrip = new Item(1, 75, 0.3, "Your Basic Attacks reduce your target's Magical Protection by 10% for 3s (max 3 Stacks).", "/Images/Item/DemonicGrip.png", null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.3);
+            var ringOfHecate = new Item(2, 80, 0.3, "Each successful basic attack applies a hex to enemies and empowers you. Enemies receive 5% decreased power per stack while you receive 5% increased power. Both effects stack up to 3 times and stacks last 5s", "/Images/Item/RingOfHecate.png", null, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0);
+            var typhonsFang = new Item(3, 70, 0, null, "/Images/Item/TyphonsFang.png", null, 200, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0.1, 0);
+            var divineRuin = new Item(4, 90, 0, null, "/Images/Item/DivineRuin.png", null, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            var voidStone = new Item(5, 0, 0, null, "/Images/Item/VoidStone.png", null, 0, 150, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, .1);
+            var ninjaTabi = new Item(6, 20, .25, null, "/Images/Item/NinjaTabi.png", null, 100, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0);
+            var sovereignty = new Item(7, 0, 0, null, "/Images/Item/Sovereignty.png", null, 0, 250, 0, 60, 0, 0, 0, 0, 0, 0, 0, 0, 35, 0, 0);
+            var goldenBlade = new Item(8, 30, .15, null, "/Images/Item/GoldenBlade.png", null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0);
+            var gauntletOfThebes = new Item(9, 0, 0, null, "/Images/Item/GauntletOfThebes.png", null, 0, 300, 60, 60, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 0);
+            var poisonedStar = new Item(10, 35, .1, null, "/Images/Item/PoisonedStar.png", null, 0, 0, 0, 0, 0, 0, .15, 0, 0, 0, 0, 0, 0, 0, 0);
+            var theCrusher = new Item(11, 30, .2, null, "/Images/Item/TheCrusher.png", null, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            var charonsCoin = new Item(12, 80, 0, null, "/Images/Item/CharonsCoin.png", null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 20, 20, .2, 0);
+            var voidShield = new Item(13, 20, 0, null, "/Images/Item/VoidShield.png", null, 0, 0, 0, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, .15);
+
+            for (int i = 0; i < 112; i++)
+            {
+                if (i % 7 == 0) Calculation.ListOfPhysicalItems[i] = voidShield;
+                if (i % 7 == 1) Calculation.ListOfPhysicalItems[i] = ninjaTabi;
+                if (i % 7 == 2) Calculation.ListOfPhysicalItems[i] = sovereignty;
+                if (i % 7 == 3) Calculation.ListOfPhysicalItems[i] = goldenBlade;
+                if (i % 7 == 4) Calculation.ListOfPhysicalItems[i] = gauntletOfThebes;
+                if (i % 7 == 5) Calculation.ListOfPhysicalItems[i] = poisonedStar;
+                if (i % 7 == 6) Calculation.ListOfPhysicalItems[i] = theCrusher;
+            }
+
+            for (int i = 0; i < 112; i++)
+            {
+                if (i % 7 == 0) Calculation.ListOfMagicalItems[i] = demonicGrip;
+                if (i % 7 == 1) Calculation.ListOfMagicalItems[i] = ringOfHecate;
+                if (i % 7 == 2) Calculation.ListOfMagicalItems[i] = typhonsFang;
+                if (i % 7 == 3) Calculation.ListOfMagicalItems[i] = divineRuin;
+                if (i % 7 == 4) Calculation.ListOfMagicalItems[i] = voidStone;
+                if (i % 7 == 5) Calculation.ListOfMagicalItems[i] = sovereignty;
+                if (i % 7 == 6) Calculation.ListOfMagicalItems[i] = charonsCoin;
+
+            }
 
             //Проделать то же самое для target
-            SetCharacteristics(Characteristic.Attacker, new TextBlock[] { powerTextBlock_attacker, attackSpeedTextBlock_attacker, baseDamageTextBlock_attacker, penetrationTextBlock_attacker, magicalProtectionsTextBlock_attacker, physicalProtectionsTextBlock_attacker, healthTextBlock_attacker, manaTextBlock_attacker });
+            SetCharacteristics(Calculation.Characteristics_Attacker, new TextBlock[] { powerTextBlock_attacker, attackSpeedTextBlock_attacker, baseDamageTextBlock_attacker, penetrationTextBlock_attacker, magicalProtectionsTextBlock_attacker, physicalProtectionsTextBlock_attacker, healthTextBlock_attacker, manaTextBlock_attacker });
 
 
-            var sixItems = new GarbageTestClass[6];
-            for (int i = 0; i < sixItems.Length; i++)
-            {
-                sixItems[i] = new GarbageTestClass("n a m e", "/Images/logo.png");
-            }
             var manyItems = new GarbageTestClass[50];
             for (int i = 0; i < manyItems.Length; i++)
             {
@@ -56,14 +87,22 @@ namespace Smite_Auto_Attack_Damage
                 }
                 else manyItems[i] = new GarbageTestClass("soulreaver", "/Images/Items/soulreaver.png");
             }
-            
-            Characteristics[] stats = new Characteristics[] { new Characteristics("/Images/Stats/HandDamage.png", 200) };
 
-            god.ItemsSource = new God[1] {Calculation.ZeroGod};
-            godsItems.ItemsSource = sixItems;
-            godsItemsList.ItemsSource = manyItems;
-            listOfGods.ItemsSource = arrayOfGods;
-            //godsStatistics.ItemsSource = stats;
+            Calculation.SixItems_attacker = Calculation.ZeroItemArray;
+
+            god.ItemsSource = new God[1] { Calculation.ZeroGod };
+            sixItemsOfAttacker.ItemsSource = Calculation.SixItems_attacker;
+            godsItemsList.ItemsSource = Calculation.ListOfMagicalItems;
+            listOfGods.ItemsSource = God.ListOfGods;
+
+
+
+
+
+
+
+
+
 
 
             var testTarget = new GarbageTestClass[1];
@@ -104,7 +143,6 @@ namespace Smite_Auto_Attack_Damage
             targetsItems.ItemsSource = targetsSixItems;
             targetsItemsList.ItemsSource = targetsManyItems;
             targetsList.ItemsSource = targetsManyZeuses;
-            targetsStatistics.ItemsSource = stats;
 
             Build testBuild = new Build();
             buildsStack.Push(testBuild);
@@ -122,14 +160,15 @@ namespace Smite_Auto_Attack_Damage
                 textBlocks[i].SetBinding(TextBlock.TextProperty, binding);
             }
         }
+
         //Обработчик, снимающий статус IsSelected с ListBoxItem'ов при нажатии на другие области окна.
         private void Window_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             //Если источник события не ListBox
             if (e.Source.GetType().Name != "ListBox")
             {
-                ListBox[] listBoxes = 
-                    { god, godsItems, godsItemsList, target, targetsItems, targetsItemsList };
+                ListBox[] listBoxes =
+                    { god, sixItemsOfAttacker, godsItemsList, target, targetsItems, targetsItemsList };
                 //Проверка всех ListBox'ов на наличие выбранных ListBoxItem'ов.
                 //При SelectedIndex равном -1 значит, что у ListBox'а нет выбранных Item'ов.
                 foreach (ListBox listBox in listBoxes)
@@ -137,8 +176,8 @@ namespace Smite_Auto_Attack_Damage
                     //Если есть выбранные Item'ы - снять выбор.
                     if (listBox.SelectedIndex != -1)
                     {
-                        if (listBox.Name == "godsItems")
-                            selectedItemsState[0, godsItems.SelectedIndex] = false;
+                        if (listBox.Name == "sixItemsOfAttacker")
+                            selectedItemsState[0, sixItemsOfAttacker.SelectedIndex] = false;
                         else if (listBox.Name == "targetsItems")
                             selectedItemsState[1, targetsItems.SelectedIndex] = false;
                         ListBoxItem container = listBox.ItemContainerGenerator.
@@ -151,16 +190,19 @@ namespace Smite_Auto_Attack_Damage
                 targetsItemsList.Visibility = Visibility.Hidden;
             }
         }
-        
+
         //Обработчик, работающий с 6 предметами Бога или Цели. 
         //Определяет состояние Item'а в момент нажатия кнопки мыши.
         private void selectedItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
+            godsItemsList.Visibility = Visibility.Visible;
+            Calculation.ItemOfAttackerIndex =  sixItemsOfAttacker.ItemContainerGenerator.IndexFromContainer(sender as ListBoxItem);
+            /*
             //Номер двумерного массива с состояниями 6 предметов.
             //Дефолтно установлен номер (0) массива для Бога, а не Цели.
-            int stateArrayNum = 0; 
+            int stateArrayNum = 0;
             //В зависимости от sender'а получаем ссылку на один из ListBox'ов с 6 предметами.
-            ListBox currentListBox = ListBox.ItemsControlFromItemContainer(sender as ListBoxItem) 
+            ListBox currentListBox = ListBox.ItemsControlFromItemContainer(sender as ListBoxItem)
                 as ListBox;
             //Делаем ссылку на список доступных предметов. Дефолтно для бога.
             ListBox itemsList = godsItemsList;
@@ -207,17 +249,50 @@ namespace Smite_Auto_Attack_Damage
                     container.IsSelected = false;
                     itemsList.Visibility = Visibility.Hidden;
                 }
-            }
+            }*/
         }
-        
+        static bool[,] selectedItemsState = new bool[2, 6];
+        //Массив для пометки Item'ов на очистку от выбранных предметов
+        static bool[,] containersToBeEmptied = new bool[2, 6];
+
+
+        public void SetItem(ListBoxItem container)
+        {
+            
+            var item = (Item)container.DataContext;
+            //Обновляет элемент массива предметов бога(поле), индекс которого соответствует порядковому номеру выбранного слота
+            //При выборе предмета тот устанавливается в слот, и выделяется следующий слот
+            if (Calculation.SixItems_attacker.Contains(Calculation.ZeroItem) && !Calculation.SixItems_attacker.Contains(item))
+            {
+                Calculation.SixItems_attacker[sixItemsOfAttacker.SelectedIndex] = item;
+                sixItemsOfAttacker.ItemsSource = new Item[] { Calculation.SixItems_attacker[0], Calculation.SixItems_attacker[1], Calculation.SixItems_attacker[2], Calculation.SixItems_attacker[3], Calculation.SixItems_attacker[4], Calculation.SixItems_attacker[5] };
+                //скрывает, когда все слоты заняты
+                if (Calculation.SixItems_attacker.Contains(Calculation.ZeroItem) == false) godsItemsList.Visibility = Visibility.Collapsed;
+            }
+            //почти не отличается от вышенаписанного
+            //если при выборе слота все слоты уже заняты, то сразу же после выбора предмета скрывает список
+            if (Calculation.SixItems_attacker.Contains(Calculation.ZeroItem) == false && !Calculation.SixItems_attacker.Contains(item))
+            {
+                Calculation.SixItems_attacker[sixItemsOfAttacker.SelectedIndex] = item;
+                sixItemsOfAttacker.ItemsSource = new Item[] { Calculation.SixItems_attacker[0], Calculation.SixItems_attacker[1], Calculation.SixItems_attacker[2], Calculation.SixItems_attacker[3], Calculation.SixItems_attacker[4], Calculation.SixItems_attacker[5] };
+                //аналогично, но при этом еще и снимает выделение
+                if (Calculation.SixItems_attacker.Contains(Calculation.ZeroItem) == false) godsItemsList.Visibility = Visibility.Collapsed;
+                sixItemsOfAttacker.SelectedIndex = -1;
+            }
+            if (sixItemsOfAttacker.SelectedIndex > 5) sixItemsOfAttacker.SelectedIndex = 0;
+            test1.Text = Calculation.SixItems_attacker[0].Id + " " + Calculation.SixItems_attacker[1].Id + " " + Calculation.SixItems_attacker[2].Id + " " + Calculation.SixItems_attacker[3].Id + " " + Calculation.SixItems_attacker[4].Id + " " + Calculation.SixItems_attacker[5].Id;
+        }
         //Обработчик, работающий с предметами списков доступных предметов.
         private void listsItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
+            SetItem(sender as ListBoxItem);
+            
+            /*
             //Дефолтно устанавливаем всё для Бога.
             int stateArrayNum = 0;
             ListBoxItem itemContainer = sender as ListBoxItem;
             ListBox currentListBox = ListBox.ItemsControlFromItemContainer(itemContainer) as ListBox;
-            ListBox selectedItemsList = godsItems;
+            ListBox selectedItemsList = sixItemsOfAttacker;
             //Если sender от списка предметов Цели, то
             //устанавливаем всё для Цели.
             if (currentListBox.Name == "targetsItemsList")
@@ -228,31 +303,26 @@ namespace Smite_Auto_Attack_Damage
             //Переносим выбранный предмет в слот 6 предметов, снимаем выделение со всех Item'ов и
             //скрываем список выбранных предметов.
             selectedItemsState[stateArrayNum, selectedItemsList.SelectedIndex] = false;
-            GarbageTestClass selectedItem = selectedItemsList.SelectedItem as GarbageTestClass;
-            GarbageTestClass listsItem = currentListBox.SelectedItem as GarbageTestClass;
+            var selectedItem = (Item)selectedItemsList.SelectedItem;
+            var listsItem = (Item)currentListBox.SelectedItem;
             selectedItem.ImagePath = listsItem.ImagePath;
             selectedItem = listsItem;
             itemContainer.IsSelected = false;
             itemContainer = selectedItemsList.ItemContainerGenerator.ContainerFromItem(selectedItemsList.SelectedItem) as ListBoxItem;
             itemContainer.IsSelected = false;
-            currentListBox.Visibility = Visibility.Hidden;
+            currentListBox.Visibility = Visibility.Hidden;*/
         }
 
         //Обработчик для потомков списка богов
         private void ListOfGods_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            var container = sender as ListBoxItem;
-            var currentListBox = (ListBox)ListBox.ItemsControlFromItemContainer(container);
-            ListBox godBox = god;
-            if (currentListBox.Name == "targetsList")
-            {
-                godBox = target;
-            }
-            var listsGod = (God)container.DataContext;
-            Calculation.CurrentGod[0] = listsGod;
-            god.ItemsSource = new God[] {listsGod};
+            SetGod(sender as ListBoxItem, god, Calculation.CurrentAttacker);
         }
-
+        public void SetGod(ListBoxItem container, ListBox godToSet, God[] currentGod)
+        {
+            currentGod[0] = (God)container.DataContext;
+            godToSet.ItemsSource = new God[] { currentGod[0] };
+        }
         //Обработчик для сохранения билда.
         private void saveButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
@@ -298,19 +368,19 @@ namespace Smite_Auto_Attack_Damage
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
             var rnd = new Random();
-            Characteristic.Attacker.BaseDamage = rnd.Next(0, 200); 
-            Characteristic.Attacker.AttackSpeed = rnd.Next(0, 200);
-            Characteristic.Attacker.Power = rnd.Next(0, 200);
-            Characteristic.Attacker.MagicalProtections = rnd.Next(0, 200);
-            Characteristic.Attacker.PhysicalProtections = rnd.Next(0, 200); ;
-            Characteristic.Attacker.Mana = rnd.Next(0, 200);
-            Characteristic.Attacker.Health = rnd.Next(0, 200);
-            //Calculation.CurrentGod = new God[] { new God(9, "ololo", "/Images/God/Preview/fullLogo.png", null, "PhysicalProtections", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0) };
-            //test1.Text = Calculation.CurrentGod[0].PhysicalProtectionsPerLevel.ToString() + "  " + Calculation.CurrentGod[0].Id;
+            Calculation.Characteristics_Attacker.BaseDamage = rnd.Next(0, 200);
+            Calculation.Characteristics_Attacker.AttackSpeed = rnd.Next(0, 200);
+            Calculation.Characteristics_Attacker.Power = rnd.Next(0, 200);
+            Calculation.Characteristics_Attacker.MagicalProtections = rnd.Next(0, 200);
+            Calculation.Characteristics_Attacker.PhysicalProtections = rnd.Next(0, 200); ;
+            Calculation.Characteristics_Attacker.Mana = rnd.Next(0, 200);
+            Calculation.Characteristics_Attacker.Health = rnd.Next(0, 200);
         }
 
         private void TestButton2_Click(object sender, RoutedEventArgs e)
         {
+            test1.Text = Calculation.ItemOfAttackerIndex.ToString();
+            //Calculation.SixItems_attacker[3] =  new Item(13, 20, 0, null, "/Images/Item/VoidShield.png", null, 0, 0, 0, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, .15);
             //Calculation.Attacker = new Characteristic(80);
         }
     }
