@@ -276,10 +276,10 @@
                             <DataTrigger Binding="{Binding ElementName=listOfItems, Path=Visibility}" Value="Collapsed">
                                 <Setter Property="Tag" Value="no"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding ElementName=listOfItems, Path=Visibility}" Value="Visible">
+                            <DataTrigger Binding="{Binding ElementName=listOfGods, Path=Visibility}" Value="Visible">
                                 <Setter Property="Tag" Value="yes"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding ElementName=listOfItems, Path=Visibility}" Value="Collapsed">
+                            <DataTrigger Binding="{Binding ElementName=listOfGods, Path=Visibility}" Value="Collapsed">
                                 <Setter Property="Tag" Value="no"/>
                             </DataTrigger>
                             
@@ -332,7 +332,7 @@
         <Style x:Key="godsSelectedItems_Style" TargetType="ListBox">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=listOfGods, Path=IsVisible}" Value="True">
-                    <Setter Property="Visibility" Value="Hidden"/>
+                    <Setter Property="Visibility" Value="Collapsed"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding ElementName=listOfGods, Path=IsVisible}" Value="False">
                     <Setter Property="Visibility" Value="Visible"/>
@@ -529,11 +529,11 @@
                                     <Image Source="{Binding Item5ImagePath}"/>
                                 </Border>
                                 <Image x:Name="saveButton" Height="15" Width="15" Grid.Column="9" 
-                                       Source="/Images/Build/save.png" PreviewMouseUp="saveButton_PreviewMouseUp"/>
+                                       Source="/Images/Build/save.png" PreviewMouseUp="SaveButton_PreviewMouseUp"/>
                                 <Image x:Name="restoreButton" Height="15" Width="15" Grid.Column="10" 
-                                       Source="/Images/Build/restore.png" PreviewMouseUp="restoreButton_PreviewMouseUp"/>
+                                       Source="/Images/Build/restore.png" PreviewMouseUp="RestoreButton_PreviewMouseUp"/>
                                 <Image x:Name="deleteButton" Height="15" Width="15" Grid.Column="11" 
-                                       Source="/Images/Build/delete.png" PreviewMouseUp="deleteButton_PreviewMouseUp"/>
+                                       Source="/Images/Build/delete.png" PreviewMouseUp="DeleteButton_PreviewMouseUp"/>
                             </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -679,7 +679,7 @@
                         <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource godsSelectedItems_Style}">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding ElementName=targetsList, Path=IsVisible}" Value="True">
-                                    <Setter Property="Visibility" Value="Hidden"/>
+                                    <Setter Property="Visibility" Value="Collapsed"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding ElementName=targetsList, Path=IsVisible}" Value="False">
                                     <Setter Property="Visibility" Value="Visible"/>

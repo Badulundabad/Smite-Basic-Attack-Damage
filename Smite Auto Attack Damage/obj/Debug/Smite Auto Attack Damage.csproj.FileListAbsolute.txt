@@ -149,3 +149,18 @@ C:\Users\Gvozd\Source\Repos\SAAD\Smite Auto Attack Damage\obj\Debug\Smite Auto A
 C:\Users\Gvozd\Source\Repos\SAAD\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.csproj.CoreCompileInputs.cache
 C:\Users\Gvozd\Source\Repos\SAAD\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.exe
 C:\Users\Gvozd\Source\Repos\SAAD\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.pdb
+C:\Users\Gvozd\Source\Repos\SAAD3\Smite Auto Attack Damage\bin\Debug\Smite Auto Attack Damage.exe.config
+C:\Users\Gvozd\Source\Repos\SAAD3\Smite Auto Attack Damage\bin\Debug\Smite Auto Attack Damage.exe
+C:\Users\Gvozd\Source\Repos\SAAD3\Smite Auto Attack Damage\bin\Debug\Smite Auto Attack Damage.pdb
+C:\Users\Gvozd\Source\Repos\SAAD3\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.csprojAssemblyReference.cache
+C:\Users\Gvozd\Source\Repos\SAAD3\Smite Auto Attack Damage\obj\Debug\View\MainWindow.g.cs
+C:\Users\Gvozd\Source\Repos\SAAD3\Smite Auto Attack Damage\obj\Debug\App.g.cs
+C:\Users\Gvozd\Source\Repos\SAAD3\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage_MarkupCompile.cache
+C:\Users\Gvozd\Source\Repos\SAAD3\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage_MarkupCompile.lref
+C:\Users\Gvozd\Source\Repos\SAAD3\Smite Auto Attack Damage\obj\Debug\View\MainWindow.baml
+C:\Users\Gvozd\Source\Repos\SAAD3\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.g.resources
+C:\Users\Gvozd\Source\Repos\SAAD3\Smite Auto Attack Damage\obj\Debug\Smite_Auto_Attack_Damage.Properties.Resources.resources
+C:\Users\Gvozd\Source\Repos\SAAD3\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.csproj.GenerateResource.cache
+C:\Users\Gvozd\Source\Repos\SAAD3\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.csproj.CoreCompileInputs.cache
+C:\Users\Gvozd\Source\Repos\SAAD3\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.exe
+C:\Users\Gvozd\Source\Repos\SAAD3\Smite Auto Attack Damage\obj\Debug\Smite Auto Attack Damage.pdb

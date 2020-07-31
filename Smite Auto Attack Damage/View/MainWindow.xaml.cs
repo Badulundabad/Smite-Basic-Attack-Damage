@@ -20,7 +20,7 @@ namespace Smite_Auto_Attack_Damage
     {
         //
 
-        Stack<Build> buildsStack = new Stack<Build>();
+        readonly Stack<Build> buildsStack = new Stack<Build>();
         Build emptyBuild;
 
         public MainWindow()
@@ -159,8 +159,7 @@ namespace Smite_Auto_Attack_Damage
 
             for (int i = 0; i < 8; i++)
             {
-                Binding binding = new Binding(properties[i]);
-                binding.Source = character;
+                Binding binding = new Binding(properties[i]) { Source = character };
                 textBlocks[i].SetBinding(TextBlock.TextProperty, binding);
             }
         }
@@ -252,7 +251,7 @@ namespace Smite_Auto_Attack_Damage
         //Обработчик для сохранения билда.
 
 
-        private void saveButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        private void SaveButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             GarbageTestClass sel = god.Items.CurrentItem as GarbageTestClass;
             Build build = (e.Source as Image).DataContext as Build;
@@ -277,7 +276,7 @@ namespace Smite_Auto_Attack_Damage
         }
 
         //Обработчик для кнопки удаления билда.
-        private void deleteButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        private void DeleteButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             Build build = (e.Source as Image).DataContext as Build;
             List<Build> buildList = buildsStack.ToList<Build>();
@@ -288,7 +287,7 @@ namespace Smite_Auto_Attack_Damage
             builds.Items.Refresh();
         }
 
-        private void restoreButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        private void RestoreButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
 
         }
