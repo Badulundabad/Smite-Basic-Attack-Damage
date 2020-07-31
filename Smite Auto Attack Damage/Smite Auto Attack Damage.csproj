@@ -63,7 +63,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Calculation.cs" />
+    <Compile Include="Data.cs" />
     <Compile Include="Characteristic.cs" />
     <Compile Include="God.cs" />
     <Compile Include="Item.cs" />

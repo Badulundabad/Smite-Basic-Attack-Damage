@@ -165,7 +165,7 @@
             </Setter>
         </Style>
 
-        
+
         <Style x:Key="selectedGod" TargetType="ListBoxItem">
             <Setter Property="OverridesDefaultStyle" Value="true"/>
             <Setter Property="Height" Value="355"/>
@@ -196,35 +196,9 @@
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
-                <DataTrigger Binding="{Binding ElementName=godsItemsList, Path=Visibility}" Value="Visible">
+                <DataTrigger Binding="{Binding ElementName=listOfItems, Path=Visibility}" Value="Visible">
                     <Setter Property="Focusable" Value="False"/>
                 </DataTrigger>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="BorderBrush" Value="#C7C2AF"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="listsItem" TargetType="ListBoxItem">
-            <Setter Property="OverridesDefaultStyle" Value="true"/>
-            <Setter Property="Height" Value="32"/>
-            <Setter Property="Width" Value="32"/>
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="Image.Source" Value="{Binding ImagePath}"/>
-            <Setter Property="BorderBrush" Value="#837A5B"/>
-            <Setter Property="Focusable" Value="True"/>
-            <EventSetter Event="PreviewMouseUp" Handler="listsItem_PreviewMouseUp"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Border BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}">
-                            <Grid>
-                                <Image Source="{TemplateBinding Property=Image.Source}"/>
-                            </Grid>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="BorderBrush" Value="#C7C2AF"/>
                 </Trigger>
@@ -296,12 +270,26 @@
                             </Setter.Value>
                         </Setter>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=godsItemsList, Path=Visibility}" Value="Visible">
-                                <Setter Property="Focusable" Value="False"/>
+                            <DataTrigger Binding="{Binding ElementName=listOfItems, Path=Visibility}" Value="Visible">
+                                <Setter Property="Tag" Value="yes"/>
                             </DataTrigger>
-                            <Trigger Property="IsMouseOver" Value="True">
+                            <DataTrigger Binding="{Binding ElementName=listOfItems, Path=Visibility}" Value="Collapsed">
+                                <Setter Property="Tag" Value="no"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=listOfItems, Path=Visibility}" Value="Visible">
+                                <Setter Property="Tag" Value="yes"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=listOfItems, Path=Visibility}" Value="Collapsed">
+                                <Setter Property="Tag" Value="no"/>
+                            </DataTrigger>
+                            
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Tag" Value="no"/>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                </MultiTrigger.Conditions>
                                 <Setter Property="BorderBrush" Value="#C7C2AF"/>
-                            </Trigger>
+                            </MultiTrigger>
                         </Style.Triggers>
                     </Style>
                 </Setter.Value>
@@ -329,11 +317,15 @@
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
-                <DataTrigger Binding="{Binding ElementName=god, Path=SelectedIndex}" Value="0">
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding ElementName=god, Path=SelectedIndex}" Value="0"/>
+                        <Condition Binding="{Binding ElementName=listOfItems, Path=Visibility}" Value="Collapsed"/>
+                    </MultiDataTrigger.Conditions>
                     <Setter Property="Visibility" Value="Visible"/>
-                </DataTrigger>
+                </MultiDataTrigger>
                 <DataTrigger Binding="{Binding ElementName=god, Path=SelectedIndex}" Value="-1">
-                    <Setter Property="Visibility" Value="Hidden"/>
+                    <Setter Property="Visibility" Value="Collapsed"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -374,7 +366,8 @@
                         <Setter Property="BorderBrush" Value="#837A5B"/>
                         <Setter Property="Foreground" Value="Transparent"/>
                         <Setter Property="Image.Source" Value="{Binding ImagePath}"/>
-                        <EventSetter Event="PreviewMouseUp" Handler="selectedItem_PreviewMouseUp"/>
+                        <EventSetter Event="MouseLeftButtonUp" Handler="SixItemsOfAttacker_MouseLeftButtonUp"/>
+                        <EventSetter Event="MouseRightButtonUp" Handler="SixItemsOfAttacker_MouseRightButtonUp"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="ListBoxItem">
@@ -402,7 +395,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="godsItemsList_Style" TargetType="ListBox">
+        <Style x:Key="listOfItems_Style" TargetType="ListBox">
             <Setter Property="Visibility" Value="Collapsed"/>
             <Setter Property="Height" Value="275"/>
             <Setter Property="Width" Value="231"/>
@@ -421,7 +414,7 @@
                         <Setter Property="Image.Source" Value="{Binding ImagePath, UpdateSourceTrigger=PropertyChanged}"/>
                         <Setter Property="BorderBrush" Value="#837A5B"/>
                         <Setter Property="Focusable" Value="True"/>
-                        <EventSetter Event="PreviewMouseUp" Handler="listsItem_PreviewMouseUp"/>
+                        <EventSetter Event="PreviewMouseUp" Handler="ItemOfList_PreviewMouseUp"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="ListBoxItem">
@@ -452,7 +445,7 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Style.Triggers>
+            <!--<Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=godsItem1, Path=IsSelected}" Value="True">
                     <Setter Property="Visibility" Value="Visible"/>
                 </DataTrigger>
@@ -471,7 +464,7 @@
                 <DataTrigger Binding="{Binding ElementName=godsItem6, Path=IsSelected}" Value="true">
                     <Setter Property="Visibility" Value="Visible"/>
                 </DataTrigger>
-            </Style.Triggers>
+            </Style.Triggers>-->
         </Style>
 
         <Style x:Key="buildItems_Style" TargetType="ListBoxItem">
@@ -597,8 +590,8 @@
             <Grid>
                 <ListBox x:Name="god" Style="{StaticResource god_Style}"/>
                 <ListBox x:Name="sixItemsOfAttacker" Style="{StaticResource godsSelectedItems_Style}"/>
+                <ListBox x:Name="listOfItems" Style="{StaticResource listOfItems_Style}"/>
                 <ListBox x:Name="listOfGods" Style="{StaticResource listOfGods_Style}"/>
-                <ListBox x:Name="godsItemsList" Style="{StaticResource godsItemsList_Style}"/>
             </Grid>
             <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,0">
                 <TextBlock Margin="0,5,0,0" Text="Level" Style="{StaticResource font_Style}"/>
@@ -717,13 +710,7 @@
                         </Style>
                     </ListBox.Resources>
                 </ListBox>
-                <ListBox x:Name="targetsItemsList" Style="{StaticResource godsItemsList_Style}">
-                    <ListBox.Resources>
-                        <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource listsItem}">
-                            <EventSetter Event="PreviewMouseUp" Handler="listsItem_PreviewMouseUp"/>
-                        </Style>
-                    </ListBox.Resources>
-                </ListBox>
+
             </Grid>
             <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,0">
                 <TextBlock Margin="0,5,0,0" Text="Level" Style="{StaticResource font_Style}"/>
