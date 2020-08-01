@@ -1,11 +1,8 @@
 ﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace Smite_Auto_Attack_Damage
 {
@@ -19,7 +16,7 @@ namespace Smite_Auto_Attack_Damage
         int mana = 0;
         int health = 0;
 
-        byte power = 0;
+        int power = 0;
         byte magicalProtections = 0;
         byte physicalProtections = 0;
         byte flatPenetration = 0;
@@ -42,7 +39,7 @@ namespace Smite_Auto_Attack_Damage
 
         public Item
         (
-            int id, byte power, double attackSpeed, string description, string imagePath, string method,
+            int id, int power, double attackSpeed, string description, string imagePath, string method,
             int mana, int health, byte magicalProtections, byte physicalProtections, byte flatPenetration,
             byte flatReduction, double critChance, byte lifeSteal, byte cooldownReduction, byte movementSpeed,
             byte crowdControlReduction, byte mp5, byte hp5, double percentagePenetration, double percentageReduction
@@ -69,6 +66,73 @@ namespace Smite_Auto_Attack_Damage
             Hp5 = hp5;
             PercentagePenetration = percentagePenetration;
             PercentageReduction = percentageReduction;
+        }
+        public static void SetItem(ListBoxItem container, ListBox sixItemsListBox, ObservableCollection<Item> sixItemsCollection, ListBox listOfItems)
+        {
+            var item = (Item)container.DataContext;
+            //После выбора предмета тот переносится в текущий слот, и выделяется самый левый слот из содержащих нулевой предмет
+            if (!Data.SixItemsOfAttacker.Contains(item))
+            {
+                Data.ResultingItemOfAttacker += item;
+                sixItemsCollection[sixItemsListBox.SelectedIndex] = item;
+                sixItemsListBox.SelectedIndex = sixItemsCollection.IndexOf(Data.ZeroItem);
+                //При отсутствии свободных слотов закрывает список предметов и снимает выделение со слотов
+                if (!sixItemsCollection.Contains(Data.ZeroItem))
+                {
+                    listOfItems.Visibility = Visibility.Collapsed;
+                    sixItemsListBox.SelectedIndex = -1;
+                }
+            }
+
+        }
+        public static void RemoveItem(ListBoxItem container, ListBox sixItemsListBox, ObservableCollection<Item> sixItemsCollection, ListBox listOfItems)
+        {
+            int i = sixItemsCollection.IndexOf((Item)container.DataContext);
+            if (sixItemsListBox.SelectedIndex > -1)
+            {
+                var item = (Item)container.DataContext;
+                if (item != Data.ZeroItem)
+                {
+                    Data.ResultingItemOfAttacker -= item;
+                }
+                sixItemsCollection[sixItemsListBox.SelectedIndex] = Data.ZeroItem;
+            }
+            if (listOfItems.Visibility == Visibility.Visible)
+            {
+                sixItemsListBox.SelectedIndex = i;
+            }
+        }
+        public static Item operator +(Item first, Item second)
+        {
+            first.Power += second.Power;
+            first.AttackSpeed += second.AttackSpeed;
+            first.Mana += second.Mana;
+            first.Health += second.Health;
+            first.MagicalProtections += second.MagicalProtections;
+            first.PhysicalProtections += second.PhysicalProtections;
+            first.FlatPenetration += second.FlatPenetration;
+            first.FlatReduction += second.FlatReduction;
+            first.CritChance += second.CritChance;
+            first.LifeSteal += second.LifeSteal;
+            first.PercentagePenetration += second.PercentagePenetration;
+            first.PercentageReduction += second.PercentageReduction;
+            return first;
+        }
+        public static Item operator -(Item first, Item second)
+        {
+            first.Power -= second.Power;
+            first.AttackSpeed -= second.AttackSpeed;
+            first.Mana -= second.Mana;
+            first.Health -= second.Health;
+            first.MagicalProtections -= second.MagicalProtections;
+            first.PhysicalProtections -= second.PhysicalProtections;
+            first.FlatPenetration -= second.FlatPenetration;
+            first.FlatReduction -= second.FlatReduction;
+            first.CritChance -= second.CritChance;
+            first.LifeSteal -= second.LifeSteal;
+            first.PercentagePenetration -= second.PercentagePenetration;
+            first.PercentageReduction -= second.PercentageReduction;
+            return first;
         }
         public string Description
         {
@@ -171,7 +235,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        public byte Power
+        public int Power
         {
             get
             {
@@ -233,13 +297,13 @@ namespace Smite_Auto_Attack_Damage
             }
             set
             {
-                if (value >= 0 && value <= 15)
+                if (value >= 0 && value <= 100)
                 {
                     flatPenetration = value;
                 }
                 else
                 {
-                    throw new ArgumentException("Value cannot be negative", "FlatPenetration");
+                    throw new ArgumentException("Value must be in the range from 0 to 100", "FlatPenetration");
                 }
             }
         }
@@ -251,13 +315,13 @@ namespace Smite_Auto_Attack_Damage
             }
             set
             {
-                if (value >= 0 && value <= 25)
+                if (value >= 0 && value <= 100)
                 {
                     flatReduction = value;
                 }
                 else
                 {
-                    throw new ArgumentException("Value must be in the range from 0 to 25", "FlatReduction");
+                    throw new ArgumentException("Value must be in the range from 0 to 100", "FlatReduction");
                 }
             }
         }
@@ -413,7 +477,7 @@ namespace Smite_Auto_Attack_Damage
             }
             set
             {
-                if (value >= 0 && value <= 0.2)
+                if (value >= 0 && value <= 1)
                 {
                     percentagePenetration = value;
                 }
@@ -431,9 +495,9 @@ namespace Smite_Auto_Attack_Damage
             }
             set
             {
-                if (value >= 0 && value <= 0.5)
+                if (value >= 0 && value <= 1)
                 {
-
+                    percentageReduction = value;
                 }
                 else
                 {

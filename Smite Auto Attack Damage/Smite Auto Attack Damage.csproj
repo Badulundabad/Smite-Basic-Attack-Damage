@@ -55,7 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="View\MainWindow.xaml">
+    <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -63,13 +63,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Calculation.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="Characteristic.cs" />
     <Compile Include="God.cs" />
     <Compile Include="Item.cs" />
-    <Compile Include="Model\Build.cs" />
-    <Compile Include="Model\GarbageTestClass.cs" />
-    <Compile Include="View\MainWindow.xaml.cs">
+    <Compile Include="Build.cs" />
+    <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -102,12 +102,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Gods\rama.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Gods\chaac.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\Stats\power.png" />
     <Resource Include="Images\Stats\attackSpeed.png" />
     <Resource Include="Images\Stats\baseDamage.png" />
@@ -116,9 +110,6 @@
     <Resource Include="Images\Stats\mana.png" />
     <Resource Include="Images\Stats\physicalPenetration.png" />
     <Resource Include="Images\Stats\physicalProtection.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Gods\sylvanus.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\test.png" />
@@ -142,18 +133,6 @@
     <Resource Include="Images\Build\delete_bright.png" />
     <Resource Include="Images\Build\restore_bright.png" />
     <Resource Include="Images\Build\save_bright.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Items\heartseeker.png" />
-    <Resource Include="Images\Items\soulreaver.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Gods\hachiman.jpg" />
-    <Resource Include="Images\Gods\zeus.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\GodIcons\hachiman-mini.jpg" />
-    <Resource Include="Images\GodIcons\zeus - mini.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\God\Preview\fullLogo.png" />
@@ -192,6 +171,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Item\VoidShield.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Stats\critChance.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

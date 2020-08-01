@@ -229,6 +229,7 @@ namespace Smite_Auto_Attack_Damage
                 if (value >= 0 && value <= 20)
                 {
                     level = value;
+                    OnPropertyChanged("Level");
                 }
                 else
                 {
@@ -387,8 +388,7 @@ namespace Smite_Auto_Attack_Damage
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }

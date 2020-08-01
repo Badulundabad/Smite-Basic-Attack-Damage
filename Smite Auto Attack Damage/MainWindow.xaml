@@ -1,0 +1,845 @@
+﻿<Window x:Class="Smite_Auto_Attack_Damage.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Smite_Auto_Attack_Damage"
+        mc:Ignorable="d"
+        PreviewMouseUp="Window_PreviewMouseUp"
+        Title="Smite: Basic attack damage" Height="670" Width="1000" Background="#071425" ResizeMode="NoResize">
+
+    <Window.Resources>
+        <Style x:Key="font_Style" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="/Fonts/Penumbra.ttf #Penumbra HalfSerif Std"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="border_Style" TargetType="Border">
+            <Setter Property="BorderBrush" Value="#837A5B"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <Style x:Key="slider_Style" TargetType="{x:Type Slider}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Slider}">
+                        <Grid VerticalAlignment="Center">
+                            <Border x:Name="borderBackground" Margin="6,0" Height="4" Background="Gray" />
+                            <Canvas Margin="0,-4,0,0" VerticalAlignment="Center">
+                                <Border x:Name="PART_SelectionRange" HorizontalAlignment="Left" Height="4" Background="{TemplateBinding Foreground}" />
+                            </Canvas>
+                            <Track x:Name="PART_Track">
+                                <Track.Thumb>
+                                    <Thumb Width="10" Height="20" />
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="IsSelectionRangeEnabled" Value="True" />
+            <Setter Property="SelectionStart" Value="{Binding Minimum, RelativeSource={RelativeSource Self}}" />
+            <Setter Property="SelectionEnd" Value="{Binding Value, RelativeSource={RelativeSource Self}}" />
+            <Setter Property="Foreground" Value="#837A5B" />
+            <Setter Property="IsSnapToTickEnabled" Value="True"/>
+            <Setter Property="TickFrequency" Value="1"/>
+            <Setter Property="Margin" Value="0,5,0,5"/>
+            <Setter Property="Width" Value="230"/>
+            <Setter Property="Minimum" Value="0"/>
+            <Setter Property="Maximum" Value="20"/>
+            <Setter Property="Value" Value="10"/>
+            <Setter Property="Orientation" Value="Horizontal"/>
+        </Style>
+        <Style TargetType="ScrollViewer">
+            <Style.Resources>
+                <Style x:Key="ScrollBarThumbStyle" TargetType="Thumb">
+                    <Setter Property="IsTabStop" Value="False" />
+                    <Setter Property="Focusable" Value="False" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Thumb">
+                                <Image Source="/Images/ScrollBar/Thumb.png"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+                <Style x:Key="ScrollBarPageButtonStyle" TargetType="RepeatButton">
+                    <Setter Property="IsTabStop" Value="False" />
+                    <Setter Property="Focusable" Value="False" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="RepeatButton">
+                                <Border Background="#273445" />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+                <Style x:Key="ScrollBarLineButtonStyle" TargetType="RepeatButton">
+                    <Setter Property="Focusable" Value="False" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="RepeatButton"/>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+                <ControlTemplate x:Key="scroll" TargetType="ScrollBar">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="2" />
+                        </Grid.RowDefinitions>
+                        <RepeatButton Grid.Row="0" Style="{StaticResource ScrollBarLineButtonStyle}" 
+                              Command="ScrollBar.LineUpCommand">
+                        </RepeatButton>
+                        <Track Grid.Row="1" ViewportSize="NaN" IsDirectionReversed="True" x:Name="PART_Track">
+                            <Track.DecreaseRepeatButton>
+                                <RepeatButton Command="ScrollBar.PageUpCommand" Style="{StaticResource ScrollBarPageButtonStyle}">
+
+                                </RepeatButton>
+                            </Track.DecreaseRepeatButton>
+                            <Track.Thumb>
+                                <Thumb Height="15" Style="{StaticResource ScrollBarThumbStyle}" />
+                            </Track.Thumb>
+                            <Track.IncreaseRepeatButton>
+                                <RepeatButton Command="ScrollBar.PageDownCommand"  Style="{StaticResource ScrollBarPageButtonStyle}">
+
+                                </RepeatButton>
+                            </Track.IncreaseRepeatButton>
+                        </Track>
+                        <RepeatButton Grid.Row="3" Style="{StaticResource ScrollBarLineButtonStyle}" 
+                              Command="{x:Static ScrollBar.LineDownCommand}">
+                        </RepeatButton>
+                    </Grid>
+                </ControlTemplate>
+            </Style.Resources>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollViewer">
+                        <Grid Background="{TemplateBinding Background}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <ScrollContentPresenter x:Name="ScrollContentPresenter"
+                                                  Cursor="{TemplateBinding Cursor}"
+                                                  Margin="{TemplateBinding Padding}"
+                                                  ContentTemplate="{TemplateBinding ContentTemplate}"/>
+
+                            <Rectangle Grid.Column="1" Grid.Row="1" Fill="Transparent"/>
+
+                            <ScrollBar Name="PART_VerticalScrollBar" 
+                                           Width="10"
+                                           IsTabStop="False"
+                                           Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+                                           Grid.Column="1" Grid.Row="0" Orientation="Vertical"
+                                           ViewportSize="{TemplateBinding ViewportHeight}"
+                                           Maximum="{TemplateBinding ScrollableHeight}"
+                                           Minimum="0"
+                                           Value="{TemplateBinding VerticalOffset}"
+                                           Margin="0,0,1,0" 
+                                           Template="{StaticResource scroll}"
+                                           SnapsToDevicePixels="True" 
+                                           OverridesDefaultStyle="True"/>
+
+                            <ScrollBar Name="PART_HorizontalScrollBar" Height="15"
+                                     IsTabStop="False"
+                                     Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+                                     Grid.Column="0" Grid.Row="1" Orientation="Horizontal"
+                                     ViewportSize="{TemplateBinding ViewportWidth}"
+                                     Maximum="{TemplateBinding ScrollableWidth}"
+                                     Minimum="0"
+                                     Value="{TemplateBinding HorizontalOffset}"
+                                     Margin="-1,0,-1,-1"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style x:Key="selectedGod" TargetType="ListBoxItem">
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Height" Value="355"/>
+            <Setter Property="Width" Value="246"/>
+            <Setter Property="BorderBrush" Value="#837A5B"/>
+            <Setter Property="Foreground" Value="Transparent"/>
+            <Setter Property="Image.Source" Value="{Binding PreviewPath}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="325"/>
+                                    <RowDefinition Height="30"/>
+                                </Grid.RowDefinitions>
+                                <Image Grid.Row="0" Grid.RowSpan="1" 
+                                       Source="{TemplateBinding Property=Image.Source}"/>
+                                <Border Grid.Row="1" BorderBrush="{TemplateBinding BorderBrush}" 
+                                        BorderThickness="0,1,0,0">
+                                    <TextBlock Text="{Binding Name}" 
+                                               Style="{StaticResource font_Style}"/>
+                                </Border>
+                                <ContentPresenter/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=listOfItems, Path=Visibility}" Value="Visible">
+                    <Setter Property="Focusable" Value="False"/>
+                </DataTrigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#C7C2AF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ListOfGodsItem_style" TargetType="ListBoxItem">
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Height" Value="48"/>
+            <Setter Property="Width" Value="48"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Image.Source" Value="{Binding IconPath}"/>
+            <Setter Property="BorderBrush" Value="#837A5B"/>
+            <EventSetter Event="PreviewMouseUp" Handler="ListOfGods_PreviewMouseUp"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1">
+                            <Grid>
+                                <Image Source="{TemplateBinding Property=Image.Source}"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#C7C2AF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="god_Style" TargetType="ListBox">
+            <Setter Property="Height" Value="355"/>
+            <Setter Property="Width" Value="246"/>
+            <Setter Property="BorderBrush" Value="Blue"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBox">
+                        <WrapPanel IsItemsHost="True"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="OverridesDefaultStyle" Value="true"/>
+                        <Setter Property="Height" Value="355"/>
+                        <Setter Property="Width" Value="246"/>
+                        <Setter Property="BorderBrush" Value="#837A5B"/>
+                        <Setter Property="Foreground" Value="Transparent"/>
+                        <Setter Property="Image.Source" Value="{Binding PreviewPath}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="325"/>
+                                                <RowDefinition Height="30"/>
+                                            </Grid.RowDefinitions>
+                                            <Image Grid.Row="0" Grid.RowSpan="1" Source="{TemplateBinding Property=Image.Source}"/>
+                                            <Border Grid.Row="1" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,1,0,0">
+                                                <TextBlock Text="{Binding Name}" Style="{StaticResource font_Style}"/>
+                                            </Border>
+                                            <ContentPresenter/>
+                                        </Grid>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=listOfItems, Path=Visibility}" Value="Visible">
+                                <Setter Property="Tag" Value="yes"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=listOfItems, Path=Visibility}" Value="Hidden">
+                                <Setter Property="Tag" Value="no"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=listOfItems, Path=Visibility}" Value="Collapsed">
+                                <Setter Property="Tag" Value="no"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=listOfGods, Path=Visibility}" Value="Visible">
+                                <Setter Property="Tag" Value="yes"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=listOfGods, Path=Visibility}" Value="Collapsed">
+                                <Setter Property="Tag" Value="no"/>
+                            </DataTrigger>
+                            
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Tag" Value="no"/>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="BorderBrush" Value="#C7C2AF"/>
+                            </MultiTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="listOfGods_Style" TargetType="ListBox">
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Setter Property="Height" Value="317"/>
+            <Setter Property="Width" Value="231"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,4,0,0"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+            <Setter Property="ItemContainerStyle" Value="{StaticResource ListOfGodsItem_style}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBox">
+                        <Border Style="{StaticResource border_Style}">
+                            <ScrollViewer Focusable="false" Background="#071425">
+                                <WrapPanel IsItemsHost="True"/>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding ElementName=god, Path=SelectedIndex}" Value="0"/>
+                        <Condition Binding="{Binding ElementName=listOfItems, Path=Visibility}" Value="Collapsed"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Visibility" Value="Visible"/>
+                </MultiDataTrigger>
+                <DataTrigger Binding="{Binding ElementName=god, Path=SelectedIndex}" Value="-1">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="godsSelectedItems_Style" TargetType="ListBox">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=listOfGods, Path=IsVisible}" Value="True">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=listOfGods, Path=IsVisible}" Value="False">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="238"/>
+            <Setter Property="Margin" Value="0,0,0,30"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Visibility" Value="Visible"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBox">
+                        <ScrollViewer Focusable="false">
+                            <WrapPanel IsItemsHost="True"/>
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="OverridesDefaultStyle" Value="true"/>
+                        <Setter Property="Height" Value="36"/>
+                        <Setter Property="Width" Value="36"/>
+                        <Setter Property="Margin" Value="3,0,0,0"/>
+                        <Setter Property="BorderBrush" Value="#837A5B"/>
+                        <Setter Property="Foreground" Value="Transparent"/>
+                        <Setter Property="Image.Source" Value="{Binding ImagePath}"/>
+                        <EventSetter Event="MouseLeftButtonUp" Handler="SixItemsOfAttacker_MouseLeftButtonUp"/>
+                        <EventSetter Event="MouseRightButtonUp" Handler="SixItemsOfAttacker_MouseRightButtonUp"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border x:Name="border" BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}">
+                                        <Grid>
+                                            <Image Source="{TemplateBinding Property=Image.Source}"/>
+                                            <ContentPresenter/>
+                                        </Grid>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="BorderBrush" Value="#C7C2AF"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter Property="BorderBrush" Value="#837A5B"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="#C7C2AF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="listOfItems_Style" TargetType="ListBox">
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Setter Property="Height" Value="275"/>
+            <Setter Property="Width" Value="231"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,4,0,0"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="OverridesDefaultStyle" Value="true"/>
+                        <Setter Property="Height" Value="32"/>
+                        <Setter Property="Width" Value="32"/>
+                        <Setter Property="Margin" Value="2"/>
+                        <Setter Property="Image.Source" Value="{Binding ImagePath, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Setter Property="BorderBrush" Value="#837A5B"/>
+                        <Setter Property="Focusable" Value="True"/>
+                        <EventSetter Event="PreviewMouseUp" Handler="ItemOfList_PreviewMouseUp"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}">
+                                        <Grid>
+                                            <Image Source="{TemplateBinding Property=Image.Source}"/>
+                                        </Grid>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="#C7C2AF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBox">
+                        <Border Style="{StaticResource border_Style}">
+                            <ScrollViewer Focusable="false" Background="#071425">
+                                <WrapPanel IsItemsHost="True"/>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <!--<Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=godsItem1, Path=IsSelected}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=godsItem2, Path=IsSelected}" Value="true">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=godsItem3, Path=IsSelected}" Value="true">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=godsItem4, Path=IsSelected}" Value="true">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=godsItem5, Path=IsSelected}" Value="true">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=godsItem6, Path=IsSelected}" Value="true">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>-->
+        </Style>
+
+        <Style x:Key="buildItems_Style" TargetType="ListBoxItem">
+            <Setter Property="Width" Value="428"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="Margin" Value="2,2,0,0"/>
+            <Setter Property="BorderBrush" Value="#837A5B"/>
+            <Setter Property="Image.Source" Value="/Images/Build/save.png"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="428" BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}"
+                                Background="#071425">
+                            <Grid Height="60" Width="428">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="34"/>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="34"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="20"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20"/>
+                                    <RowDefinition Height="20"/>
+                                    <RowDefinition Height="20"/>
+                                </Grid.RowDefinitions>
+                                <Border Grid.RowSpan="3" BorderBrush="#837A5B" BorderThickness="0,0,1,0">
+                                    <Image Source="{Binding GodImagePath}"/>
+                                </Border>
+                                <TextBlock Grid.Column="2" Grid.ColumnSpan="6" 
+                                           Text="{Binding BuildName}" 
+                                           Style="{StaticResource font_Style}"/>
+                                <Border Height="40" Width="40" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" 
+                                        BorderBrush="#837A5B" BorderThickness="1" HorizontalAlignment="Center">
+                                    <Image Source="{Binding Item0ImagePath}"/>
+                                </Border>
+                                <Border Height="40" Width="40" Grid.Row="1" Grid.RowSpan="2" Grid.Column="3" 
+                                        BorderBrush="#837A5B" BorderThickness="1" HorizontalAlignment="Center">
+                                    <Image Source="{Binding Item1ImagePath}"/>
+                                </Border>
+                                <Border Height="40" Width="40" Grid.Row="1" Grid.RowSpan="2" Grid.Column="4" 
+                                        BorderBrush="#837A5B" BorderThickness="1" HorizontalAlignment="Center">
+                                    <Image Source="{Binding Item2ImagePath}"/>
+                                </Border>
+                                <Border Height="40" Width="40" Grid.Row="1" Grid.RowSpan="2" Grid.Column="5" 
+                                        BorderBrush="#837A5B" BorderThickness="1" HorizontalAlignment="Center">
+                                    <Image Source="{Binding Item3ImagePath}"/>
+                                </Border>
+                                <Border Height="40" Width="40" Grid.Row="1" Grid.RowSpan="2" Grid.Column="6" 
+                                        BorderBrush="#837A5B" BorderThickness="1" HorizontalAlignment="Center">
+                                    <Image Source="{Binding Item4ImagePath}"/>
+                                </Border>
+                                <Border Height="40" Width="40" Grid.Row="1" Grid.RowSpan="2" Grid.Column="7" 
+                                        BorderBrush="#837A5B" BorderThickness="1" HorizontalAlignment="Center">
+                                    <Image Source="{Binding Item5ImagePath}"/>
+                                </Border>
+                                <Image x:Name="saveButton" Height="15" Width="15" Grid.Column="9" 
+                                       Source="/Images/Build/save.png" PreviewMouseUp="SaveButton_PreviewMouseUp"/>
+                                <Image x:Name="restoreButton" Height="15" Width="15" Grid.Column="10" 
+                                       Source="/Images/Build/restore.png" PreviewMouseUp="RestoreButton_PreviewMouseUp"/>
+                                <Image x:Name="deleteButton" Height="15" Width="15" Grid.Column="11" 
+                                       Source="/Images/Build/delete.png" PreviewMouseUp="DeleteButton_PreviewMouseUp"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger SourceName="saveButton" Property="IsMouseOver" Value="True">
+                                <Setter TargetName="saveButton" Property="Source" Value="/Images/Build/save_bright.png"/>
+                            </Trigger>
+                            <Trigger SourceName="restoreButton" Property="IsMouseOver" Value="True">
+                                <Setter TargetName="restoreButton" Property="Source" Value="/Images/Build/restore_bright.png"/>
+                            </Trigger>
+                            <Trigger SourceName="deleteButton" Property="IsMouseOver" Value="True">
+                                <Setter TargetName="deleteButton" Property="Source" Value="/Images/Build/delete_bright.png"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#C7C2AF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="builds_Style" TargetType="ListBox">
+            <Setter Property="Height" Value="137"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBox">
+                        <Border BorderBrush="#837A5B" BorderThickness="1">
+                            <ScrollViewer Focusable="false">
+                                <WrapPanel IsItemsHost="True"/>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="characteristics" TargetType="ListBox">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0*"/>
+                                            <ColumnDefinition Width="90"/>
+                                            <ColumnDefinition Width="30"/>
+                                            <ColumnDefinition Width="90"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="113"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Image Source="/Images/Stats/power.png" Width="24" Height="24" Grid.Row="1"/>
+                                            <Image Source="/Images/Stats/baseDamage.png" Width="24" Height="24"/>
+                                            <Image Source="/Images/Stats/physicalProtection.png" Width="24" Height="24" Grid.Row="2"/>
+                                            <Image Source="/Images/Stats/health.png" Width="24" Height="24" Grid.Row="3"/>
+                                            <TextBlock Text="{Binding Power, StringFormat=0}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                                            <TextBlock Text="{Binding BaseDamage, StringFormat=0}" Grid.Column="1" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                                            <TextBlock Text="{Binding PhysicalProtections, StringFormat=0}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                                            <TextBlock Text="{Binding Health, StringFormat=0}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                                        </Grid>
+                                        <Grid Grid.Column="3">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Image Source="/Images/Stats/magicalProtection.png" Width="24" Height="24" Grid.Row="2"/>
+                                            <Image Source="/Images/Stats/attackSpeed.png" Width="24" Height="24" Grid.Row="0"/>
+                                            <Image Source="/Images/Stats/mana.png" Width="24" Height="24" Grid.Row="3"/>
+                                            <Image Source="/Images/Stats/critChance.png" Width="24" Height="24" Grid.Row="1"/>
+                                            <TextBlock Text="{Binding CritChance}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                                            <TextBlock Text="{Binding MagicalProtections, StringFormat=0}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                                            <TextBlock Text="{Binding AttackSpeed, StringFormat= 0.00}" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                                            <TextBlock Text="{Binding Mana, StringFormat=0}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                                        </Grid>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+
+    <Grid Margin="12">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="246"/>
+            <ColumnDefinition />
+            <ColumnDefinition Width="246"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <Border Style="{StaticResource border_Style}" BorderThickness="1,1,1,0">
+                <TextBlock Text="A t t a c k e r" Style="{StaticResource font_Style}"/>
+            </Border>
+            <Grid>
+                <ListBox x:Name="god" Style="{StaticResource god_Style}"/>
+                <ListBox x:Name="sixItemsOfAttacker" Style="{StaticResource godsSelectedItems_Style}"/>
+                <ListBox x:Name="listOfItems" Style="{StaticResource listOfItems_Style}"/>
+                <ListBox x:Name="listOfGods" Style="{StaticResource listOfGods_Style}"/>
+            </Grid>
+            <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,0">
+                <TextBlock Margin="0,5,0,0" Text="Level" Style="{StaticResource font_Style}"/>
+            </Border>
+            <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,0">
+                <Slider x:Name="attackerLevelSlider" Style="{StaticResource slider_Style}" ValueChanged="AttackerLevelSlider_ValueChanged" Value="{Binding ElementName=levelOfAttacker, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+            </Border>
+            <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,1">
+                <TextBlock Style="{StaticResource font_Style}" Text="0" Name="levelOfAttacker"/>
+            </Border>
+            <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,1" Padding="10, 10, 10, 9" Height="134">
+                <ListBox x:Name="characteristicsOfAttacker" Style="{StaticResource characteristics}"/>
+            </Border>
+            
+        </StackPanel>
+        <StackPanel Grid.Column="2">
+            <Border Style="{StaticResource border_Style}" BorderThickness="1,1,1,0">
+                <TextBlock Text="T a r g e t" Style="{StaticResource font_Style}"/>
+            </Border>
+            <Grid>
+                <ListBox x:Name="target" Style="{StaticResource god_Style}">
+                    <ListBox.Resources>
+                        <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource selectedGod}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=targetsItemsList, 
+                                    Path=Visibility}" Value="Visible">
+                                    <Setter Property="Focusable" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.Resources>
+                </ListBox>
+                <ListBox x:Name="targetsItems">
+                    <ListBox.Resources>
+                        <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource godsSelectedItems_Style}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=targetsList, Path=IsVisible}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=targetsList, Path=IsVisible}" Value="False">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                        <!--<Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource selectedItem}">
+                            <EventSetter Event="PreviewMouseUp" Handler="selectedItem_PreviewMouseUp"/>
+                        </Style>-->
+                    </ListBox.Resources>
+                </ListBox>
+                <ListBox x:Name="targetsList">
+                    <ListBox.Resources>
+                        <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource listOfGods_Style}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=target, Path=SelectedIndex}" 
+                                             Value="0">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=target, Path=SelectedIndex}" 
+                                             Value="-1">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                        <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource ListOfGodsItem_style}">
+                            <EventSetter Event="PreviewMouseUp" Handler="ListOfGods_PreviewMouseUp"/>
+                        </Style>
+                    </ListBox.Resources>
+                </ListBox>
+
+            </Grid>
+            <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,0">
+                <TextBlock Margin="0,5,0,0" Text="Level" Style="{StaticResource font_Style}"/>
+            </Border>
+            <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,0">
+                <Slider Margin="0,5,0,5" x:Name="targetLevelSlider" Width="230" Style="{StaticResource slider_Style}" Minimum="0" Maximum="20" Value="10" Orientation="Horizontal"/>
+            </Border>
+            <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,1">
+                <TextBlock Style="{StaticResource font_Style}" Text="{Binding ElementName=targetLevelSlider, Path=Value, UpdateSourceTrigger=PropertyChanged, StringFormat=0}"/>
+            </Border>
+            <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,1" Padding="10, 10, 10, 9">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="0.05*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="113"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image Source="/Images/Stats/baseDamage.png" Width="24" Height="24"/>
+                        <Image Source="/Images/Stats/physicalProtection.png" Width="24" Height="24" Grid.Row="1"/>
+                        <Image Source="/Images/Stats/physicalPenetration.png" Width="24" Height="24" Grid.Row="2"/>
+                        <Image Source="/Images/Stats/health.png" Width="24" Height="24" Grid.Row="3"/>
+                        <TextBlock Name="baseDamageTextBlock_target" Text="Bla" Grid.Column="1" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                        <TextBlock Name="physicalProtectionsTextBlock_target" Text="Bla" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                        <TextBlock Name="penetrationTextBlock_target" Text="Bla" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                        <TextBlock Name="healthTextBlock_target" Text="Bla" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image Source="/Images/Stats/power.png" Width="24" Height="24"/>
+                        <Image Source="/Images/Stats/magicalProtection.png" Width="24" Height="24" Grid.Row="1"/>
+                        <Image Source="/Images/Stats/attackSpeed.png" Width="24" Height="24" Grid.Row="2"/>
+                        <Image Source="/Images/Stats/mana.png" Width="24" Height="24" Grid.Row="3"/>
+                        <TextBlock Name="powerTextBlock_target" Text="Bla" Grid.Column="1" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                        <TextBlock Name="magicalProtectionsTextBlock_target" Text="Bla" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                        <TextBlock Name="attackSpeedTextBlock_target" Text="Bla" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                        <TextBlock Name="manaTextBlock_target" Text="Bla" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Style="{StaticResource font_Style}"/>
+                    </Grid>
+                </Grid>
+            </Border>
+        </StackPanel>
+        <Grid Grid.Column="1" Margin="12,0,12,0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <TextBlock x:Name="somethingTextBlock" Height="50" Background="white" Foreground="black" FontSize="20"/>
+                <Button x:Name="TestButton" Click="TestButton_Click" Height="50"/>
+                <Button Name="TestButton2" Click="TestButton2_Click" Height="50"/>
+            </StackPanel>
+            <Border Grid.Row="1" Padding="2" BorderBrush="#837A5B" BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock VerticalAlignment="Center" Style="{StaticResource font_Style}" Text="SNCD"/>
+                    <TextBlock VerticalAlignment="Center" Grid.Column="1" Style="{StaticResource font_Style}" Text="SCD"/>
+                    <TextBlock VerticalAlignment="Center" Grid.Column="2" Style="{StaticResource font_Style}" Text="GAD"/>
+                    <TextBlock VerticalAlignment="Center" Grid.Column="3" Style="{StaticResource font_Style}" Text="ANCD"/>
+                    <TextBlock VerticalAlignment="Center" Grid.Column="4" Style="{StaticResource font_Style}" Text="ACD"/>
+                    <TextBlock VerticalAlignment="Center" Grid.Row="1" Style="{StaticResource font_Style}" Text="100"/>
+                    <TextBlock VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Style="{StaticResource font_Style}" Text="200"/>
+                    <TextBlock VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Style="{StaticResource font_Style}" Text="300"/>
+                    <TextBlock VerticalAlignment="Center" Grid.Row="1" Grid.Column="3" Style="{StaticResource font_Style}" Text="400"/>
+                    <TextBlock VerticalAlignment="Center" Grid.Row="1" Grid.Column="4" Style="{StaticResource font_Style}" Text="500"/>
+                </Grid>
+            </Border>
+            <ListBox x:Name="builds" Grid.Row="2" Style="{StaticResource builds_Style}">
+                <ListBox.Resources>
+                    <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource buildItems_Style}">
+                    </Style>
+                </ListBox.Resources>
+            </ListBox>
+        </Grid>
+    </Grid>
+</Window>
+<!-- FontFamily="/Fonts/Penumbra.ttf #Penumbra HalfSerif Std" -->
+<!--  BorderBrush - #837A5B  -->
+<!--  BorderBrush_HighLighted - #C7C2AF  -->

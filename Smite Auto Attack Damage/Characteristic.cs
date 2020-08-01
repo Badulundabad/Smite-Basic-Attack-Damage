@@ -10,17 +10,31 @@ namespace Smite_Auto_Attack_Damage
 {
     public class Characteristic : INotifyPropertyChanged
     {
-        int power = 0;
+        double power = 0;
         double attackSpeed = 0;
-        int health = 0;
-        int mana = 0;
-        int magicalProtections = 0;
-        int physicalProtection = 0;
-        int baseDamage = 0;
-        string penetration = "0 / 0";
+        double health = 0;
+        double mana = 0;
+        double magicalProtections = 0;
+        double physicalProtection = 0;
+        double baseDamage = 0;
+        double critChance = 0;
         
-        
-        public int BaseDamage
+        public double CritChance
+        {
+            get
+            {
+                return critChance;
+            }
+            set
+            {
+                if( value > 0 )
+                {
+                    critChance = value;
+                    OnPropertyChanged("CritChance");
+                }
+            }
+        }
+        public double BaseDamage
         {
             get
             {
@@ -35,7 +49,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        public int PhysicalProtections
+        public double PhysicalProtections
         {
             get
             {
@@ -47,21 +61,6 @@ namespace Smite_Auto_Attack_Damage
                 {
                     physicalProtection = value;
                     OnPropertyChanged("PhysicalProtections");
-                }
-            }
-        }
-        public string Penetration
-        {
-            get
-            {
-                return penetration;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    penetration = value;
-                    OnPropertyChanged("Penetration");
                 }
             }
         }
@@ -81,7 +80,7 @@ namespace Smite_Auto_Attack_Damage
             }
         }
 
-        public int Health
+        public double Health
         {
             get
             {
@@ -96,7 +95,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        public int Mana
+        public double Mana
         {
             get
             {
@@ -111,7 +110,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
-        public int MagicalProtections
+        public double MagicalProtections
         {
             get
             {
@@ -128,7 +127,7 @@ namespace Smite_Auto_Attack_Damage
         }
         
 
-        public int Power
+        public double Power
         {
             get
             {

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.Net;
 
 namespace Smite_Auto_Attack_Damage 
 {
@@ -19,9 +20,10 @@ namespace Smite_Auto_Attack_Damage
         static Item[] listOfPhysicalItems = new Item[114];
         static Item[] listOfMagicalItems = new Item[114];
 
-        static ObservableCollection<Item> sixItems_attacker = new ObservableCollection<Item> { zeroItem, zeroItem, zeroItem, zeroItem, zeroItem, zeroItem};
+        static ObservableCollection<Item> sixItemsOfAttacker = new ObservableCollection<Item> { zeroItem, zeroItem, zeroItem, zeroItem, zeroItem, zeroItem};
         static Characteristic characteristics_attacker = new Characteristic();
 
+        static Item resultingItemOfAttacker = zeroItem;
         static public Characteristic Characteristics_Attacker
         {
             get
@@ -59,7 +61,8 @@ namespace Smite_Auto_Attack_Damage
 
         internal static Item[] ListOfPhysicalItems { get => listOfPhysicalItems; set => listOfPhysicalItems = value; }
         internal static Item[] ListOfMagicalItems { get => listOfMagicalItems; set => listOfMagicalItems = value; }
-        internal static ObservableCollection<Item> SixItems_attacker { get => sixItems_attacker; set => sixItems_attacker = value; }
+        internal static ObservableCollection<Item> SixItemsOfAttacker { get => sixItemsOfAttacker; set => sixItemsOfAttacker = value; }
+        internal static Item ResultingItemOfAttacker { get => resultingItemOfAttacker; set => resultingItemOfAttacker = value; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
