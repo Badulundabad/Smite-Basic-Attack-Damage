@@ -39,19 +39,19 @@ namespace Smite_Auto_Attack_Damage
                 if (i % 4 == 3) God.ListOfGods[i] = sol;
             }
 
-            var demonicGrip = new Item(1, 75, 0.3, "Your Basic Attacks reduce your target's Magical Protection by 10% for 3s (max 3 Stacks).", "/Images/Item/DemonicGrip.png", null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.3);
-            var ringOfHecate = new Item(2, 80, 0.3, "Each successful basic attack applies a hex to enemies and empowers you. Enemies receive 5% decreased power per stack while you receive 5% increased power. Both effects stack up to 3 times and stacks last 5s", "/Images/Item/RingOfHecate.png", null, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0);
-            var typhonsFang = new Item(3, 70, 0, null, "/Images/Item/TyphonsFang.png", null, 200, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0.1, 0);
-            var divineRuin = new Item(4, 90, 0, null, "/Images/Item/DivineRuin.png", null, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-            var voidStone = new Item(5, 0, 0, null, "/Images/Item/VoidStone.png", null, 0, 150, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, .1);
-            var ninjaTabi = new Item(6, 20, .25, null, "/Images/Item/NinjaTabi.png", null, 100, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0);
-            var sovereignty = new Item(7, 0, 0, null, "/Images/Item/Sovereignty.png", null, 0, 250, 0, 60, 0, 0, 0, 0, 0, 0, 0, 0, 35, 0, 0);
-            var goldenBlade = new Item(8, 30, .15, null, "/Images/Item/GoldenBlade.png", null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0);
-            var gauntletOfThebes = new Item(9, 0, 0, null, "/Images/Item/GauntletOfThebes.png", null, 0, 300, 60, 60, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 0);
-            var poisonedStar = new Item(10, 35, .1, null, "/Images/Item/PoisonedStar.png", null, 0, 0, 0, 0, 0, 0, .15, 0, 0, 0, 0, 0, 0, 0, 0);
-            var theCrusher = new Item(11, 30, .2, null, "/Images/Item/TheCrusher.png", null, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-            var charonsCoin = new Item(12, 80, 0, null, "/Images/Item/CharonsCoin.png", null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 20, 20, .2, 0);
-            var voidShield = new Item(13, 20, 0, null, "/Images/Item/VoidShield.png", null, 0, 150, 0, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, .15);
+            var demonicGrip = new Item("Demonic Grip", 1, 75, 0.3, "PASSIVE: Your Basic Attacks reduce your target's Magical Protection by 10% for 3s (max 3 Stacks).", "/Images/Item/DemonicGrip.png", null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.3);
+            var ringOfHecate = new Item("Right of Hecate", 2, 80, 0.3, "PASSIVE: Each successful basic attack applies a hex to enemies and empowers you. Enemies receive 5% decreased power per stack while you receive 5% increased power. Both effects stack up to 3 times and stacks last 5s", "/Images/Item/RingOfHecate.png", null, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0);
+            var typhonsFang = new Item("Typhon's Fang", 3, 70, 0, null, "/Images/Item/TyphonsFang.png", null, 200, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0.1, 0);
+            var divineRuin = new Item("Divine Ruin", 4, 90, 0, null, "/Images/Item/DivineRuin.png", null, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            var voidStone = new Item("Void Stone", 5, 0, 0, null, "/Images/Item/VoidStone.png", null, 0, 150, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, .1);
+            var ninjaTabi = new Item("Ninja Tabi", 6, 20, .25, null, "/Images/Item/NinjaTabi.png", null, 100, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0);
+            var sovereignty = new Item("Sovereignty", 7, 0, 0, null, "/Images/Item/Sovereignty.png", null, 0, 250, 0, 60, 0, 0, 0, 0, 0, 0, 0, 0, 35, 0, 0);
+            var goldenBlade = new Item("Golden Blade", 8, 30, .15, null, "/Images/Item/GoldenBlade.png", null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0);
+            var gauntletOfThebes = new Item("Gauntlet of Thebes", 9, 0, 0, null, "/Images/Item/GauntletOfThebes.png", null, 0, 300, 60, 60, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 0);
+            var poisonedStar = new Item("Poisoned Star", 10, 35, .1, null, "/Images/Item/PoisonedStar.png", null, 0, 0, 0, 0, 0, 0, .15, 0, 0, 0, 0, 0, 0, 0, 0);
+            var theCrusher = new Item("The Crusher", 11, 30, .2, null, "/Images/Item/TheCrusher.png", null, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            var charonsCoin = new Item("Charon's Coin", 12, 80, 0, null, "/Images/Item/CharonsCoin.png", null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 20, 20, .2, 0);
+            var voidShield = new Item("Void Shield", 13, 20, 0, null, "/Images/Item/VoidShield.png", null, 0, 150, 0, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, .15);
 
             for (int i = 0; i < 112; i++)
             {
@@ -121,7 +121,7 @@ namespace Smite_Auto_Attack_Damage
                 rightListOfItems.Visibility = Visibility.Collapsed;
             }
         }
-        private void ItemOfList_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        private void ItemOfLeftList_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             Item.SetItem(sender as ListBoxItem, sixItemsOfAttacker, Data.SixItemsOfAttacker, leftListOfItems, Data.ResultingItemOfAttacker);
             Calculation.CalculateCharacteristics(Data.Characteristics_Attacker, Data.CurrentAttacker[0], Data.ResultingItemOfAttacker);
@@ -133,7 +133,7 @@ namespace Smite_Auto_Attack_Damage
         }
 
 
-        private void ListOfGods_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        private void leftListOfGods_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             SetGod(sender as ListBoxItem, Data.SixItemsOfAttacker, Data.CurrentAttacker, Data.ResultingItemOfAttacker, leftListOfItems, Data.Characteristics_Attacker);
         }

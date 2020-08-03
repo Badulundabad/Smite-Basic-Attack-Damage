@@ -8,6 +8,7 @@ namespace Smite_Auto_Attack_Damage
 {
     class Item
     {
+        string name = null;
         string description = null;
         string imagePath = null;
         string method = null;
@@ -39,12 +40,13 @@ namespace Smite_Auto_Attack_Damage
 
         public Item
         (
-            int id, int power, double attackSpeed, string description, string imagePath, string method,
+            string name, int id, int power, double attackSpeed, string description, string imagePath, string method,
             int mana, int health, byte magicalProtections, byte physicalProtections, byte flatPenetration,
             byte flatReduction, double critChance, byte lifeSteal, byte cooldownReduction, byte movementSpeed,
             byte crowdControlReduction, byte mp5, byte hp5, double percentagePenetration, double percentageReduction
         )
         {
+            Name = name;
             Id = id;
             Power = power;
             AttackSpeed = attackSpeed;
@@ -505,5 +507,7 @@ namespace Smite_Auto_Attack_Damage
                 }
             }
         }
+
+        public string Name { get => name; set => name = value; }
     }
 }

@@ -13,7 +13,7 @@ namespace Smite_Auto_Attack_Damage
     class Data : INotifyPropertyChanged
     {
         readonly static God zeroGod = new God(0, "G o d", "/Images/God/Preview/fullLogo.png", null, "Physical", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-        readonly static Item zeroItem = new Item(0, 0, 0, null, "/Images/logo.png", null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        readonly static Item zeroItem = new Item(null,0, 0, 0, null, "/Images/logo.png", null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
         static Item[] listOfPhysicalItems = new Item[114];
         static Item[] listOfMagicalItems = new Item[114];
@@ -21,12 +21,12 @@ namespace Smite_Auto_Attack_Damage
         static ObservableCollection<Item> sixItemsOfAttacker = new ObservableCollection<Item> { zeroItem, zeroItem, zeroItem, zeroItem, zeroItem, zeroItem};
         static Characteristic characteristics_attacker = new Characteristic();
         static ObservableCollection<God> currentAttacker = new ObservableCollection<God> { new God(0, "G o d", "/Images/God/Preview/fullLogo.png", null, "Physical", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0) };
-        static Item resultingItemOfAttacker = new Item(0, 0, 0, null, "/Images/logo.png", null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        static Item resultingItemOfAttacker = new Item(null, 0, 0, 0, null, "/Images/logo.png", null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
         static ObservableCollection<Item> sixItemsOfTarget = new ObservableCollection<Item> { zeroItem, zeroItem, zeroItem, zeroItem, zeroItem, zeroItem };
         static Characteristic characteristics_target = new Characteristic();
         static ObservableCollection<God> currentTarget = new ObservableCollection<God> { new God(0, "G o d", "/Images/God/Preview/fullLogo.png", null, "Physical", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0) };
-        static Item resultingItemOfTarget = new Item(0, 0, 0, null, "/Images/logo.png", null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        static Item resultingItemOfTarget = new Item(null, 0, 0, 0, null, "/Images/logo.png", null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
         static public Characteristic Characteristics_Attacker
         {

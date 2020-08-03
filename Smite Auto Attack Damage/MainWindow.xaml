@@ -16,11 +16,225 @@
             <Setter Property="Padding" Value="5"/>
             <Setter Property="TextAlignment" Value="Center"/>
         </Style>
+        <Style TargetType="TextBlock" x:Key="itemFont_style" BasedOn="{StaticResource font_Style}">
+            <Setter Property="TextAlignment" Value="left"/>
+            <Setter Property="FontFamily" Value="Arctic"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#eeeeee"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
         <Style x:Key="border_Style" TargetType="Border">
             <Setter Property="BorderBrush" Value="#837A5B"/>
             <Setter Property="BorderThickness" Value="1"/>
         </Style>
-
+        <Style x:Key="itemToolTip_style" TargetType="ToolTip">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Style="{StaticResource border_Style}" Background="#071425" Padding="10" BorderThickness="1" Width="270">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="53"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition>
+                                        <RowDefinition.Style>
+                                            <Style TargetType="RowDefinition">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Description}" Value="{x:Null}">
+                                                        <Setter Property="Height" Value="0"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </RowDefinition.Style>
+                                    </RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Border Style="{StaticResource border_Style}" Width="48" Height="48" VerticalAlignment="top" Margin="5,5,0,0">
+                                    <Image  Source="{Binding ImagePath}"/>
+                                </Border>
+                                <Grid Grid.Column="2">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{Binding Name}" Foreground="#C7C2AF" Style="{StaticResource font_Style}" FontSize="14" HorizontalAlignment="Left"/>
+                                        <TextBlock Text="{Binding StringFormat= + {0}  POWER, Path=Power}">
+                                            <TextBlock.Style>
+                                                <Style BasedOn="{StaticResource itemFont_style}" TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Power}" Value="0">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding StringFormat= + {0}  ATTACK SPEED, Path=AttackSpeed}">
+                                            <TextBlock.Style>
+                                                <Style BasedOn="{StaticResource itemFont_style}" TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding AttackSpeed}" Value="0">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding StringFormat= + {0}  CRITICAL STRIKE CHANCE, Path=CritChance}">
+                                            <TextBlock.Style>
+                                                <Style BasedOn="{StaticResource itemFont_style}" TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding CritChance}" Value="0">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding StringFormat= + {0}%  LIFESTEAL, Path=LifeSteal}">
+                                            <TextBlock.Style>
+                                                <Style BasedOn="{StaticResource itemFont_style}" TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding LifeSteal}" Value="0">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding StringFormat= + {0}  PENETRATION, Path=FlatPenetration}">
+                                            <TextBlock.Style>
+                                                <Style BasedOn="{StaticResource itemFont_style}" TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding FlatPenetration}" Value="0">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding StringFormat= + {0}%  PENETRATION, Path=PercentagePenetration}">
+                                            <TextBlock.Style>
+                                                <Style BasedOn="{StaticResource itemFont_style}" TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding PercentagePenetration}" Value="0">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding StringFormat= + {0}  MAGICAL PROTECTIONS, Path=MagicalProtections}">
+                                            <TextBlock.Style>
+                                                <Style BasedOn="{StaticResource itemFont_style}" TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding MagicalProtections}" Value="0">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding StringFormat= + {0}  PHYSICAL PROTECTIONS, Path=PhysicalProtections}">
+                                            <TextBlock.Style>
+                                                <Style BasedOn="{StaticResource itemFont_style}" TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding PhysicalProtections}" Value="0">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding StringFormat= + {0}  HEALTH, Path=Health}">
+                                            <TextBlock.Style>
+                                                <Style BasedOn="{StaticResource itemFont_style}" TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Health}" Value="0">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding StringFormat= + {0}  MANA, Path=Mana}">
+                                            <TextBlock.Style>
+                                                <Style BasedOn="{StaticResource itemFont_style}" TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Mana}" Value="0">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding StringFormat= + {0}  CROWD CONTROL REDUCTION, Path=CrowdControlReduction}">
+                                            <TextBlock.Style>
+                                                <Style BasedOn="{StaticResource itemFont_style}" TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding CrowdControlReduction}" Value="0">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding StringFormat= + {0}  HP5, Path=Hp5}">
+                                            <TextBlock.Style>
+                                                <Style BasedOn="{StaticResource itemFont_style}" TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Hp5}" Value="0">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding StringFormat= + {0}  MP5, Path=Mp5}">
+                                            <TextBlock.Style>
+                                                <Style BasedOn="{StaticResource itemFont_style}" TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Mp5}" Value="0">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding StringFormat= + {0}%  MOVEMENT SPEED, Path=MovementSpeed}">
+                                            <TextBlock.Style>
+                                                <Style BasedOn="{StaticResource itemFont_style}" TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding MovementSpeed}" Value="0">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Grid.ColumnSpan="3" Grid.Row="1">
+                                    <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" Text="{Binding Description}">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock" BasedOn="{StaticResource itemFont_style}">
+                                                <Setter Property="Foreground" Value="#dddddd"/>
+                                                <Setter Property="TextAlignment" Value="Justify"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Description}" Value="null">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="slider_Style" TargetType="{x:Type Slider}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -226,7 +440,7 @@
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
-                <DataTrigger Binding="{Binding ElementName=listOfItems, Path=Visibility}" Value="Visible">
+                <DataTrigger Binding="{Binding ElementName=leftListOfItems, Path=Visibility}" Value="Visible">
                     <Setter Property="Focusable" Value="False"/>
                 </DataTrigger>
                 <Trigger Property="IsMouseOver" Value="True">
@@ -234,14 +448,27 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="ListOfGodsItem_style" TargetType="ListBoxItem">
+        <Style x:Key="leftListOfGodsItem_style" TargetType="ListBoxItem">
+            <Setter Property="ToolTip">
+                <Setter.Value>
+                    <ToolTip>
+                        <ToolTip.Template>
+                            <ControlTemplate TargetType="ToolTip">
+                                <Border Style="{StaticResource border_Style}" Background="#071425" Padding="5,2,5,2" BorderThickness="1">
+                                    <TextBlock Text="{Binding Name}"  Foreground="White"/>
+                                </Border>
+                            </ControlTemplate>
+                        </ToolTip.Template>
+                    </ToolTip>
+                </Setter.Value>
+            </Setter>
             <Setter Property="OverridesDefaultStyle" Value="true"/>
             <Setter Property="Height" Value="48"/>
             <Setter Property="Width" Value="48"/>
             <Setter Property="Margin" Value="3"/>
             <Setter Property="Image.Source" Value="{Binding IconPath}"/>
             <Setter Property="BorderBrush" Value="#837A5B"/>
-            <EventSetter Event="PreviewMouseUp" Handler="ListOfGods_PreviewMouseUp"/>
+            <EventSetter Event="PreviewMouseUp" Handler="leftListOfGods_PreviewMouseUp"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
@@ -253,6 +480,8 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+
+
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="BorderBrush" Value="#C7C2AF"/>
@@ -261,6 +490,19 @@
         </Style>
         <Style x:Key="rightListOfGodsItem_style" TargetType="ListBoxItem">
             <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="ToolTip">
+                <Setter.Value>
+                    <ToolTip>
+                        <ToolTip.Template>
+                            <ControlTemplate TargetType="ToolTip">
+                                <Border Style="{StaticResource border_Style}" Background="#071425" Padding="5,2,5,2" BorderThickness="1">
+                                    <TextBlock Text="{Binding Name}"  Foreground="White"/>
+                                </Border>
+                            </ControlTemplate>
+                        </ToolTip.Template>
+                    </ToolTip>
+                </Setter.Value>
+            </Setter>
             <Setter Property="Height" Value="48"/>
             <Setter Property="Width" Value="48"/>
             <Setter Property="Margin" Value="3"/>
@@ -420,7 +662,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="listOfGods_Style" TargetType="ListBox">
+        <Style x:Key="leftListOfGods_Style" TargetType="ListBox">
             <Setter Property="Visibility" Value="Collapsed"/>
             <Setter Property="Height" Value="317"/>
             <Setter Property="Width" Value="231"/>
@@ -429,7 +671,7 @@
             <Setter Property="Margin" Value="0,4,0,0"/>
             <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
             <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
-            <Setter Property="ItemContainerStyle" Value="{StaticResource ListOfGodsItem_style}"/>
+            <Setter Property="ItemContainerStyle" Value="{StaticResource leftListOfGodsItem_style}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBox">
@@ -488,7 +730,7 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="godsSelectedItems_Style" TargetType="ListBox">
+        <Style x:Key="SelectedItemsOfAttacker_Style" TargetType="ListBox">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=leftListOfGods, Path=IsVisible}" Value="True">
                     <Setter Property="Visibility" Value="Collapsed"/>
@@ -620,7 +862,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="listOfItems_Style" TargetType="ListBox">
+        <Style x:Key="leftListOfItems_Style" TargetType="ListBox">
             <Setter Property="Visibility" Value="Collapsed"/>
             <Setter Property="Height" Value="275"/>
             <Setter Property="Width" Value="231"/>
@@ -639,7 +881,13 @@
                         <Setter Property="Image.Source" Value="{Binding ImagePath, UpdateSourceTrigger=PropertyChanged}"/>
                         <Setter Property="BorderBrush" Value="#837A5B"/>
                         <Setter Property="Focusable" Value="True"/>
-                        <EventSetter Event="PreviewMouseUp" Handler="ItemOfList_PreviewMouseUp"/>
+                        <EventSetter Event="PreviewMouseUp" Handler="ItemOfLeftList_PreviewMouseUp"/>
+                        <Setter Property="ToolTip">
+                            <Setter.Value>
+                                <ToolTip Style="{StaticResource itemToolTip_style}"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="ToolTipService.ShowDuration" Value="12000"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="ListBoxItem">
@@ -710,6 +958,12 @@
                         <Setter Property="Image.Source" Value="{Binding ImagePath, UpdateSourceTrigger=PropertyChanged}"/>
                         <Setter Property="BorderBrush" Value="#837A5B"/>
                         <Setter Property="Focusable" Value="True"/>
+                        <Setter Property="ToolTip">
+                            <Setter.Value>
+                                <ToolTip Style="{StaticResource itemToolTip_style}"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="ToolTipService.ShowDuration" Value="12000"/>
                         <EventSetter Event="PreviewMouseUp" Handler="ItemOfRightList_PreviewMouseUp"/>
                         <Setter Property="Template">
                             <Setter.Value>
@@ -741,7 +995,7 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            
+
         </Style>
 
         <Style x:Key="buildItems_Style" TargetType="ListBoxItem">
@@ -850,7 +1104,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="characteristics" TargetType="ListBox">
+        <Style x:Key="characteristicsOfAttacker" TargetType="ListBox">
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
@@ -986,6 +1240,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
     </Window.Resources>
 
 
@@ -1001,12 +1256,12 @@
             </Border>
             <Grid>
                 <ListBox x:Name="attacker" Style="{StaticResource god_Style}"/>
-                <ListBox x:Name="sixItemsOfAttacker" Style="{StaticResource godsSelectedItems_Style}"/>
-                <ListBox x:Name="leftListOfItems" Style="{StaticResource listOfItems_Style}"/>
-                <ListBox x:Name="leftListOfGods" Style="{StaticResource listOfGods_Style}"/>
+                <ListBox x:Name="sixItemsOfAttacker" Style="{StaticResource SelectedItemsOfAttacker_Style}"/>
+                <ListBox x:Name="leftListOfItems" Style="{StaticResource leftListOfItems_Style}"/>
+                <ListBox x:Name="leftListOfGods" Style="{StaticResource leftListOfGods_Style}"/>
             </Grid>
             <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,0">
-                <TextBlock Margin="0,5,0,0" Text="Level" Style="{StaticResource font_Style}"/>
+                <TextBlock Margin="0,5,0,0" Text="l e v e l" Style="{StaticResource font_Style}"/>
             </Border>
             <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,0">
                 <Slider x:Name="attackerLevelSlider" Style="{StaticResource slider_Style}" ValueChanged="AttackerLevelSlider_ValueChanged" Value="{Binding ElementName=levelOfAttacker, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
@@ -1015,7 +1270,7 @@
                 <TextBlock Style="{StaticResource font_Style}" Text="0" Name="levelOfAttacker"/>
             </Border>
             <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,1" Padding="10, 10, 10, 9" Height="134">
-                <ListBox x:Name="characteristicsOfAttacker" Style="{StaticResource characteristics}"/>
+                <ListBox x:Name="characteristicsOfAttacker" Style="{StaticResource characteristicsOfAttacker}"/>
             </Border>
 
         </StackPanel>
@@ -1030,7 +1285,7 @@
                 <ListBox x:Name="rightListOfGods" Style="{StaticResource rightListOfGods_Style}"/>
             </Grid>
             <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,0">
-                <TextBlock Margin="0,5,0,0" Text="Level" Style="{StaticResource font_Style}"/>
+                <TextBlock Margin="0,5,0,0" Text="l e v e l" Style="{StaticResource font_Style}"/>
             </Border>
             <Border Style="{StaticResource border_Style}" BorderThickness="1,0,1,0">
                 <Slider x:Name="targetLevelSlider" Style="{StaticResource targetSlider_Style}" ValueChanged="TargetLevelSlider_ValueChanged" Value="{Binding ElementName=levelOfTarget, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
