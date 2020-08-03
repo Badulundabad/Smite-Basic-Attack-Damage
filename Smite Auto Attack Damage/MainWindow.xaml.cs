@@ -77,18 +77,27 @@ namespace Smite_Auto_Attack_Damage
             }
 
 
-            //Проделать то же самое для target
-            //SetCharacteristics(Data.Characteristics_Attacker, new TextBlock[] { powerTextBlock_attacker, attackSpeedTextBlock_attacker, baseDamageTextBlock_attacker, penetrationTextBlock_attacker, magicalProtectionsTextBlock_attacker, physicalProtectionsTextBlock_attacker, healthTextBlock_attacker, manaTextBlock_attacker });
             characteristicsOfAttacker.ItemsSource = new ObservableCollection<Characteristic> { Data.Characteristics_Attacker };
-            god.ItemsSource = Data.CurrentAttacker;
+            characteristicsOfTarget.ItemsSource = new ObservableCollection<Characteristic> { Data.Characteristics_Target };
+
+            attacker.ItemsSource = Data.CurrentAttacker;
+            target.ItemsSource = Data.CurrentTarget;
 
             var levelOfAttackerBinding = new Binding("Level") { Source = Data.CurrentAttacker[0] };
             levelOfAttacker.SetBinding(TextBlock.TextProperty, levelOfAttackerBinding);
             attackerLevelSlider.SetBinding(Slider.ValueProperty, levelOfAttackerBinding);
 
             sixItemsOfAttacker.ItemsSource = Data.SixItemsOfAttacker;
-            listOfItems.ItemsSource = Data.ListOfPhysicalItems;
-            listOfGods.ItemsSource = God.ListOfGods;
+            leftListOfItems.ItemsSource = Data.ListOfPhysicalItems;
+            leftListOfGods.ItemsSource = God.ListOfGods;
+
+            var levelOfTargetBinding = new Binding("Level") { Source = Data.CurrentTarget[0] };
+            levelOfTarget.SetBinding(TextBlock.TextProperty, levelOfTargetBinding);
+            targetLevelSlider.SetBinding(Slider.ValueProperty, levelOfTargetBinding);
+
+            sixItemsOfTarget.ItemsSource = Data.SixItemsOfTarget;
+            rightListOfItems.ItemsSource = Data.ListOfPhysicalItems;
+            rightListOfGods.ItemsSource = God.ListOfGods;
 
             Build testBuild = new Build();
             buildsStack.Push(testBuild);
@@ -102,29 +111,37 @@ namespace Smite_Auto_Attack_Damage
             //Если источник события не ListBox
             if (e.Source.GetType().Name != "ListBox")
             {
-                ListBox[] listBoxes = { god, sixItemsOfAttacker, listOfItems, target, targetsItems, /*targetsItemsList*/ };
+                ListBox[] listBoxes = { attacker, sixItemsOfAttacker, leftListOfItems, rightListOfItems, target, sixItemsOfTarget, /*targetsItemsList*/ };
                 foreach (ListBox listBox in listBoxes)
                 {
                     listBox.SelectedIndex = -1;
                 }
                 //Скрыть списки предметов.
-                listOfItems.Visibility = Visibility.Collapsed;
-                //targetsItemsList.Visibility = Visibility.Hidden;
+                leftListOfItems.Visibility = Visibility.Collapsed;
+                rightListOfItems.Visibility = Visibility.Collapsed;
             }
         }
         private void ItemOfList_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            Item.SetItem(sender as ListBoxItem, sixItemsOfAttacker, Data.SixItemsOfAttacker, listOfItems);
+            Item.SetItem(sender as ListBoxItem, sixItemsOfAttacker, Data.SixItemsOfAttacker, leftListOfItems, Data.ResultingItemOfAttacker);
             Calculation.CalculateCharacteristics(Data.Characteristics_Attacker, Data.CurrentAttacker[0], Data.ResultingItemOfAttacker);
         }
-        
+        private void ItemOfRightList_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Item.SetItem(sender as ListBoxItem, sixItemsOfTarget, Data.SixItemsOfTarget, rightListOfItems, Data.ResultingItemOfTarget);
+            Calculation.CalculateCharacteristics(Data.Characteristics_Target, Data.CurrentTarget[0], Data.ResultingItemOfTarget);
+        }
 
 
         private void ListOfGods_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            SetGod(sender as ListBoxItem, Data.SixItemsOfAttacker, Data.CurrentAttacker, Data.ResultingItemOfAttacker);
+            SetGod(sender as ListBoxItem, Data.SixItemsOfAttacker, Data.CurrentAttacker, Data.ResultingItemOfAttacker, leftListOfItems, Data.Characteristics_Attacker);
         }
-        private void SetGod(ListBoxItem container, ObservableCollection<Item> sixItemsCollection, ObservableCollection<God> currentGod, Item resultingItem)
+        private void RightListOfGods_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            SetGod(sender as ListBoxItem, Data.SixItemsOfTarget, Data.CurrentTarget, Data.ResultingItemOfTarget, rightListOfItems, Data.Characteristics_Target);
+        }
+        private void SetGod(ListBoxItem container, ObservableCollection<Item> sixItemsCollection, ObservableCollection<God> currentGod, Item resultingItem, ListBox listOfItems, Characteristic characteristics)
         {
             var god = (God)container.DataContext;
             if (god.TypeOfDamage != currentGod[0].TypeOfDamage)
@@ -166,18 +183,26 @@ namespace Smite_Auto_Attack_Damage
                 currentGod[0] = god;
             }
             currentGod[0].Level = j;
-            Calculation.CalculateCharacteristics(Data.Characteristics_Attacker, currentGod[0], Data.ResultingItemOfAttacker);
+            Calculation.CalculateCharacteristics(characteristics, currentGod[0], resultingItem);
         }
         private void SixItemsOfAttacker_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            listOfItems.Visibility = Visibility.Visible;
+            leftListOfItems.Visibility = Visibility.Visible;
+        }
+        private void SixItemsOfTarget_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            rightListOfItems.Visibility = Visibility.Visible;
         }
         private void SixItemsOfAttacker_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            Item.RemoveItem(sender as ListBoxItem, sixItemsOfAttacker, Data.SixItemsOfAttacker, listOfItems);
+            Item.RemoveItem(sender as ListBoxItem, sixItemsOfAttacker, Data.SixItemsOfAttacker, leftListOfItems);
             Calculation.CalculateCharacteristics(Data.Characteristics_Attacker, Data.CurrentAttacker[0], Data.ResultingItemOfAttacker);
         }
-        
+        private void SixItemsOfTarget_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Item.RemoveItem(sender as ListBoxItem, sixItemsOfTarget, Data.SixItemsOfTarget, rightListOfItems);
+            Calculation.CalculateCharacteristics(Data.Characteristics_Target, Data.CurrentTarget[0], Data.ResultingItemOfTarget);
+        }
 
 
         //Обработчик для сохранения билда.
@@ -248,6 +273,11 @@ namespace Smite_Auto_Attack_Damage
         {
             Data.CurrentAttacker[0].Level = Convert.ToByte(attackerLevelSlider.Value);
             Calculation.CalculateCharacteristics(Data.Characteristics_Attacker, Data.CurrentAttacker[0], Data.ResultingItemOfAttacker);
+        }
+        private void TargetLevelSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Data.CurrentTarget[0].Level = Convert.ToByte(targetLevelSlider.Value);
+            Calculation.CalculateCharacteristics(Data.Characteristics_Target, Data.CurrentTarget[0], Data.ResultingItemOfTarget);
         }
     }
 }

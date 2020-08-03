@@ -67,13 +67,13 @@ namespace Smite_Auto_Attack_Damage
             PercentagePenetration = percentagePenetration;
             PercentageReduction = percentageReduction;
         }
-        public static void SetItem(ListBoxItem container, ListBox sixItemsListBox, ObservableCollection<Item> sixItemsCollection, ListBox listOfItems)
+        public static void SetItem(ListBoxItem container, ListBox sixItemsListBox, ObservableCollection<Item> sixItemsCollection, ListBox listOfItems, Item resultingItem)
         {
             var item = (Item)container.DataContext;
             //После выбора предмета тот переносится в текущий слот, и выделяется самый левый слот из содержащих нулевой предмет
-            if (!Data.SixItemsOfAttacker.Contains(item))
+            if (!sixItemsCollection.Contains(item))
             {
-                Data.ResultingItemOfAttacker += item;
+                resultingItem += item;
                 sixItemsCollection[sixItemsListBox.SelectedIndex] = item;
                 sixItemsListBox.SelectedIndex = sixItemsCollection.IndexOf(Data.ZeroItem);
                 //При отсутствии свободных слотов закрывает список предметов и снимает выделение со слотов
