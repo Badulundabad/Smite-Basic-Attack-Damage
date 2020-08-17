@@ -71,17 +71,21 @@ namespace SmiteBasicAttackDamage
             attacker.ItemsSource = Data.CurrentAttacker;
             target.ItemsSource = Data.CurrentTarget;
 
-            var levelOfAttackerBinding = new Binding("Level") { Source = Data.CurrentAttacker[0] };
-            levelOfAttacker.SetBinding(TextBlock.TextProperty, levelOfAttackerBinding);
-            attackerLevelSlider.SetBinding(Slider.ValueProperty, levelOfAttackerBinding);
+            
+            setLevelBinding(Data.CurrentAttacker[0], levelOfAttacker, attackerLevelSlider);
+            setLevelBinding(Data.CurrentTarget[0], levelOfTarget, targetLevelSlider);
 
+
+
+            void setLevelBinding(God god, TextBlock textBlock, Slider slider)
+            {
+                var binding = new Binding("Level") { Source = god };
+                textBlock.SetBinding(TextBlock.TextProperty, binding);
+                slider.SetBinding(Slider.ValueProperty, binding);
+            }
             sixItemsOfAttacker.ItemsSource = Data.SixItemsOfAttacker;
             leftListOfItems.ItemsSource = Data.ListOfPhysicalItems;
             leftListOfGods.ItemsSource = SQLiteDataAccess.LoadGods();
-
-            var levelOfTargetBinding = new Binding("Level") { Source = Data.CurrentTarget[0] };
-            levelOfTarget.SetBinding(TextBlock.TextProperty, levelOfTargetBinding);
-            targetLevelSlider.SetBinding(Slider.ValueProperty, levelOfTargetBinding);
 
             sixItemsOfTarget.ItemsSource = Data.SixItemsOfTarget;
             rightListOfItems.ItemsSource = Data.ListOfPhysicalItems;

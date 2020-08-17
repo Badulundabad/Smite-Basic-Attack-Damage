@@ -20,6 +20,7 @@ namespace SmiteBasicAttackDamage
         {
             var list = new List<Item>();
             list.AddRange(SQLiteDataAccess.LoadItemTable("SharedItems"));
+            list.AddRange(SQLiteDataAccess.LoadItemTable("Physical"));
             list.AddRange(SQLiteDataAccess.LoadItemTable("Assassin"));
             listOfItems.ItemsSource = list;
         }
