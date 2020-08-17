@@ -27,7 +27,7 @@ namespace SmiteBasicAttackDamage
         {
             InitializeComponent();
             
-            /*var demonicGrip = new Item("Demonic Grip", 1, 75, 0.3, "PASSIVE: Your Basic Attacks reduce your target's Magical Protection by 10% for 3s (max 3 Stacks).", "/Images/Item/DemonicGrip.png", null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.3);
+            var demonicGrip = new Item("Demonic Grip", 1, 75, 0.3, "PASSIVE: Your Basic Attacks reduce your target's Magical Protection by 10% for 3s (max 3 Stacks).", "/Images/Item/DemonicGrip.png", null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.3);
             var ringOfHecate = new Item("Right of Hecate", 2, 80, 0.3, "PASSIVE: Each successful basic attack applies a hex to enemies and empowers you. Enemies receive 5% decreased power per stack while you receive 5% increased power. Both effects stack up to 3 times and stacks last 5s", "/Images/Item/RingOfHecate.png", null, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0);
             var typhonsFang = new Item("Typhon's Fang", 3, 70, 0, null, "/Images/Item/TyphonsFang.png", null, 200, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0.1, 0);
             var divineRuin = new Item("Divine Ruin", 4, 90, 0, null, "/Images/Item/DivineRuin.png", null, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -62,7 +62,7 @@ namespace SmiteBasicAttackDamage
                 if (i % 7 == 5) Data.ListOfMagicalItems[i] = sovereignty;
                 if (i % 7 == 6) Data.ListOfMagicalItems[i] = charonsCoin;
 
-            }*/
+            }
 
             
             characteristicsOfAttacker.ItemsSource = new ObservableCollection<Characteristic> { Data.Characteristics_Attacker };
