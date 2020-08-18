@@ -27,15 +27,15 @@ namespace SmiteBasicAttackDamage
         {
             InitializeComponent();
 
+            SetListBoxes(leftListOfGods, sixItemsOfAttacker, Data.SixItemsOfAttacker, attacker, Data.CurrentAttacker, characteristicsOfAttacker, Data.Characteristics_Attacker);
             SetLevelBinding(Data.CurrentAttacker[0], levelOfAttacker, attackerLevelSlider);
-            SetLevelBinding(Data.CurrentTarget[0], levelOfTarget, targetLevelSlider);
             
             SetListBoxes(rightListOfGods, sixItemsOfTarget, Data.SixItemsOfTarget, target, Data.CurrentTarget, characteristicsOfTarget, Data.Characteristics_Target);
-            SetListBoxes(leftListOfGods, sixItemsOfAttacker, Data.SixItemsOfAttacker, attacker, Data.CurrentAttacker, characteristicsOfAttacker, Data.Characteristics_Attacker);
+            SetLevelBinding(Data.CurrentTarget[0], levelOfTarget, targetLevelSlider);
 
-            Build testBuild = new Build();
+            /*Build testBuild = new Build();
             buildsStack.Push(testBuild);
-            builds.ItemsSource = buildsStack;
+            builds.ItemsSource = buildsStack;*/
             
             void SetListBoxes
             (
@@ -43,17 +43,16 @@ namespace SmiteBasicAttackDamage
                 ListBox sixItems,
                 ObservableCollection<Item> sixItemsCollection,
                 ListBox godListBox,
-                ObservableCollection<God> god,
+                ObservableCollection<God> godCollection,
                 ListBox characteristicsListBox,
-                Characteristic characteristic
+                Characteristic characteristicInstance
             )
             {
                 sixItems.ItemsSource = sixItemsCollection;
                 listOfGods.ItemsSource = SQLiteDataAccess.LoadGods();
-                godListBox.ItemsSource = god;
-                characteristicsListBox.ItemsSource = new ObservableCollection<Characteristic> { characteristic };
+                godListBox.ItemsSource = godCollection;
+                characteristicsListBox.ItemsSource = new ObservableCollection<Characteristic> { characteristicInstance };
             }
-
             void SetLevelBinding(God god, TextBlock textBlock, Slider slider)
             {
                 var binding = new Binding("Level") { Source = god };
@@ -80,23 +79,31 @@ namespace SmiteBasicAttackDamage
         }
         private void ItemOfLeftList_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            Item.SetItem(sender as ListBoxItem, sixItemsOfAttacker, Data.SixItemsOfAttacker, leftListOfItems, Data.ResultingItemOfAttacker);
+            var container = sender as ListBoxItem;
+            var item = (Item)container.DataContext;
+            item.SetItem(sixItemsOfAttacker, Data.SixItemsOfAttacker, leftListOfItems, Data.ResultingItemOfAttacker);
             Calculation.CalculateCharacteristics(Data.Characteristics_Attacker, Data.CurrentAttacker[0], Data.ResultingItemOfAttacker);
         }
         private void ItemOfRightList_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            Item.SetItem(sender as ListBoxItem, sixItemsOfTarget, Data.SixItemsOfTarget, rightListOfItems, Data.ResultingItemOfTarget);
+            var container = sender as ListBoxItem;
+            var item = (Item)container.DataContext;
+            item.SetItem(sixItemsOfTarget, Data.SixItemsOfTarget, rightListOfItems, Data.ResultingItemOfTarget);
             Calculation.CalculateCharacteristics(Data.Characteristics_Target, Data.CurrentTarget[0], Data.ResultingItemOfTarget);
         }
 
 
         private void leftListOfGods_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            SetGod(sender as ListBoxItem, Data.SixItemsOfAttacker, Data.CurrentAttacker, Data.ResultingItemOfAttacker, leftListOfItems, Data.Characteristics_Attacker);
+            var container = sender as ListBoxItem;
+            var god = (God)container.DataContext;
+            god.SetGod(Data.SixItemsOfAttacker, Data.CurrentAttacker, Data.ResultingItemOfAttacker, leftListOfItems, Data.Characteristics_Attacker);
         }
         private void RightListOfGods_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            SetGod(sender as ListBoxItem, Data.SixItemsOfTarget, Data.CurrentTarget, Data.ResultingItemOfTarget, rightListOfItems, Data.Characteristics_Target);
+            var container = sender as ListBoxItem;
+            var god = (God)container.DataContext;
+            god.SetGod(Data.SixItemsOfTarget, Data.CurrentTarget, Data.ResultingItemOfTarget, rightListOfItems, Data.Characteristics_Target);
         }
         private void SetGod(ListBoxItem container, ObservableCollection<Item> sixItemsCollection, ObservableCollection<God> currentGod, Item resultingItem, ListBox listOfItems, Characteristic characteristics)
         {
@@ -135,6 +142,8 @@ namespace SmiteBasicAttackDamage
                 }*/
             }
             god.SetListOfItems(listOfItems);
+            //Эта часть нужна только для того, чтобы не сбрасывалось значение слайдера
+            //#костыль
             byte j = currentGod[0].Level;
             if (!currentGod.Contains((God)container.DataContext))
             {
@@ -153,19 +162,19 @@ namespace SmiteBasicAttackDamage
         }
         private void SixItemsOfAttacker_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            Item.RemoveItem(sender as ListBoxItem, sixItemsOfAttacker, Data.SixItemsOfAttacker, leftListOfItems);
+            var container = sender as ListBoxItem;
+            var item = (Item)container.DataContext;
+            item.RemoveItem(sixItemsOfAttacker, Data.SixItemsOfAttacker, leftListOfItems);
             Calculation.CalculateCharacteristics(Data.Characteristics_Attacker, Data.CurrentAttacker[0], Data.ResultingItemOfAttacker);
         }
         private void SixItemsOfTarget_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            Item.RemoveItem(sender as ListBoxItem, sixItemsOfTarget, Data.SixItemsOfTarget, rightListOfItems);
+            var container = sender as ListBoxItem;
+            var item = (Item)container.DataContext;
+            item.RemoveItem(sixItemsOfAttacker, Data.SixItemsOfAttacker, leftListOfItems);
             Calculation.CalculateCharacteristics(Data.Characteristics_Target, Data.CurrentTarget[0], Data.ResultingItemOfTarget);
         }
-
-
         //Обработчик для сохранения билда.
-
-
         private void SaveButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             /*GarbageTestClass sel = god.Items.CurrentItem as GarbageTestClass;
@@ -201,12 +210,10 @@ namespace SmiteBasicAttackDamage
             buildList.ForEach(x => buildsStack.Push(x));
             builds.Items.Refresh();
         }
-
         private void RestoreButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
 
         }
-
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
             var rnd = new Random();

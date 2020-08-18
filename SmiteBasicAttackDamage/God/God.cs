@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Runtime.CompilerServices;
 using System.Windows.Media.Animation;
+using System.Collections.ObjectModel;
 
 namespace SmiteBasicAttackDamage
 {
@@ -41,6 +42,42 @@ namespace SmiteBasicAttackDamage
         {
         }
 
+        public void SetGod(ObservableCollection<Item> sixItemsCollection, ObservableCollection<God> currentGod, Item resultingItem, ListBox listOfItems, Characteristic characteristics)
+        {
+            if (this.TypeOfDamage != currentGod[0].TypeOfDamage)
+            {
+                //Обнуление слотов с предметами и суммы всех их характеристик
+                //Почему-то нельзя приравнять одну коллекцию к коллекции пустых предметов
+                for (int i = 0; i < 6; i++)
+                {
+                    sixItemsCollection[i] = Data.ZeroItem;
+                }
+                //И экземпляр к пустому экземпляру
+                resultingItem.Power = 0;
+                resultingItem.AttackSpeed = 0;
+                resultingItem.Mana = 0;
+                resultingItem.Health = 0;
+                resultingItem.MagicalProtections = 0;
+                resultingItem.PhysicalProtections = 0;
+                resultingItem.FlatPenetration = 0;
+                resultingItem.FlatReduction = 0;
+                resultingItem.CritChance = 0;
+                resultingItem.LifeSteal = 0;
+                resultingItem.PercentagePenetration = 0;
+                resultingItem.PercentageReduction = 0;
+                resultingItem.CritChance = 0;
+            }
+            this.SetListOfItems(listOfItems);
+            //Эта часть нужна только для того, чтобы не сбрасывалось значение слайдера
+            //#костыль
+            byte j = currentGod[0].Level;
+            if (!currentGod.Contains(this))
+            {
+                currentGod[0] = this;
+            }
+            currentGod[0].Level = j;
+            Calculation.CalculateCharacteristics(characteristics, currentGod[0], resultingItem);
+        }
         static private God[] listOfGods = new God[111];
         public God() { }
 

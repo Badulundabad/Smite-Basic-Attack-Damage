@@ -94,14 +94,12 @@ namespace SmiteBasicAttackDamage
             PercentagePenetration = 0;
             PercentageReduction = 0;
         }
-        public static void SetItem(ListBoxItem container, ListBox sixItemsListBox, ObservableCollection<Item> sixItemsCollection, ListBox listOfItems, Item resultingItem)
+        public void SetItem(ListBox sixItemsListBox, ObservableCollection<Item> sixItemsCollection, ListBox listOfItems, Item resultingItem)
         {
-            var item = (Item)container.DataContext;
-            //После выбора предмета тот переносится в текущий слот, и выделяется самый левый слот из содержащих нулевой предмет
-            if (!sixItemsCollection.Contains(item))
+            if (!sixItemsCollection.Contains(this))
             {
-                resultingItem += item;
-                sixItemsCollection[sixItemsListBox.SelectedIndex] = item;
+                resultingItem += this;
+                sixItemsCollection[sixItemsListBox.SelectedIndex] = this;
                 sixItemsListBox.SelectedIndex = sixItemsCollection.IndexOf(Data.ZeroItem);
                 //При отсутствии свободных слотов закрывает список предметов и снимает выделение со слотов
                 if (!sixItemsCollection.Contains(Data.ZeroItem))
@@ -110,9 +108,24 @@ namespace SmiteBasicAttackDamage
                     sixItemsListBox.SelectedIndex = -1;
                 }
             }
-
         }
-        public static void RemoveItem(ListBoxItem container, ListBox sixItemsListBox, ObservableCollection<Item> sixItemsCollection, ListBox listOfItems)
+        public void RemoveItem(ListBox sixItemsListBox, ObservableCollection<Item> sixItemsCollection, ListBox listOfItems)
+        {
+            int i = sixItemsCollection.IndexOf(this);
+            if (sixItemsListBox.SelectedIndex > -1)
+            {
+                if (this != Data.ZeroItem)
+                {
+                    Data.ResultingItemOfAttacker -= this;
+                }
+                sixItemsCollection[sixItemsListBox.SelectedIndex] = Data.ZeroItem;
+            }
+            if (listOfItems.Visibility == Visibility.Visible)
+            {
+                sixItemsListBox.SelectedIndex = i;
+            }
+        }
+        public static void RemoveItems(ListBoxItem container, ListBox sixItemsListBox, ObservableCollection<Item> sixItemsCollection, ListBox listOfItems)
         {
             int i = sixItemsCollection.IndexOf((Item)container.DataContext);
             if (sixItemsListBox.SelectedIndex > -1)
