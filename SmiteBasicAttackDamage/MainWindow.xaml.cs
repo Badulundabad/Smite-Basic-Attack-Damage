@@ -14,12 +14,8 @@ using System.Text.RegularExpressions;
 
 namespace SmiteBasicAttackDamage
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        //
         readonly Stack<Build> buildsStack = new Stack<Build>();
         Build emptyBuild;
 
@@ -29,128 +25,48 @@ namespace SmiteBasicAttackDamage
 
             SetListBoxes(leftListOfGods, sixItemsOfAttacker, Data.SixItemsOfAttacker, attacker, Data.CurrentAttacker, characteristicsOfAttacker, Data.Characteristics_Attacker);
             SetLevelBinding(Data.CurrentAttacker[0], levelOfAttacker, attackerLevelSlider);
-            
+
             SetListBoxes(rightListOfGods, sixItemsOfTarget, Data.SixItemsOfTarget, target, Data.CurrentTarget, characteristicsOfTarget, Data.Characteristics_Target);
             SetLevelBinding(Data.CurrentTarget[0], levelOfTarget, targetLevelSlider);
 
             /*Build testBuild = new Build();
             buildsStack.Push(testBuild);
             builds.ItemsSource = buildsStack;*/
-            
-            void SetListBoxes
-            (
-                ListBox listOfGods,
-                ListBox sixItems,
-                ObservableCollection<Item> sixItemsCollection,
-                ListBox godListBox,
-                ObservableCollection<God> godCollection,
-                ListBox characteristicsListBox,
-                Characteristic characteristicInstance
-            )
-            {
-                sixItems.ItemsSource = sixItemsCollection;
-                listOfGods.ItemsSource = SQLiteDataAccess.LoadGods();
-                godListBox.ItemsSource = godCollection;
-                characteristicsListBox.ItemsSource = new ObservableCollection<Characteristic> { characteristicInstance };
-            }
-            void SetLevelBinding(God god, TextBlock textBlock, Slider slider)
-            {
-                var binding = new Binding("Level") { Source = god };
-                textBlock.SetBinding(TextBlock.TextProperty, binding);
-                slider.SetBinding(Slider.ValueProperty, binding);
-            }
-        }
 
-        //Обработчик, снимающий статус IsSelected с ListBoxItem'ов при нажатии на другие области окна.
+
+        }
+        //Снимает статус IsSelected с ListBox'ов при нажатии на другие области окна.
         private void Window_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             //Если источник события не ListBox
             if (e.Source.GetType().Name != "ListBox")
             {
-                ListBox[] listBoxes = { attacker, sixItemsOfAttacker, leftListOfItems, rightListOfItems, target, sixItemsOfTarget, /*targetsItemsList*/ };
-                foreach (ListBox listBox in listBoxes)
+                ListBox[] listBoxes = { attacker, sixItemsOfAttacker, leftListOfItems, target, sixItemsOfTarget, rightListOfItems };
+                for (byte i = 0; i < listBoxes.Length; i++)
                 {
-                    listBox.SelectedIndex = -1;
+                    listBoxes[i].SelectedIndex = -1;
                 }
-                //Скрыть списки предметов.
                 leftListOfItems.Visibility = Visibility.Collapsed;
                 rightListOfItems.Visibility = Visibility.Collapsed;
             }
         }
         private void ItemOfLeftList_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            var container = sender as ListBoxItem;
-            var item = (Item)container.DataContext;
-            item.SetItem(sixItemsOfAttacker, Data.SixItemsOfAttacker, leftListOfItems, Data.ResultingItemOfAttacker);
-            Calculation.CalculateCharacteristics(Data.Characteristics_Attacker, Data.CurrentAttacker[0], Data.ResultingItemOfAttacker);
+            GetInstanceOf<Item>((ListBoxItem)sender).SetItem(sixItemsOfAttacker, Data.SixItemsOfAttacker, leftListOfItems, Data.ResultingItemOfAttacker);
+            Data.Characteristics_Attacker.Calculate(Data.CurrentAttacker[0], Data.ResultingItemOfAttacker);
         }
         private void ItemOfRightList_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            var container = sender as ListBoxItem;
-            var item = (Item)container.DataContext;
-            item.SetItem(sixItemsOfTarget, Data.SixItemsOfTarget, rightListOfItems, Data.ResultingItemOfTarget);
-            Calculation.CalculateCharacteristics(Data.Characteristics_Target, Data.CurrentTarget[0], Data.ResultingItemOfTarget);
+            GetInstanceOf<Item>((ListBoxItem)sender).SetItem(sixItemsOfTarget, Data.SixItemsOfTarget, rightListOfItems, Data.ResultingItemOfTarget);
+            Data.Characteristics_Target.Calculate(Data.CurrentTarget[0], Data.ResultingItemOfTarget);
         }
-
-
         private void leftListOfGods_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            var container = sender as ListBoxItem;
-            var god = (God)container.DataContext;
-            god.SetGod(Data.SixItemsOfAttacker, Data.CurrentAttacker, Data.ResultingItemOfAttacker, leftListOfItems, Data.Characteristics_Attacker);
+            GetInstanceOf<God>((ListBoxItem)sender).SetGod(Data.SixItemsOfAttacker, Data.CurrentAttacker, Data.ResultingItemOfAttacker, leftListOfItems, Data.Characteristics_Attacker);
         }
         private void RightListOfGods_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            var container = sender as ListBoxItem;
-            var god = (God)container.DataContext;
-            god.SetGod(Data.SixItemsOfTarget, Data.CurrentTarget, Data.ResultingItemOfTarget, rightListOfItems, Data.Characteristics_Target);
-        }
-        private void SetGod(ListBoxItem container, ObservableCollection<Item> sixItemsCollection, ObservableCollection<God> currentGod, Item resultingItem, ListBox listOfItems, Characteristic characteristics)
-        {
-            var god = (God)container.DataContext;
-            if (god.TypeOfDamage != currentGod[0].TypeOfDamage)
-            {
-                //Обнуление слотов с предметами и суммы всех их характеристик
-                //Почему-то нельзя приравнять одну коллекцию к коллекции пустых предметов
-                for (int i = 0; i < 6; i++)
-                {
-                    sixItemsCollection[i] = Data.ZeroItem ;
-                }
-                //И экземпляр к пустому экземпляру
-                resultingItem.Power = 0;
-                resultingItem.AttackSpeed = 0;
-                resultingItem.Mana = 0;
-                resultingItem.Health = 0;
-                resultingItem.MagicalProtections = 0;
-                resultingItem.PhysicalProtections = 0;
-                resultingItem.FlatPenetration = 0;
-                resultingItem.FlatReduction = 0;
-                resultingItem.CritChance = 0;
-                resultingItem.LifeSteal = 0;
-                resultingItem.PercentagePenetration = 0;
-                resultingItem.PercentageReduction = 0;
-                resultingItem.CritChance = 0;
-                //Переделать потом под getProperty
-                //нет, не переделать, так как впоследствии этот блок не будет нужен
-                /*if (god.TypeOfDamage == "Magical")
-                {
-                    listOfItems.ItemsSource = Data.ListOfMagicalItems;
-                }
-                else
-                {
-                    listOfItems.ItemsSource = Data.ListOfPhysicalItems;
-                }*/
-            }
-            god.SetListOfItems(listOfItems);
-            //Эта часть нужна только для того, чтобы не сбрасывалось значение слайдера
-            //#костыль
-            byte j = currentGod[0].Level;
-            if (!currentGod.Contains((God)container.DataContext))
-            {
-                currentGod[0] = god;
-            }
-            currentGod[0].Level = j;
-            Calculation.CalculateCharacteristics(characteristics, currentGod[0], resultingItem);
+            GetInstanceOf<God>((ListBoxItem)sender).SetGod(Data.SixItemsOfTarget, Data.CurrentTarget, Data.ResultingItemOfTarget, rightListOfItems, Data.Characteristics_Target);
         }
         private void SixItemsOfAttacker_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -162,17 +78,13 @@ namespace SmiteBasicAttackDamage
         }
         private void SixItemsOfAttacker_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            var container = sender as ListBoxItem;
-            var item = (Item)container.DataContext;
-            item.RemoveItem(sixItemsOfAttacker, Data.SixItemsOfAttacker, leftListOfItems);
-            Calculation.CalculateCharacteristics(Data.Characteristics_Attacker, Data.CurrentAttacker[0], Data.ResultingItemOfAttacker);
+            GetInstanceOf<Item>((ListBoxItem)sender).RemoveItem(sixItemsOfAttacker, Data.SixItemsOfAttacker, leftListOfItems);
+            Data.Characteristics_Attacker.Calculate(Data.CurrentAttacker[0], Data.ResultingItemOfAttacker);
         }
         private void SixItemsOfTarget_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            var container = sender as ListBoxItem;
-            var item = (Item)container.DataContext;
-            item.RemoveItem(sixItemsOfAttacker, Data.SixItemsOfAttacker, leftListOfItems);
-            Calculation.CalculateCharacteristics(Data.Characteristics_Target, Data.CurrentTarget[0], Data.ResultingItemOfTarget);
+            GetInstanceOf<Item>((ListBoxItem)sender).RemoveItem(sixItemsOfAttacker, Data.SixItemsOfAttacker, leftListOfItems);
+            Data.Characteristics_Target.Calculate(Data.CurrentTarget[0], Data.ResultingItemOfTarget);
         }
         //Обработчик для сохранения билда.
         private void SaveButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
@@ -198,7 +110,10 @@ namespace SmiteBasicAttackDamage
                 }
             }*/
         }
-
+        private T GetInstanceOf<T>(ListBoxItem container)
+        {
+            return (T)container.DataContext;
+        }
         //Обработчик для кнопки удаления билда.
         private void DeleteButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
@@ -230,21 +145,39 @@ namespace SmiteBasicAttackDamage
         {
             somethingTextBlock.Text = Data.CurrentAttacker[0].TypeOfDamage;
             somethingTextBlock.Text = Data.ResultingItemOfAttacker.AttackSpeed.ToString();
-
-            //test1.Text = Calculation.ItemOfAttackerIndex.ToString();
-            //Calculation.SixItems_attacker[3] =  new Item(13, 20, 0, null, "/Images/Item/VoidShield.png", null, 0, 0, 0, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, .15);
-            //Calculation.Attacker = new Characteristic(80);
         }
 
         private void AttackerLevelSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             Data.CurrentAttacker[0].Level = Convert.ToByte(attackerLevelSlider.Value);
-            Calculation.CalculateCharacteristics(Data.Characteristics_Attacker, Data.CurrentAttacker[0], Data.ResultingItemOfAttacker);
+            Data.Characteristics_Attacker.Calculate(Data.CurrentAttacker[0], Data.ResultingItemOfAttacker);
         }
         private void TargetLevelSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             Data.CurrentTarget[0].Level = Convert.ToByte(targetLevelSlider.Value);
-            Calculation.CalculateCharacteristics(Data.Characteristics_Target, Data.CurrentTarget[0], Data.ResultingItemOfTarget);
+            Data.Characteristics_Target.Calculate(Data.CurrentTarget[0], Data.ResultingItemOfTarget);
+        }
+        private void SetListBoxes
+            (
+                ListBox listOfGods,
+                ListBox sixItems,
+                ObservableCollection<Item> sixItemsCollection,
+                ListBox godListBox,
+                ObservableCollection<God> godCollection,
+                ListBox characteristicsListBox,
+                Characteristic characteristicInstance
+            )
+        {
+            sixItems.ItemsSource = sixItemsCollection;
+            listOfGods.ItemsSource = SQLiteDataAccess.LoadGods();
+            godListBox.ItemsSource = godCollection;
+            characteristicsListBox.ItemsSource = new ObservableCollection<Characteristic> { characteristicInstance };
+        }
+        private void SetLevelBinding(God god, TextBlock textBlock, Slider slider)
+        {
+            var binding = new Binding("Level") { Source = god };
+            textBlock.SetBinding(TextBlock.TextProperty, binding);
+            slider.SetBinding(Slider.ValueProperty, binding);
         }
     }
 }

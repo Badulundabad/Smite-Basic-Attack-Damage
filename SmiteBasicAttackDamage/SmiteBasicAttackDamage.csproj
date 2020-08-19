@@ -392,12 +392,11 @@
     <Resource Include="Images\Item\JotunnsWrath.png" />
     <Resource Include="Images\Item\LonosMask.png" />
     <Resource Include="Images\Item\LotusCrown.png" />
-    <Resource Include="Images\Item\MagisBlessing.png" />
+    <Resource Include="Images\Item\MagisCloak.png" />
     <Resource Include="Images\Item\MailofRenewal.png" />
     <Resource Include="Images\Item\Malice.png" />
-    <Resource Include="Images\Item\MidGuardianMail.png" />
+    <Resource Include="Images\Item\MidgardianMail.png" />
     <Resource Include="Images\Item\MysticalMail.png" />
-    <Resource Include="Images\Item\NinjaTabi.png.png" />
     <Resource Include="Images\Item\ObsidianShard.png" />
     <Resource Include="Images\Item\OdysseusBow.png" />
     <Resource Include="Images\Item\OniHuntersGarb.png" />

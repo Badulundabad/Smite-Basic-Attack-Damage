@@ -14,10 +14,10 @@ namespace SmiteBasicAttackDamage
         string method = null;
 
         int id = 0;
-        int mana = 0;
-        int health = 0;
+        short mana = 0;
+        short health = 0;
 
-        int power = 0;
+        short power = 0;
         byte magicalProtections = 0;
         byte physicalProtections = 0;
         byte flatPenetration = 0;
@@ -40,8 +40,8 @@ namespace SmiteBasicAttackDamage
 
         public Item
         (
-            string name, int id, int power, double attackSpeed, string description, string imagePath, string method,
-            int mana, int health, byte magicalProtections, byte physicalProtections, byte flatPenetration,
+            string name, int id, short power, double attackSpeed, string description, string imagePath, string method,
+            short mana, short health, byte magicalProtections, byte physicalProtections, byte flatPenetration,
             byte flatReduction, double critChance, byte lifeSteal, byte cooldownReduction, byte movementSpeed,
             byte crowdControlReduction, byte mp5, byte hp5, double percentagePenetration, double percentageReduction
         )
@@ -93,6 +93,22 @@ namespace SmiteBasicAttackDamage
             Hp5 = 0;
             PercentagePenetration = 0;
             PercentageReduction = 0;
+        }
+        public void ClearProperties()
+        {
+            this.Power = 0;
+            this.AttackSpeed = 0;
+            this.Mana = 0;
+            this.Health = 0;
+            this.MagicalProtections = 0;
+            this.PhysicalProtections = 0;
+            this.FlatPenetration = 0;
+            this.FlatReduction = 0;
+            this.CritChance = 0;
+            this.LifeSteal = 0;
+            this.PercentagePenetration = 0;
+            this.PercentageReduction = 0;
+            this.CritChance = 0;
         }
         public void SetItem(ListBox sixItemsListBox, ObservableCollection<Item> sixItemsCollection, ListBox listOfItems, Item resultingItem)
         {
@@ -239,7 +255,7 @@ namespace SmiteBasicAttackDamage
                 }
             }
         }
-        public int Mana
+        public short Mana
         {
             get
             {
@@ -257,7 +273,7 @@ namespace SmiteBasicAttackDamage
                 }
             }
         }
-        public int Health
+        public short Health
         {
             get
             {
@@ -275,7 +291,7 @@ namespace SmiteBasicAttackDamage
                 }
             }
         }
-        public int Power
+        public short Power
         {
             get
             {

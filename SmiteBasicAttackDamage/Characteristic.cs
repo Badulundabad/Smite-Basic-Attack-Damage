@@ -18,7 +18,18 @@ namespace SmiteBasicAttackDamage
         double physicalProtection = 0;
         double baseDamage = 0;
         double critChance = 0;
-        
+
+        public void Calculate(God god, Item resultingItem)
+        {
+            this.Power = resultingItem.Power;
+            this.BaseDamage = god.BaseDamage + god.BaseDamagePerLevel * god.Level + this.Power;
+            this.MagicalProtections = god.MagicalProtections + god.MagicalProtectionsPerLevel * god.Level + resultingItem.MagicalProtections;
+            this.PhysicalProtections = god.PhysicalProtections + god.PhysicalProtectionsPerLevel * god.Level + resultingItem.PhysicalProtections;
+            this.AttackSpeed = god.AttackSpeed * (1 + god.AttackSpeedPerLevel * god.Level + resultingItem.AttackSpeed);
+            this.Health = god.Health + god.HealthPerLevel * god.Level + resultingItem.Health;
+            this.Mana = god.Mana + god.ManaPerLevel * god.Level + resultingItem.Mana;
+            this.CritChance = resultingItem.CritChance * 100;
+        }
         public double CritChance
         {
             get

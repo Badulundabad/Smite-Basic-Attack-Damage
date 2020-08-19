@@ -20,11 +20,11 @@ namespace SmiteBasicAttackDamage
         string iconPath = null;
         string typeOfDamage = "Physical";
 
-        int health = 0;
-        int baseDamage = 0;
-        int mana = 0;
-        int magicalProtections = 0;
-        int physicalProtections = 0;
+        short health = 0;
+        short baseDamage = 0;
+        short mana = 0;
+        short magicalProtections = 0;
+        short physicalProtections = 0;
 
         byte level = 0;
         byte id = 0;
@@ -44,30 +44,14 @@ namespace SmiteBasicAttackDamage
 
         public void SetGod(ObservableCollection<Item> sixItemsCollection, ObservableCollection<God> currentGod, Item resultingItem, ListBox listOfItems, Characteristic characteristics)
         {
-            if (this.TypeOfDamage != currentGod[0].TypeOfDamage)
-            {
-                //Обнуление слотов с предметами и суммы всех их характеристик
-                //Почему-то нельзя приравнять одну коллекцию к коллекции пустых предметов
-                for (int i = 0; i < 6; i++)
-                {
-                    sixItemsCollection[i] = Data.ZeroItem;
-                }
-                //И экземпляр к пустому экземпляру
-                resultingItem.Power = 0;
-                resultingItem.AttackSpeed = 0;
-                resultingItem.Mana = 0;
-                resultingItem.Health = 0;
-                resultingItem.MagicalProtections = 0;
-                resultingItem.PhysicalProtections = 0;
-                resultingItem.FlatPenetration = 0;
-                resultingItem.FlatReduction = 0;
-                resultingItem.CritChance = 0;
-                resultingItem.LifeSteal = 0;
-                resultingItem.PercentagePenetration = 0;
-                resultingItem.PercentageReduction = 0;
-                resultingItem.CritChance = 0;
-            }
             this.SetListOfItems(listOfItems);
+            //Обнуление слотов с предметами и суммы всех их характеристик
+            for (int i = 0; i < 6; i++)
+            {
+                sixItemsCollection[i] = Data.ZeroItem;
+            }
+            resultingItem.ClearProperties();
+
             //Эта часть нужна только для того, чтобы не сбрасывалось значение слайдера
             //#костыль
             byte j = currentGod[0].Level;
@@ -76,11 +60,9 @@ namespace SmiteBasicAttackDamage
                 currentGod[0] = this;
             }
             currentGod[0].Level = j;
-            Calculation.CalculateCharacteristics(characteristics, currentGod[0], resultingItem);
+            characteristics.Calculate(currentGod[0], resultingItem);
         }
-        static private God[] listOfGods = new God[111];
         public God() { }
-
         public string Method { get; set; }
         public string Name
         {
@@ -142,7 +124,7 @@ namespace SmiteBasicAttackDamage
                 }
             }
         }
-        public int Health
+        public short Health
         {
             get
             {
@@ -160,7 +142,7 @@ namespace SmiteBasicAttackDamage
                 }
             }
         }
-        public int BaseDamage
+        public short BaseDamage
         {
             get
             {
@@ -178,7 +160,7 @@ namespace SmiteBasicAttackDamage
                 }
             }
         }
-        public int Mana
+        public short Mana
         {
             get
             {
@@ -196,7 +178,7 @@ namespace SmiteBasicAttackDamage
                 }
             }
         }
-        public int MagicalProtections
+        public short MagicalProtections
         {
             get
             {
@@ -214,7 +196,7 @@ namespace SmiteBasicAttackDamage
                 }
             }
         }
-        public int PhysicalProtections
+        public short PhysicalProtections
         {
             get
             {
@@ -396,9 +378,6 @@ namespace SmiteBasicAttackDamage
                 }
             }
         }
-
-        internal static God[] ListOfGods { get => listOfGods; set => listOfGods = value; }
-
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
