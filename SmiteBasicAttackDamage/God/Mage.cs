@@ -13,13 +13,13 @@ namespace SmiteBasicAttackDamage
         {
             TypeOfDamage = "Magical";
         }
-        public override void SetListOfItems(ListBox listOfItems)
+        public override List<Item> GetListOfItems()
         {
             var list = new List<Item>();
             list.AddRange(SQLiteDataAccess.LoadItemTable("SharedItems"));
             list.AddRange(SQLiteDataAccess.LoadItemTable("Magical"));
             list.AddRange(SQLiteDataAccess.LoadItemTable("Mages"));
-            listOfItems.ItemsSource = list;
+            return list;
         }
     }
 }

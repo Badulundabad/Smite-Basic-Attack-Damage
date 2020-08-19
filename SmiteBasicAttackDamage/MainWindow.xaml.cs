@@ -18,7 +18,7 @@ namespace SmiteBasicAttackDamage
     {
         readonly Stack<Build> buildsStack = new Stack<Build>();
         Build emptyBuild;
-
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -78,12 +78,12 @@ namespace SmiteBasicAttackDamage
         }
         private void SixItemsOfAttacker_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            GetInstanceOf<Item>((ListBoxItem)sender).RemoveItem(sixItemsOfAttacker, Data.SixItemsOfAttacker, leftListOfItems);
+            GetInstanceOf<Item>((ListBoxItem)sender).RemoveItem(sixItemsOfAttacker, Data.SixItemsOfAttacker, leftListOfItems, Data.ResultingItemOfAttacker);
             Data.Characteristics_Attacker.Calculate(Data.CurrentAttacker[0], Data.ResultingItemOfAttacker);
         }
         private void SixItemsOfTarget_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            GetInstanceOf<Item>((ListBoxItem)sender).RemoveItem(sixItemsOfAttacker, Data.SixItemsOfAttacker, leftListOfItems);
+            GetInstanceOf<Item>((ListBoxItem)sender).RemoveItem(sixItemsOfAttacker, Data.SixItemsOfAttacker, leftListOfItems, Data.ResultingItemOfTarget);
             Data.Characteristics_Target.Calculate(Data.CurrentTarget[0], Data.ResultingItemOfTarget);
         }
         //Обработчик для сохранения билда.
@@ -143,7 +143,6 @@ namespace SmiteBasicAttackDamage
 
         private void TestButton2_Click(object sender, RoutedEventArgs e)
         {
-            somethingTextBlock.Text = Data.CurrentAttacker[0].TypeOfDamage;
             somethingTextBlock.Text = Data.ResultingItemOfAttacker.AttackSpeed.ToString();
         }
 

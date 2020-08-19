@@ -13,13 +13,13 @@ namespace SmiteBasicAttackDamage
         {
             TypeOfDamage = "Physical";
         }
-        public override void SetListOfItems(ListBox listOfItems)
+        public override List<Item> GetListOfItems()
         {
             var list = new List<Item>();
             list.AddRange(SQLiteDataAccess.LoadItemTable("SharedItems"));
             list.AddRange(SQLiteDataAccess.LoadItemTable("Physical"));
             list.AddRange(SQLiteDataAccess.LoadItemTable("Warrior"));
-            listOfItems.ItemsSource = list;
+            return list;
         }
     }
 }

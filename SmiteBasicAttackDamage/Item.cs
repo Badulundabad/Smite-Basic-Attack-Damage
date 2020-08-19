@@ -94,25 +94,9 @@ namespace SmiteBasicAttackDamage
             PercentagePenetration = 0;
             PercentageReduction = 0;
         }
-        public void ClearProperties()
-        {
-            this.Power = 0;
-            this.AttackSpeed = 0;
-            this.Mana = 0;
-            this.Health = 0;
-            this.MagicalProtections = 0;
-            this.PhysicalProtections = 0;
-            this.FlatPenetration = 0;
-            this.FlatReduction = 0;
-            this.CritChance = 0;
-            this.LifeSteal = 0;
-            this.PercentagePenetration = 0;
-            this.PercentageReduction = 0;
-            this.CritChance = 0;
-        }
         public void SetItem(ListBox sixItemsListBox, ObservableCollection<Item> sixItemsCollection, ListBox listOfItems, Item resultingItem)
         {
-            if (!sixItemsCollection.Contains(this))
+            if (!sixItemsCollection.Any(item => item.Id == this.Id))
             {
                 resultingItem += this;
                 sixItemsCollection[sixItemsListBox.SelectedIndex] = this;
@@ -125,31 +109,14 @@ namespace SmiteBasicAttackDamage
                 }
             }
         }
-        public void RemoveItem(ListBox sixItemsListBox, ObservableCollection<Item> sixItemsCollection, ListBox listOfItems)
+        public void RemoveItem(ListBox sixItemsListBox, ObservableCollection<Item> sixItemsCollection, ListBox listOfItems, Item resultingItem)
         {
             int i = sixItemsCollection.IndexOf(this);
             if (sixItemsListBox.SelectedIndex > -1)
             {
                 if (this != Data.ZeroItem)
                 {
-                    Data.ResultingItemOfAttacker -= this;
-                }
-                sixItemsCollection[sixItemsListBox.SelectedIndex] = Data.ZeroItem;
-            }
-            if (listOfItems.Visibility == Visibility.Visible)
-            {
-                sixItemsListBox.SelectedIndex = i;
-            }
-        }
-        public static void RemoveItems(ListBoxItem container, ListBox sixItemsListBox, ObservableCollection<Item> sixItemsCollection, ListBox listOfItems)
-        {
-            int i = sixItemsCollection.IndexOf((Item)container.DataContext);
-            if (sixItemsListBox.SelectedIndex > -1)
-            {
-                var item = (Item)container.DataContext;
-                if (item != Data.ZeroItem)
-                {
-                    Data.ResultingItemOfAttacker -= item;
+                    resultingItem -= this;
                 }
                 sixItemsCollection[sixItemsListBox.SelectedIndex] = Data.ZeroItem;
             }

@@ -38,20 +38,24 @@ namespace SmiteBasicAttackDamage
         double physicalProtectionsPerLevel = 0;
         string method = null;
 
-        public virtual void SetListOfItems(ListBox listOfItems)
+        public virtual List<Item> GetListOfItems()
         {
+            return new List<Item>();
         }
 
         public void SetGod(ObservableCollection<Item> sixItemsCollection, ObservableCollection<God> currentGod, Item resultingItem, ListBox listOfItems, Characteristic characteristics)
         {
-            this.SetListOfItems(listOfItems);
-            //Обнуление слотов с предметами и суммы всех их характеристик
-            for (int i = 0; i < 6; i++)
+            var list = this.GetListOfItems();
+            listOfItems.ItemsSource = list;
+            //Если i-ый слот содержит предмет, которого нет в новосозданном списке предметов, то слот очищается
+            for (byte i = 0; i < 6; i++)
             {
-                sixItemsCollection[i] = Data.ZeroItem;
+                if (!list.Any(item => item.Id == sixItemsCollection[i].Id))
+                {
+                    resultingItem -= sixItemsCollection[i];
+                    sixItemsCollection[i] = Data.ZeroItem;
+                }
             }
-            resultingItem.ClearProperties();
-
             //Эта часть нужна только для того, чтобы не сбрасывалось значение слайдера
             //#костыль
             byte j = currentGod[0].Level;
