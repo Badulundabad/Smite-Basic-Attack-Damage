@@ -54,7 +54,7 @@ namespace SmiteBasicAttackDamage
                 if (!list.Any(item => item.Id == sixItemsCollection[i].Id))
                 {
                     resultingItem -= sixItemsCollection[i];
-                    sixItemsCollection[i] = Data.ZeroItem;
+                    sixItemsCollection[i] = GodEntity.ZeroItem;
                 }
             }
             //Эта часть нужна только для того, чтобы не сбрасывалось значение слайдера
@@ -66,6 +66,29 @@ namespace SmiteBasicAttackDamage
             }
             currentGod[0].Level = j;
             characteristics.Calculate(currentGod[0], resultingItem);
+        }
+        public void SetGod(GodEntity entity)
+        {
+            var list = this.GetListOfItems();
+            entity.ListOfItems.ItemsSource = list;
+            //Если i-ый слот содержит предмет, которого нет в новосозданном списке предметов, то слот очищается
+            for (byte i = 0; i < 6; i++)
+            {
+                if (!list.Any(item => item.Id == entity.SixItems[i].Id))
+                {
+                    entity.ResultingItem -= entity.SixItems[i];
+                    entity.SixItems[i] = GodEntity.ZeroItem;
+                }
+            }
+            //Эта часть нужна только для того, чтобы не сбрасывалось значение слайдера
+            //#костыль
+            byte j = entity.Current[0].Level;
+            if (!entity.Current.Contains(this))
+            {
+                entity.Current[0] = this;
+            }
+            entity.Current[0].Level = j;
+            entity.Characteristics.Calculate(entity.Current[0], entity.ResultingItem);
         }
         public God() { }
         public string Method { get; set; }

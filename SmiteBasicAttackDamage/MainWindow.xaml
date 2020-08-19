@@ -668,12 +668,12 @@
             <Style.Triggers>
                 <MultiDataTrigger>
                     <MultiDataTrigger.Conditions>
-                        <Condition Binding="{Binding ElementName=attacker, Path=SelectedIndex}" Value="0"/>
+                        <Condition Binding="{Binding ElementName=attackerListBox, Path=SelectedIndex}" Value="0"/>
                         <Condition Binding="{Binding ElementName=leftListOfItems, Path=Visibility}" Value="Collapsed"/>
                     </MultiDataTrigger.Conditions>
                     <Setter Property="Visibility" Value="Visible"/>
                 </MultiDataTrigger>
-                <DataTrigger Binding="{Binding ElementName=attacker, Path=SelectedIndex}" Value="-1">
+                <DataTrigger Binding="{Binding ElementName=attackerListBox, Path=SelectedIndex}" Value="-1">
                     <Setter Property="Visibility" Value="Collapsed"/>
                 </DataTrigger>
             </Style.Triggers>
@@ -702,12 +702,12 @@
             <Style.Triggers>
                 <MultiDataTrigger>
                     <MultiDataTrigger.Conditions>
-                        <Condition Binding="{Binding ElementName=target, Path=SelectedIndex}" Value="0"/>
+                        <Condition Binding="{Binding ElementName=targetListBox, Path=SelectedIndex}" Value="0"/>
                         <Condition Binding="{Binding ElementName=rightListOfItems, Path=Visibility}" Value="Collapsed"/>
                     </MultiDataTrigger.Conditions>
                     <Setter Property="Visibility" Value="Visible"/>
                 </MultiDataTrigger>
-                <DataTrigger Binding="{Binding ElementName=target, Path=SelectedIndex}" Value="-1">
+                <DataTrigger Binding="{Binding ElementName=targetListBox, Path=SelectedIndex}" Value="-1">
                     <Setter Property="Visibility" Value="Collapsed"/>
                 </DataTrigger>
             </Style.Triggers>
@@ -1214,7 +1214,7 @@
                 <TextBlock Text="A t t a c k e r" Style="{StaticResource font_Style}"/>
             </Border>
             <Grid>
-                <ListBox x:Name="attacker" Style="{StaticResource god_Style}"/>
+                <ListBox x:Name="attackerListBox" Style="{StaticResource god_Style}"/>
                 <ListBox x:Name="sixItemsOfAttacker" Style="{StaticResource SelectedItemsOfAttacker_Style}"/>
                 <ListBox x:Name="leftListOfItems" Style="{StaticResource leftListOfItems_Style}"/>
                 <ListBox x:Name="leftListOfGods" Style="{StaticResource leftListOfGods_Style}"/>
@@ -1238,7 +1238,7 @@
                 <TextBlock Text="T a r g e t " Style="{StaticResource font_Style}"/>
             </Border>
             <Grid>
-                <ListBox x:Name="target" Style="{StaticResource target_Style}"/>
+                <ListBox x:Name="targetListBox" Style="{StaticResource target_Style}"/>
                 <ListBox x:Name="sixItemsOfTarget" Style="{StaticResource selectedItemsOfTarget_Style}"/>
                 <ListBox x:Name="rightListOfItems" Style="{StaticResource rightListOfItems_Style}"/>
                 <ListBox x:Name="rightListOfGods" Style="{StaticResource rightListOfGods_Style}"/>

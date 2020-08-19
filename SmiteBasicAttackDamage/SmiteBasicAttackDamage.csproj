@@ -87,6 +87,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GodEntity.cs" />
     <Compile Include="God\Assassin.cs" />
     <Compile Include="God\Guardian.cs" />
     <Compile Include="God\Mage.cs" />
@@ -104,7 +105,6 @@
     <Compile Include="Build.cs" />
     <Compile Include="Calculation.cs" />
     <Compile Include="Characteristic.cs" />
-    <Compile Include="Data.cs" />
     <Compile Include="Converter\FractionalValueToIntegerConverter.cs" />
     <Compile Include="God\God.cs" />
     <Compile Include="God\Hunter.cs" />

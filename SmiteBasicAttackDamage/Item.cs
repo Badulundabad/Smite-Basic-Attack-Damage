@@ -60,36 +60,36 @@ namespace SmiteBasicAttackDamage
             PercentagePenetration = 0;
             PercentageReduction = 0;
         }
-        public void SetItem(ListBox sixItemsListBox, ObservableCollection<Item> sixItemsCollection, ListBox listOfItems, Item resultingItem)
+        public void SetItem(GodEntity entity)
         {
-            if (!sixItemsCollection.Any(item => item.Id == this.Id))
+            if (!entity.SixItems.Any(item => item.Id == this.Id))
             {
-                resultingItem += this;
-                sixItemsCollection[sixItemsListBox.SelectedIndex] = this;
-                sixItemsListBox.SelectedIndex = sixItemsCollection.IndexOf(Data.ZeroItem);
+                entity.ResultingItem += this;
+                entity.SixItems[entity.ItemSlots.SelectedIndex] = this;
+                entity.ItemSlots.SelectedIndex = entity.SixItems.IndexOf(GodEntity.ZeroItem);
                 //При отсутствии свободных слотов закрывает список предметов и снимает выделение со слотов
-                if (!sixItemsCollection.Contains(Data.ZeroItem))
+                if (!entity.SixItems.Contains(GodEntity.ZeroItem))
                 {
-                    listOfItems.Visibility = Visibility.Collapsed;
-                    sixItemsListBox.SelectedIndex = -1;
+                    entity.ListOfItems.Visibility = Visibility.Collapsed;
+                    entity.ItemSlots.SelectedIndex = -1;
                 }
             }
         }
-        public void RemoveItem(ListBox sixItemsListBox, ObservableCollection<Item> sixItemsCollection, ListBox listOfItems, Item resultingItem)
+        public void RemoveItemFrom(GodEntity entity)
         {
-            int i = sixItemsCollection.IndexOf(this);
-            if (sixItemsListBox.SelectedIndex > -1)
+            int i = entity.SixItems.IndexOf(this);
+            if (entity.ItemSlots.SelectedIndex > -1)
             {
-                if (this != Data.ZeroItem)
+                if (this != GodEntity.ZeroItem)
                 {
-                    resultingItem -= this;
+                    entity.ResultingItem -= this;
                 }
-                sixItemsCollection[sixItemsListBox.SelectedIndex] = Data.ZeroItem;
+                entity.SixItems[entity.ItemSlots.SelectedIndex] = GodEntity.ZeroItem;
             }
             //При открытом списке предметов выделяет слот, который только что очистился
-            if (listOfItems.Visibility == Visibility.Visible)
+            if (entity.ListOfItems.Visibility == Visibility.Visible)
             {
-                sixItemsListBox.SelectedIndex = i;
+                entity.ItemSlots.SelectedIndex = i;
             }
         }
         public static Item operator +(Item first, Item second)

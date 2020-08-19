@@ -1,17 +1,9 @@
-/Images/Item/Witchblade.png
-/Images/Item/Contagion.png
-/Images/Item/OniHuntersGarb.png
-/Images/Item/ShieldofRegrowth.png
-/Images/Item/Sovereignty.png
-/Images/Item/SpectralArmor.png
-/Images/Item/MagisCloak.png
-/Images/Item/BlackthornHammer.png
-/Images/Item/HideoftheNemeanLion.png
-/Images/Item/ShogunsKusari.png
-/Images/Item/ToxicBlade.png
-/Images/Item/MailofRenewal.png
-/Images/Item/Pestilence.png
-/Images/Item/StoneofGaia.png
-/Images/Item/BreastplateofValor.png
-/Images/Item/BulwarkofHope.png
-/Images/Item/MidgardianMail.png
+attacker.GodSlot = attackerListBox;
+            entity.GodSlot.ItemsSource = attacker.Current;
+            entity.ItemSlots = sixItemsOfAttacker;
+            entity.ItemSlots.ItemsSource = attacker.SixItems;
+            entity.ListOfItems = leftListOfItems;
+            entity.ListOfGods = leftListOfGods;
+            entity.ListOfGods.ItemsSource = SQLiteDataAccess.LoadGods();
+            entity.CharacteristicsListBox = characteristicsOfAttacker;
+            entity.CharacteristicsListBox.ItemsSource = new ObservableCollection<Characteristic>{ entity.Characteristics };
