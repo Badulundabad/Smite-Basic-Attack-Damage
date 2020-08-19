@@ -43,30 +43,6 @@ namespace SmiteBasicAttackDamage
             return new List<Item>();
         }
         //there is some random text
-
-        public void SetGod(ObservableCollection<Item> sixItemsCollection, ObservableCollection<God> currentGod, Item resultingItem, ListBox listOfItems, Characteristic characteristics)
-        {
-            var list = this.GetListOfItems();
-            listOfItems.ItemsSource = list;
-            //Если i-ый слот содержит предмет, которого нет в новосозданном списке предметов, то слот очищается
-            for (byte i = 0; i < 6; i++)
-            {
-                if (!list.Any(item => item.Id == sixItemsCollection[i].Id))
-                {
-                    resultingItem -= sixItemsCollection[i];
-                    sixItemsCollection[i] = GodEntity.ZeroItem;
-                }
-            }
-            //Эта часть нужна только для того, чтобы не сбрасывалось значение слайдера
-            //#костыль
-            byte j = currentGod[0].Level;
-            if (!currentGod.Contains(this))
-            {
-                currentGod[0] = this;
-            }
-            currentGod[0].Level = j;
-            characteristics.Calculate(currentGod[0], resultingItem);
-        }
         public void SetGod(GodEntity entity)
         {
             var list = this.GetListOfItems();
