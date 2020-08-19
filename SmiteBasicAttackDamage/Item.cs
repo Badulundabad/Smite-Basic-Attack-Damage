@@ -35,40 +35,6 @@ namespace SmiteBasicAttackDamage
         double percentageReduction = 0;
 
         static string[] arrayOfMethods = { };
-
-
-
-        public Item
-        (
-            string name, int id, short power, double attackSpeed, string description, string imagePath, string method,
-            short mana, short health, byte magicalProtections, byte physicalProtections, byte flatPenetration,
-            byte flatReduction, double critChance, byte lifeSteal, byte cooldownReduction, byte movementSpeed,
-            byte crowdControlReduction, byte mp5, byte hp5, double percentagePenetration, double percentageReduction
-        )
-        {
-            Name = name;
-            Id = id;
-            Power = power;
-            AttackSpeed = attackSpeed;
-            Description = description;
-            ImagePath = imagePath;
-            Method = method;
-            Mana = mana;
-            Health = health;
-            MagicalProtections = magicalProtections;
-            PhysicalProtections = physicalProtections;
-            FlatPenetration = flatPenetration;
-            FlatReduction = flatReduction;
-            CritChance = critChance;
-            LifeSteal = lifeSteal;
-            CooldownReduction = cooldownReduction;
-            MovementSpeed = movementSpeed;
-            CrowdControlReduction = crowdControlReduction;
-            Mp5 = mp5;
-            Hp5 = hp5;
-            PercentagePenetration = percentagePenetration;
-            PercentageReduction = percentageReduction;
-        }
         public Item()
         {
             Id = 0;
@@ -120,6 +86,7 @@ namespace SmiteBasicAttackDamage
                 }
                 sixItemsCollection[sixItemsListBox.SelectedIndex] = Data.ZeroItem;
             }
+            //При открытом списке предметов выделяет слот, который только что очистился
             if (listOfItems.Visibility == Visibility.Visible)
             {
                 sixItemsListBox.SelectedIndex = i;
@@ -254,7 +221,7 @@ namespace SmiteBasicAttackDamage
                 }
                 else
                 {
-                    throw new ArgumentException("", "Health");
+                    throw new ArgumentException("Value cannot be negative", "Health");
                 }
             }
         }
@@ -272,7 +239,7 @@ namespace SmiteBasicAttackDamage
                 }
                 else
                 {
-                    throw new ArgumentException("", "Power");
+                    throw new ArgumentException("Value cannot be negative", "Power");
                 }
             }
         }
@@ -290,7 +257,7 @@ namespace SmiteBasicAttackDamage
                 }
                 else
                 {
-                    throw new ArgumentException("", "MagicalProtections");
+                    throw new ArgumentException("Value cannot be negative", "MagicalProtections");
                 }
             }
         }
@@ -308,7 +275,7 @@ namespace SmiteBasicAttackDamage
                 }
                 else
                 {
-                    throw new ArgumentException("", "PhysicalProtections");
+                    throw new ArgumentException("Value cannot be negative", "PhysicalProtections");
                 }
             }
         }
@@ -506,7 +473,7 @@ namespace SmiteBasicAttackDamage
                 }
                 else
                 {
-                    throw new ArgumentException("Value must be in the range from 0 to 0.2", "PercentagePenetration");
+                    throw new ArgumentException("Value must be in the range from 0 to 1", "PercentagePenetration");
                 }
             }
         }
@@ -524,7 +491,7 @@ namespace SmiteBasicAttackDamage
                 }
                 else
                 {
-                    throw new ArgumentException("Value must be in the range from 0 to 0.5", "PercentageReduction");
+                    throw new ArgumentException("Value must be in the range from 0 to 1", "PercentageReduction");
                 }
             }
         }

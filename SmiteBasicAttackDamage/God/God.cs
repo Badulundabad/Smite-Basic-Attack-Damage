@@ -42,6 +42,7 @@ namespace SmiteBasicAttackDamage
         {
             return new List<Item>();
         }
+        //there is some random text
 
         public void SetGod(ObservableCollection<Item> sixItemsCollection, ObservableCollection<God> currentGod, Item resultingItem, ListBox listOfItems, Characteristic characteristics)
         {

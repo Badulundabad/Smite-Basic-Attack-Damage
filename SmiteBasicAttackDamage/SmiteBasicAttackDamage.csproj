@@ -92,7 +92,7 @@
     <Compile Include="God\Mage.cs" />
     <Compile Include="God\Warrior.cs" />
     <Compile Include="SQLiteDataAccess.cs" />
-    <Compile Include="StringToSeparatedStringConverter.cs" />
+    <Compile Include="Converter\StringToSeparatedStringConverter.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -105,7 +105,7 @@
     <Compile Include="Calculation.cs" />
     <Compile Include="Characteristic.cs" />
     <Compile Include="Data.cs" />
-    <Compile Include="FractionalValueToIntegerConverter.cs" />
+    <Compile Include="Converter\FractionalValueToIntegerConverter.cs" />
     <Compile Include="God\God.cs" />
     <Compile Include="God\Hunter.cs" />
     <Compile Include="Item.cs" />
