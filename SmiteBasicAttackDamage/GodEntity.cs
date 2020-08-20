@@ -33,6 +33,8 @@ namespace SmiteBasicAttackDamage
             this.LevelTextBlock.SetBinding(TextBlock.TextProperty, binding);
             this.LevelSlider.SetBinding(Slider.ValueProperty, binding);
         }
+        public GodEntity() { }
+        
         public void SetReferences(ListBox godListBox, ListBox sixItemsOfGod, ListBox listOfItems, ListBox listOfGods, ListBox characteristicsOfGod, Slider levelSlider, TextBlock levelTextBlock)
         {
             this.GodSlot = godListBox;

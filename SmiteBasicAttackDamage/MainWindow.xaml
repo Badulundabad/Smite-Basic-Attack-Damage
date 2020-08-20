@@ -58,7 +58,7 @@
                                 </Border>
                                 <Grid Grid.Column="2">
                                     <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="{Binding Name}" Foreground="#C7C2AF" Style="{StaticResource font_Style}" FontSize="14" HorizontalAlignment="Left"/>
+                                        <TextBlock Text="{Binding Name}" Foreground="#C7C2AF" Style="{StaticResource font_Style}" TextWrapping="WrapWithOverflow" FontSize="14" HorizontalAlignment="Left"/>
                                         <TextBlock Text="{Binding StringFormat= + {0}  POWER, Path=Power}">
                                             <TextBlock.Style>
                                                 <Style BasedOn="{StaticResource itemFont_style}" TargetType="TextBlock">

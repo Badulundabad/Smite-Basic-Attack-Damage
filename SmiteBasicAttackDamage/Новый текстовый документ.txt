@@ -1,9 +1,56 @@
-attacker.GodSlot = attackerListBox;
-            entity.GodSlot.ItemsSource = attacker.Current;
-            entity.ItemSlots = sixItemsOfAttacker;
-            entity.ItemSlots.ItemsSource = attacker.SixItems;
-            entity.ListOfItems = leftListOfItems;
-            entity.ListOfGods = leftListOfGods;
-            entity.ListOfGods.ItemsSource = SQLiteDataAccess.LoadGods();
-            entity.CharacteristicsListBox = characteristicsOfAttacker;
-            entity.CharacteristicsListBox.ItemsSource = new ObservableCollection<Characteristic>{ entity.Characteristics };
+/Images/Item/ReinforcedGreaves.png
+/Images/Item/ReinforcedGreaves.png
+/Images/Item/NinjaTabi.png
+/Images/Item/TalariaBoots.png
+/Images/Item/WarriorTabi.png
+/Images/Item/RelicDagger.png
+/Images/Item/WingedBlade.png
+/Images/Item/OdysseusBow.png
+/Images/Item/SoulEater.png
+/Images/Item/SoulEater.png
+/Images/Item/Ancile.png
+/Images/Item/RunicShield.png
+/Images/Item/HydrasLament.png
+/Images/Item/HydrasLament.png
+/Images/Item/BlackthornHammer.png
+/Images/Item/SilverbranchBow.png
+/Images/Item/TheExecutioner.png
+/Images/Item/TheExecutioner.png
+/Images/Item/DevourersGauntlet.png
+/Images/Item/DevourersGauntlet.png
+/Images/Item/FrostboundHammer.png
+/Images/Item/PythagoremsPiece.png
+/Images/Item/RuneforgedHammer.png
+/Images/Item/RuneforgedHammer.png
+/Images/Item/TheSledge.png
+/Images/Item/TheSledge.png
+/Images/Item/BrawlersBeatStick.png
+/Images/Item/JotunnsWrath.png
+/Images/Item/Rage.png
+/Images/Item/Rage.png
+/Images/Item/ShadowsteelShuriken.png
+/Images/Item/ShiftersShield.png
+/Images/Item/ShiftersShield.png
+/Images/Item/TheCrusher.png
+/Images/Item/AtalantasBow.png
+/Images/Item/AtalantasBow.png
+/Images/Item/Ichaival.png
+/Images/Item/Ichaival.png
+/Images/Item/BerserkersShield.png
+/Images/Item/Berserkers.png
+/Images/Item/CaduceusShield.png
+/Images/Item/GladiatorsShield.png
+/Images/Item/PoisonedStar.png
+/Images/Item/WindDemon.png
+/Images/Item/WindDemon.png
+/Images/Item/Asi.png
+/Images/Item/TitansBane.png
+/Images/Item/Transcendence.png
+/Images/Item/Transcendence
+/Images/Item/VoidShield
+/Images/Item/Malice.png
+/Images/Item/QinsSais.png
+/Images/Item/Fail-not.png
+/Images/Item/Bloodforge.png
+/Images/Item/Heartseeker.png
+/Images/Item/Deathbringer.png
