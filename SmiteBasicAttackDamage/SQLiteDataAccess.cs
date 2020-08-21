@@ -21,6 +21,18 @@ namespace SmiteBasicAttackDamage
                 return output.ToList();
             }
         }
+        public static List<T> LoadTheSetOfTables<T>(string[] tables)
+        {
+            using (IDbConnection connection = new SQLiteConnection(LoadConnectionString("Items")))
+            {
+                var output = new List<T>();
+                for (byte i = 0; i < tables.Length; i++)
+                {
+                    output.AddRange(connection.Query<T>($"select * from {tables[i]}", new DynamicParameters()));
+                }
+                return output;
+            }
+        }
         public static List<Item> LoadItemTable(string parameter)
         {
             using (IDbConnection connection = new SQLiteConnection(LoadConnectionString("Items")))
@@ -41,6 +53,7 @@ namespace SmiteBasicAttackDamage
             list.AddRange(LoadGodTable<Assassin>());
             list.AddRange(LoadGodTable<Mage>());
             list.AddRange(LoadGodTable<Warrior>());
+            list.AddRange(LoadGodTable<Ratatoskr>());
             return new ObservableCollection<God>(list.OrderBy(god => god.Name));
         }
     }

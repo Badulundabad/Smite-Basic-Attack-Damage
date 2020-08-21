@@ -15,11 +15,7 @@ namespace SmiteBasicAttackDamage
         }
         public override List<Item> GetListOfItems()
         {
-            var list = new List<Item>();
-            list.AddRange(SQLiteDataAccess.LoadItemTable("SharedItems"));
-            list.AddRange(SQLiteDataAccess.LoadItemTable("Magical"));
-            list.AddRange(SQLiteDataAccess.LoadItemTable("Guardian"));
-            return list;
+            return SQLiteDataAccess.LoadTheSetOfTables<Item>(new string[] { "SharedItems", "Magical", "Guardian" }); ;
         }
     }
 }

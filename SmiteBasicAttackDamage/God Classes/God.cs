@@ -45,12 +45,12 @@ namespace SmiteBasicAttackDamage
         //there is some random text
         public void SetGod(GodEntity entity)
         {
-            var list = this.GetListOfItems();
+            var list = this.GetListOfItems().OrderBy(god => god.Id);
             entity.ListOfItems.ItemsSource = list;
             //Если i-ый слот содержит предмет, которого нет в новосозданном списке предметов, то слот очищается
             for (byte i = 0; i < 6; i++)
             {
-                if (!list.Any(item => item.Id == entity.SixItems[i].Id))
+                if (!list.Any(item => item.Name == entity.SixItems[i].Name))
                 {
                     entity.ResultingItem -= entity.SixItems[i];
                     entity.SixItems[i] = GodEntity.ZeroItem;

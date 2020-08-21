@@ -133,6 +133,7 @@ namespace SmiteBasicAttackDamage
 
         private void TestButton2_Click(object sender, RoutedEventArgs e)
         {
+            somethingTextBlock.Text = attacker.ResultingItem.AttackSpeed.ToString();
         }
 
         private void AttackerLevelSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

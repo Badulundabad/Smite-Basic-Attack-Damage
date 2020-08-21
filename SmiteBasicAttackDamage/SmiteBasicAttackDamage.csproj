@@ -88,10 +88,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="GodEntity.cs" />
-    <Compile Include="God\Assassin.cs" />
-    <Compile Include="God\Guardian.cs" />
-    <Compile Include="God\Mage.cs" />
-    <Compile Include="God\Warrior.cs" />
+    <Compile Include="God Classes\Assassin.cs" />
+    <Compile Include="God Classes\Guardian.cs" />
+    <Compile Include="God Classes\Mage.cs" />
+    <Compile Include="God Classes\Ratatoskr.cs" />
+    <Compile Include="God Classes\Warrior.cs" />
     <Compile Include="SQLiteDataAccess.cs" />
     <Compile Include="Converter\StringToSeparatedStringConverter.cs" />
     <Page Include="MainWindow.xaml">
@@ -106,8 +107,8 @@
     <Compile Include="Calculation.cs" />
     <Compile Include="Characteristic.cs" />
     <Compile Include="Converter\FractionalValueToIntegerConverter.cs" />
-    <Compile Include="God\God.cs" />
-    <Compile Include="God\Hunter.cs" />
+    <Compile Include="God Classes\God.cs" />
+    <Compile Include="God Classes\Hunter.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -430,7 +431,6 @@
     <Resource Include="Images\Item\SpiritRobe.png" />
     <Resource Include="Images\Item\StaffofMyrddin.png" />
     <Resource Include="Images\Item\StoneCuttingSword.png" />
-    <Resource Include="Images\Item\StoneofBinding.png" />
     <Resource Include="Images\Item\StoneofFal.png" />
     <Resource Include="Images\Item\StoneofGaia.png" />
     <Resource Include="Images\Item\TalariaBoots.png" />
@@ -474,7 +474,6 @@
     <Resource Include="Images\Item\GauntletofThebesv2.png" />
     <Resource Include="Images\Item\BookofThothv2.png" />
     <Resource Include="Images\Item\CharonsCoinv2.png" />
-    <Content Include="Images\Item\HideoftheUrchinv2.png" />
     <Resource Include="Images\Item\SoulEaterv2.png" />
     <Resource Include="Images\Item\Transcendencev2.png" />
     <Resource Include="Images\Item\SpiritRobev2.png" />
@@ -482,6 +481,13 @@
     <Resource Include="Images\Item\TheExecutionerv2.png" />
     <Resource Include="Images\Item\WarlocksStaffv2.png" />
     <Resource Include="Images\Item\LotusCrownv2.png" />
+    <Resource Include="Images\Item\HideoftheUrchinStacked.png" />
+    <Resource Include="Images\Item\StoneofBinding.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Item\StoneofBindingv2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Items.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
