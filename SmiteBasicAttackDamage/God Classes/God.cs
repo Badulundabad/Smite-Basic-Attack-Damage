@@ -65,6 +65,7 @@ namespace SmiteBasicAttackDamage
             }
             entity.Current[0].Level = j;
             entity.Characteristics.Calculate(entity.Current[0], entity.ResultingItem);
+            entity.GodSlot.Tag = entity.Current[0].TypeOfDamage;
         }
         public God() { }
         public string Method { get; set; }

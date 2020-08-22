@@ -127,13 +127,12 @@ namespace SmiteBasicAttackDamage
         }
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            var god = new Assassin();
-            attacker.ListOfItems.ItemsSource = god.GetListOfItems();
+            attacker.GodSlot.Tag = "Physical";
         }
 
         private void TestButton2_Click(object sender, RoutedEventArgs e)
         {
-            somethingTextBlock.Text = attacker.ResultingItem.AttackSpeed.ToString();
+            attacker.GodSlot.Tag = "Magical";
         }
 
         private void AttackerLevelSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

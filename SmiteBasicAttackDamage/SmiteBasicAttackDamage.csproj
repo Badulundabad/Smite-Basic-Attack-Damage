@@ -114,6 +114,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -488,6 +492,7 @@
     <Resource Include="Images\Item\StoneofBindingv2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\Stats\MagicalPower.png" />
     <Content Include="Items.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -544,7 +549,7 @@
     <Resource Include="Images\Stats\Mana.png" />
     <Resource Include="Images\Stats\PhysicalPenetration.png" />
     <Resource Include="Images\Stats\PhysicalProtection.png" />
-    <Resource Include="Images\Stats\power.png" />
+    <Resource Include="Images\Stats\PhysicalPower.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
