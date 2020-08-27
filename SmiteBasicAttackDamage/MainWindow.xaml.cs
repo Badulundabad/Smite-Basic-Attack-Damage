@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Reflection;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace SmiteBasicAttackDamage
 {
@@ -127,7 +128,11 @@ namespace SmiteBasicAttackDamage
         }
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            attacker.GodSlot.Tag = "Physical";
+            for (int i = 0; i < 5; i++)
+            {
+                somethingTextBlock.Text += attacker.Current[0].Progression[i].ToString();
+
+            }
         }
 
         private void TestButton2_Click(object sender, RoutedEventArgs e)

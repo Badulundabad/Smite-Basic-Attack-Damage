@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Runtime.CompilerServices;
 using System.Windows.Media.Animation;
 using System.Collections.ObjectModel;
+using System.Globalization;
 
 namespace SmiteBasicAttackDamage
 {
@@ -37,6 +38,8 @@ namespace SmiteBasicAttackDamage
         double magicalProtectionsPerLevel = 0;
         double physicalProtectionsPerLevel = 0;
         string method = null;
+        string progressionString = "0/0/0";
+        double[] progression = new double[5];
 
         public virtual List<Item> GetListOfItems()
         {
@@ -64,8 +67,13 @@ namespace SmiteBasicAttackDamage
                 entity.Current[0] = this;
             }
             entity.Current[0].Level = j;
-            entity.Characteristics.Calculate(entity.Current[0], entity.ResultingItem);
             entity.GodSlot.Tag = entity.Current[0].TypeOfDamage;
+            string[] str = entity.Current[0].ProgressionString.Split(new char[] { '/' }, 5, StringSplitOptions.RemoveEmptyEntries);
+            for (byte i = 0; i < 5; i++)
+            {
+                entity.Current[0].Progression[i] = Convert.ToDouble(str[i], CultureInfo.InvariantCulture);
+            }
+            entity.Characteristics.Calculate(entity.Current[0], entity.ResultingItem);
         }
         public God() { }
         public string Method { get; set; }
@@ -383,6 +391,10 @@ namespace SmiteBasicAttackDamage
                 }
             }
         }
+
+        public string ProgressionString { get => progressionString; set => progressionString = value; }
+        public double[] Progression { get => progression; set => progression = value; }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {

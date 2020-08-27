@@ -64,6 +64,7 @@ namespace SmiteBasicAttackDamage
         {
             if (!entity.SixItems.Any(item => item.Id == this.Id))
             {
+                entity.ResultingItem -= entity.SixItems[entity.ItemSlots.SelectedIndex]; //Без этого статы предмета при замене не вычитаются из результирующего предмета
                 entity.ResultingItem += this;
                 entity.SixItems[entity.ItemSlots.SelectedIndex] = this;
                 entity.ItemSlots.SelectedIndex = entity.SixItems.IndexOf(GodEntity.ZeroItem);
@@ -86,8 +87,7 @@ namespace SmiteBasicAttackDamage
                 }
                 entity.SixItems[entity.ItemSlots.SelectedIndex] = GodEntity.ZeroItem;
             }
-            //При открытом списке предметов выделяет слот, который только что очистился
-            if (entity.ListOfItems.Visibility == Visibility.Visible)
+            if (entity.ListOfItems.Visibility == Visibility.Visible) //При открытом списке предметов выделяет слот, который только что очистился
             {
                 entity.ItemSlots.SelectedIndex = i;
             }

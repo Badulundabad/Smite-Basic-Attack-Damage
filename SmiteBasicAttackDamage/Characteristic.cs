@@ -22,7 +22,7 @@ namespace SmiteBasicAttackDamage
         public void Calculate(God god, Item resultingItem)
         {
             this.Power = resultingItem.Power;
-            this.BaseDamage = god.BaseDamage + god.BaseDamagePerLevel * god.Level + this.Power;
+            this.BaseDamage = (god.BaseDamage + god.BaseDamagePerLevel * god.Level + this.Power) * god.Progression[0];
             this.MagicalProtections = god.MagicalProtections + god.MagicalProtectionsPerLevel * god.Level + resultingItem.MagicalProtections;
             this.PhysicalProtections = god.PhysicalProtections + god.PhysicalProtectionsPerLevel * god.Level + resultingItem.PhysicalProtections;
             this.AttackSpeed = god.AttackSpeed * (1 + god.AttackSpeedPerLevel * god.Level + resultingItem.AttackSpeed);
